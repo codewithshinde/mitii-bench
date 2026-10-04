@@ -1,21 +1,21 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"user-slider\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"billing-toggle\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"calculated-price\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Monthly"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Yearly"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "20%"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "calculated-price"

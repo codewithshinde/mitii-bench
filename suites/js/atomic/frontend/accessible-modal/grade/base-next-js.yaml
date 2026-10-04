@@ -1,12 +1,12 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"accessible-modal\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Escape"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Tab"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "focus"

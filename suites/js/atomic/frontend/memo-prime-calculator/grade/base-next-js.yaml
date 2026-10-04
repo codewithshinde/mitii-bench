@@ -1,12 +1,12 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"number-input\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"prime-result\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "useMemo"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "isPrime"

@@ -1,12 +1,12 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "comment-"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "reply-btn-"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "replies"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "paddingLeft"

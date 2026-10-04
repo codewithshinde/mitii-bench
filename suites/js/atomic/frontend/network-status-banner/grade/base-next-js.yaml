@@ -1,15 +1,15 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"network-status-banner\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "You are offline"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Connection restored"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "offline"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "online"

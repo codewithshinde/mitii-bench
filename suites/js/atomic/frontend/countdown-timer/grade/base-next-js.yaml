@@ -1,21 +1,21 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"countdown-display\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"event-launched-msg\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Days"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Hours"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Minutes"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Seconds"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "launched"

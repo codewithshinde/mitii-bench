@@ -1,24 +1,24 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"editor-area\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"btn-bold\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"btn-italic\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"btn-underline\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "execCommand"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "bold"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "italic"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "underline"

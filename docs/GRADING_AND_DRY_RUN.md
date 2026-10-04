@@ -85,8 +85,19 @@ Grade only what the prompt contracts — usually exact labels and behavior.
 | Footer labels: Terms and Conditions, Privacy Policy | Solution-specific phrases like “About page dummy…” |
 | Mounts: `data-testid="main-nav"` | Full file equality with `solution/` |
 | Route/file exists (Next) + build | Brittle internal structure |
+| Behavioral `ui_oracle` (Vitest + RTL) | Relying only on source `contains` |
 
 Open-ended body text should stay loose (e.g. page exists / heading includes `About`), so any reasonable agent wording can pass.
+
+### Behavioral UI oracles
+
+Vanilla frontend cases also use agent-hidden Vitest + Testing Library oracles:
+
+```text
+resources/oracle/<base>/__bench__/ui.oracle.test.jsx
+```
+
+The runner injects these **only at grade time** (never during the agent session). See [UI_ORACLES.md](./UI_ORACLES.md).
 
 ---
 

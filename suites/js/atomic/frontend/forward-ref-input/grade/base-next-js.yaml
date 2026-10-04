@@ -1,12 +1,12 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"parent-focus-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"fancy-input\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "forwardRef"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "FancyInput"

@@ -1,18 +1,18 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"btn-toast-success\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"btn-toast-error\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"toast-container\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Success"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Error"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "setTimeout"

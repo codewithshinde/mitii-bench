@@ -8,3 +8,5 @@ Build a simple counter component.
 * Resets count to 0 (`data-testid="reset-btn"`).
 
 * **Rules**: Prevent decrementing below 0.
+
+For `base-next-js`, implement the UI in `app/page.jsx` as a client component (`"use client"`).

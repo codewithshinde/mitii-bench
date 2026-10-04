@@ -1,15 +1,15 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"text-block\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"toggle-read-more\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Read More"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Read Less"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "100"

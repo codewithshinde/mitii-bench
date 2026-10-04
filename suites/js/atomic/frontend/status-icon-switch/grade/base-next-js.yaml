@@ -1,12 +1,12 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"status-icon\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "success"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "warning"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "error"

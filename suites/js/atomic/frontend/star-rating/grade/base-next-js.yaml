@@ -1,12 +1,12 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "star-"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"selected-rating\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "selected-rating"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "onMouseEnter"

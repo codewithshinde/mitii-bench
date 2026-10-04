@@ -1,18 +1,18 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"search-input\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"search-suggestions\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "ArrowDown"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "ArrowUp"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "300"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "debounce"

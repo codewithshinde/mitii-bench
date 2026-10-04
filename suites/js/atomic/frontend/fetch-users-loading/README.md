@@ -13,7 +13,7 @@ Build a component that fetches user profiles from a mock API on mount.
 | Base | Approach |
 |---|---|
 | `base-react-js` | Client UI in `src/App.jsx` |
-| `base-next-js` | Client page in `app/page.js` (`"use client"`) |
+| `base-next-js` | Client page in `app/page.jsx` (`"use client"`) |
 
 ```bash
 pnpm case:dry-run frontend-fetch-users-loading
@@ -23,6 +23,7 @@ pnpm case:dry-run frontend-fetch-users-loading@base-react-js
 ## How we grade
 
 - Shared: `npm run build`
+- Shared: Vitest + Testing Library `ui_oracle` (behavioral; agent-hidden under `resources/oracle/`)
 - Per-base: `data-testid` / marker asserts in source
 - `resources/solution/` is dry-run only
 

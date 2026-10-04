@@ -1,24 +1,24 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"wizard-summary\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"wizard-next\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"wizard-back\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Name"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Email"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Username"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Password"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "wizard-summary"

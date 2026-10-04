@@ -1,9 +1,9 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"select-all-checkbox\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "item-checkbox-"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Select All"

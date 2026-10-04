@@ -1,15 +1,15 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"visual-card\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Card Number"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Expiry"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "CVV"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "visual-card"

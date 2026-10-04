@@ -38,6 +38,8 @@ export async function dryRunTask(taskIdOrPath, options = {}) {
     const before = snapshotTree(ws.path);
     // Solution already applied — snapshot after as "agent work"
     const after = snapshotTree(ws.path);
+    // Agent-hidden behavioral oracles (injected only for grading)
+    applyOracle(ws.path, task);
     const results = [];
     for (const check of task.checks) {
       // dry-run: treat agent as success
@@ -50,7 +52,10 @@ export async function dryRunTask(taskIdOrPath, options = {}) {
         const fixtureSnap = snapshotTree(task.fixturePath);
         const solvedSnap = snapshotTree(ws.path);
         const changed = diffSnapshots(fixtureSnap, solvedSnap).filter(
-          (p) => !p.startsWith("node_modules"),
+          (p) =>
+            !p.startsWith("node_modules") &&
+            !p.startsWith("__bench__") &&
+            !p.includes("/__bench__/"),
         );
         results.push({
           type: "workspace_changed",
@@ -114,6 +119,8 @@ export async function runTask(taskIdOrPath, options = {}) {
   }
 
   const after = snapshotTree(ws.path);
+  // Inject agent-hidden oracles after the agent finishes (never visible during agent work)
+  applyOracle(ws.path, task);
   const results = [];
   for (const check of task.checks) {
     results.push(
@@ -307,6 +314,25 @@ async function applySolution(workspace, task) {
     return applyPatch(workspace, task.solutionPatch);
   }
   return { method: "noop" };
+}
+
+/**
+ * Copy agent-hidden behavioral oracles into the workspace for grading only.
+ * Looks under resources/oracle/<base>/ then resources/oracle/.
+ */
+function applyOracle(workspace, task) {
+  const perBase = join(task.caseDir, "resources", "oracle", task.base);
+  const legacy = join(task.caseDir, "resources", "oracle");
+  let copyFrom = null;
+  if (existsSync(perBase) && statSync(perBase).isDirectory()) {
+    copyFrom = perBase;
+  } else if (existsSync(legacy) && statSync(legacy).isDirectory()) {
+    const entries = readdirSync(legacy).filter((e) => e !== ".gitkeep" && !e.startsWith("base-"));
+    if (entries.length > 0) copyFrom = legacy;
+  }
+  if (!copyFrom) return { method: "noop" };
+  const copied = walkCopy(copyFrom, workspace);
+  return { method: copied ? "oracle-dir" : "noop" };
 }
 
 function copySolutionDir(solutionDir, workspace) {

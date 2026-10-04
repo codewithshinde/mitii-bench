@@ -1,12 +1,12 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"invoice-view\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"print-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "window.print"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "@media print"

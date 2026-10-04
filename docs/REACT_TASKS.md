@@ -23,6 +23,16 @@ Data: `scripts/data/react-{core,realworld,library}-cases.mjs`
 - `smoke` — CI dry-run subset
 - `react-tasks` — imported from the reference bank
 
+## Grading strength
+
+Vanilla cases use **three layers**:
+
+1. `contains` / `exists` — structural source contracts (`data-testid`, markers)
+2. `build: true` — `npm run build`
+3. `ui_oracle` — Vitest + Testing Library behavioral tests (agent-hidden)
+
+See [UI_ORACLES.md](./UI_ORACLES.md).
+
 ## Commands
 
 ```bash

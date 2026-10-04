@@ -1,18 +1,18 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"timer-display\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"start-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"stop-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "useRef"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "setInterval"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "clearInterval"

@@ -1,18 +1,18 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"loading-spinner\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"user-list\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"error-message\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "useEffect"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "loading"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "setTimeout"

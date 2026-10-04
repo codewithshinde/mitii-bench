@@ -26,6 +26,8 @@ suites/{ecosystem}/atomic/{category}/{slug}/
 
 `resources/solution/<base>/` is a **hand-written known-good implementation** for CI / dry-run only.
 
+`resources/oracle/<base>/` holds **agent-hidden** Vitest + Testing Library behavioral tests. The runner copies them into the workspace only when grading (see [docs/UI_ORACLES.md](./docs/UI_ORACLES.md)).
+
 | | Dry-run | Agent eval |
 |---|---|---|
 | Workspace edits | Apply `solution/` | Mitii / the agent |

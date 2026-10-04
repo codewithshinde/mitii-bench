@@ -1,18 +1,18 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"dropzone\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"uploaded-file-list\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "active"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "KB"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "onDragOver"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "onDrop"

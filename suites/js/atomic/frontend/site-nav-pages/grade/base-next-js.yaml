@@ -1,23 +1,23 @@
 - contains:
-    file: components/SiteChrome.js
+    file: components/SiteChrome.jsx
     text: "Home"
 - contains:
-    file: components/SiteChrome.js
+    file: components/SiteChrome.jsx
     text: "About"
 - contains:
-    file: components/SiteChrome.js
+    file: components/SiteChrome.jsx
     text: "Careers"
 - contains:
-    file: components/SiteChrome.js
+    file: components/SiteChrome.jsx
     text: "Terms and Conditions"
 - contains:
-    file: components/SiteChrome.js
+    file: components/SiteChrome.jsx
     text: "Privacy Policy"
 - contains:
-    file: components/SiteChrome.js
+    file: components/SiteChrome.jsx
     text: 'data-testid="main-nav"'
 - contains:
-    file: components/SiteChrome.js
+    file: components/SiteChrome.jsx
     text: 'data-testid="site-footer"'
 - exists:
     file: app/about/page.js

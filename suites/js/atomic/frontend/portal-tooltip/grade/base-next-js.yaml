@@ -1,12 +1,12 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"tooltip-target\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"portal-tooltip\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "createPortal"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "modal-root"

@@ -30,12 +30,12 @@ pnpm cases:open
 
 ~100 React prompts from `references/react-tasks.md` are under `suites/js/atomic/frontend/`:
 
-- **Vanilla** (core + real-world widgets): matrix on `base-react-js` + `base-next-js`, with dry-run solutions
+- **Vanilla** (core + real-world widgets): matrix on `base-react-js` + `base-next-js`, with dry-run solutions **and Vitest/RTL behavioral oracles**
 - **Ecosystem libs** (MUI, Redux, RHF, …): React-first scaffolds (`ecosystem-lib`); agent installs packages
 - **Skipped**: React Native Paper (not a web fixture)
 - **Next routing**: parallel App Router cases with solutions (`frontend-next-*`)
 
-Details: [docs/REACT_TASKS.md](./docs/REACT_TASKS.md).
+Details: [docs/REACT_TASKS.md](./docs/REACT_TASKS.md) · [docs/UI_ORACLES.md](./docs/UI_ORACLES.md).
 
 ## Grading & dry-run
 

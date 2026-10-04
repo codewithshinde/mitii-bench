@@ -1,15 +1,15 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"parent-count\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"child-action-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "useCallback"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "memo("
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "ChildButton"

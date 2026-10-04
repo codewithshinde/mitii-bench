@@ -1,21 +1,21 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"play-pause-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"audio-progress\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"time-display\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Play"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Pause"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "progress"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "padStart"

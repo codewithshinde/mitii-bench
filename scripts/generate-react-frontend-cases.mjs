@@ -13,6 +13,10 @@ import { fileURLToPath } from "node:url";
 import { coreCases } from "./data/react-core-cases.mjs";
 import { realworldCases } from "./data/react-realworld-cases.mjs";
 import { libraryCases } from "./data/react-library-cases.mjs";
+import { coreOracles } from "./data/react-core-oracles.mjs";
+import { realworldOracles } from "./data/react-realworld-oracles.mjs";
+
+const ORACLES = { ...coreOracles, ...realworldOracles };
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -45,6 +49,17 @@ function toNextExtraPath(relPath) {
   if (relPath === "index.html") return null;
   if (relPath.startsWith("src/")) return `components/${relPath.slice(4)}`;
   return relPath;
+}
+
+function toNextOracle(reactOracle) {
+  // Use .jsx so Vitest parses JSX without Next's SWC pipeline.
+  return reactOracle
+    .replaceAll('from "../src/App.jsx"', 'from "../app/page.jsx"')
+    .replaceAll("from '../src/App.jsx'", "from '../app/page.jsx'")
+    .replace(/import\s*\{\s*App\s*\}\s*from/g, "import Page from")
+    .replace(/render\(\s*<App\s*\/>\s*\)/g, "render(<Page />)")
+    .replace(/render\(\s*<App>([\s\S]*?)<\/App>\s*\)/g, "render(<Page>$1</Page>)")
+    .replace(/<\s*App\s*\/>/g, "<Page />");
 }
 
 function rewriteImportsForNext(source, extraFiles = {}) {
@@ -144,6 +159,7 @@ function materializeVanilla(c) {
     ]),
   ];
 
+  const hasOracle = Boolean(ORACLES[c.slug]);
   const taskYaml = `id: ${id}
 title: ${yamlQuote(c.title)}
 ecosystem: js
@@ -161,7 +177,14 @@ promptFile: spec.md
 readmeFile: README.md
 grade:
   - build: true
-`;
+${
+  hasOracle
+    ? `  - ui_oracle:
+      command: "npm test -- __bench__/ui.oracle.test.jsx"
+      timeoutMs: 60000
+`
+    : ""
+}`;
 
   const readme = `# ${c.title}
 
@@ -178,7 +201,7 @@ ${c.prompt.split("\n")[0]}
 | Base | Approach |
 |---|---|
 | \`base-react-js\` | Client UI in \`src/App.jsx\` |
-| \`base-next-js\` | Client page in \`app/page.js\` (\`"use client"\`) |
+| \`base-next-js\` | Client page in \`app/page.jsx\` (\`"use client"\`) |
 
 \`\`\`bash
 pnpm case:dry-run ${id}
@@ -188,6 +211,7 @@ pnpm case:dry-run ${id}@base-react-js
 ## How we grade
 
 - Shared: \`npm run build\`
+- Shared: Vitest + Testing Library \`ui_oracle\` (behavioral; agent-hidden under \`resources/oracle/\`)
 - Per-base: \`data-testid\` / marker asserts in source
 - \`resources/solution/\` is dry-run only
 
@@ -203,10 +227,19 @@ Source: \`references/react-tasks.md\` (vanilla React — no extra packages).
     "spec.md": `${c.prompt.trim()}\n`,
     "README.md": readme,
     "grade/base-react-js.yaml": gradeYaml("src/App.jsx", c.testids, c.markers),
-    "grade/base-next-js.yaml": gradeYaml("app/page.js", c.testids, c.markers),
+    "grade/base-next-js.yaml": gradeYaml("app/page.jsx", c.testids, c.markers),
     "resources/solution/base-react-js/src/App.jsx": c.reactSolution,
-    "resources/solution/base-next-js/app/page.js": nextPage,
+    "resources/solution/base-next-js/app/page.jsx": nextPage,
   };
+
+  if (hasOracle) {
+    const reactOracle = ORACLES[c.slug].endsWith("\n")
+      ? ORACLES[c.slug]
+      : `${ORACLES[c.slug]}\n`;
+    files["resources/oracle/base-react-js/__bench__/ui.oracle.test.jsx"] = reactOracle;
+    files["resources/oracle/base-next-js/__bench__/ui.oracle.test.jsx"] =
+      toNextOracle(reactOracle);
+  }
 
   for (const [rel, content] of Object.entries(c.reactExtraFiles ?? {})) {
     files[`resources/solution/base-react-js/${rel}`] = content;
@@ -244,6 +277,12 @@ export default function RootLayout({ children }) {
   );
 }
 `;
+  }
+
+  // Point agents at page.jsx so Vitest oracles can import JSX cleanly.
+  if (!c.prompt.includes("app/page.jsx")) {
+    files["spec.md"] =
+      `${c.prompt.trim()}\n\nFor \`base-next-js\`, implement the UI in \`app/page.jsx\` as a client component (\`"use client"\`).\n`;
   }
 
   const wrote = writeCaseDir(caseDir, files);

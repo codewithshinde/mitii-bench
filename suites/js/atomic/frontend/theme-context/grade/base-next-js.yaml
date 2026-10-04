@@ -1,15 +1,15 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"theme-toggle\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"content-panel\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "createContext"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "ThemeProvider"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "useContext"

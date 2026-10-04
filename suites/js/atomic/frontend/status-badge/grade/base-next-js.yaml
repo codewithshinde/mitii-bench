@@ -1,15 +1,15 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"status-container\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"status-toggle-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"status-badge\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Online"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Offline"

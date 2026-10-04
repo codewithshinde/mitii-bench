@@ -1,15 +1,15 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"dashboard-view\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"unauthorized-msg\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "withAuthorization"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "admin"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Dashboard"

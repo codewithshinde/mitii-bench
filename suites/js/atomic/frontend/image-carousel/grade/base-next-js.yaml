@@ -1,12 +1,12 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"carousel-image\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"carousel-prev\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"carousel-next\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "carousel-dot-"

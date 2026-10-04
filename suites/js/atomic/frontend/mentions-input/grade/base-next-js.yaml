@@ -1,15 +1,15 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"mention-input\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"mention-dropdown\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "@"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "mention-dropdown"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "USERS"

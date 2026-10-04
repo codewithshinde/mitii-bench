@@ -1,18 +1,18 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"left-panel\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"right-panel\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"resize-handle\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "resize-handle"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "onMouseDown"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "width"

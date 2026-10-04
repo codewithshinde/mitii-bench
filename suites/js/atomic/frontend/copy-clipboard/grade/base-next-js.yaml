@@ -1,15 +1,15 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"code-block\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"copy-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Copied!"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Copy"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "clipboard"

@@ -15,3 +15,6 @@ promptFile: spec.md
 readmeFile: README.md
 grade:
   - build: true
+  - ui_oracle:
+      command: "npm test -- __bench__/ui.oracle.test.jsx"
+      timeoutMs: 60000

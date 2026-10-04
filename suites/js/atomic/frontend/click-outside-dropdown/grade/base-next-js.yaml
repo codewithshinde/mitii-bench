@@ -1,12 +1,12 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"dropdown-menu\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "addEventListener"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "dropdown-menu"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "contains"

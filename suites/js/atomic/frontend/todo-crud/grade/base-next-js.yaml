@@ -1,21 +1,21 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"todo-input\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"add-todo-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"todo-list\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "todo-check-"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "todo-delete-"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "onDoubleClick"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "complete"

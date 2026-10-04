@@ -1,9 +1,9 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "folder-"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "file-"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "onClick"

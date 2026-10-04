@@ -1,18 +1,18 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"server-status\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"pause-polling-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Healthy"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Unreachable"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "5000"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "pause"

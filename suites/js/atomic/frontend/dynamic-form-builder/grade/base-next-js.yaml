@@ -1,15 +1,15 @@
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "data-testid=\"add-field-btn\""
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "custom-field-"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Text"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Number"
 - contains:
-    file: app/page.js
+    file: app/page.jsx
     text: "Remove"
