@@ -1,3 +1,4 @@
 - contains:
     file: src/index.js
     text: "Idempotency-Key"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/pay","headers":{"Idempotency-Key":"abc-1"},"json":{"amount":10},"expect":{"status":201,"jsonSubset":{"paid":true}}}]}

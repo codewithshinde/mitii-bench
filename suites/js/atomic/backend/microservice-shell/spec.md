@@ -8,4 +8,4 @@ Build a complete Node microservice core shell featuring:
 
 ---
 
-Implement primarily in `src/index.js` (add helper modules under `src/` as needed). Keep `npm run build` succeeding.
+Implement primarily in `src/index.js` (add helper modules under `src/` as needed). Keep `npm run build` succeeding. Install required packages: `pino`, `zod`.

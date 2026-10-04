@@ -8,4 +8,4 @@ Build a token pair issuer and refresher utility using `jose` or `jsonwebtoken`.
 
 ### GraphQL (Apollo Server)
 
-Implement primarily in `src/tokens.js` (add helper modules under `src/` as needed). Keep `npm run build` succeeding.
+Implement primarily in `src/tokens.js` (add helper modules under `src/` as needed). Keep `npm run build` succeeding. Install required packages: `jose`.

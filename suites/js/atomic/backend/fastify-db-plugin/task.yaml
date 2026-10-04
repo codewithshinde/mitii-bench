@@ -14,3 +14,8 @@ promptFile: spec.md
 readmeFile: README.md
 grade:
   - build: true
+  - package_deps:
+      packages: ["fastify", "fastify-plugin"]
+  - api_oracle:
+      command: "npm test -- test/oracle.test.js"
+      timeoutMs: 120000

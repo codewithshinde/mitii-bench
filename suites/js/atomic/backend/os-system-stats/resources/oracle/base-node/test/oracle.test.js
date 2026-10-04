@@ -10,4 +10,11 @@ describe("getSystemStats", () => {
     assert.equal(stats.loadAverage.length, 3);
     assert.equal(typeof stats.uptime, "number");
   });
+
+  it("keeps memory usage within valid percentage bounds", () => {
+    const stats = getSystemStats();
+    assert.ok(stats.memoryUsagePercent >= 0);
+    assert.ok(stats.memoryUsagePercent <= 100);
+    assert.ok(stats.uptime >= 0);
+  });
 });

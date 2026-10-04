@@ -1,0 +1,16 @@
+{
+  "name": "mitii-bench-base-node",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "build": "node -e \"console.log('build ok')\"",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2",
+    "jose": "^5.9.6"
+  }
+}

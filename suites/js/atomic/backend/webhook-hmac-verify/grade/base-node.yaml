@@ -7,3 +7,4 @@
 - contains:
     file: src/webhook.js
     text: "timingSafeEqual"
+- http: {"start":{"command":"node src/webhook.js","env":{"WEBHOOK_SECRET":"whsec_test"}},"timeoutMs":20000,"requests":[{"method":"POST","path":"/webhook","headers":{"x-signature":"deadbeef"},"json":{"event":"paid"},"expect":{"status":401}},{"method":"POST","path":"/webhook","headers":{"x-signature":"b85236760a6447cd065efe2b7bd10554c3744eff60cc53dfa47a639c5fd1e22c"},"json":{"event":"paid"},"expect":{"status":200,"jsonSubset":{"received":true}}}]}

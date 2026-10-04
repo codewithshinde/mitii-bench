@@ -1,10 +1,12 @@
 import {
   cpSync,
   existsSync,
+  lstatSync,
   mkdirSync,
   readFileSync,
   rmSync,
   symlinkSync,
+  unlinkSync,
   writeFileSync,
 } from "node:fs";
 import { dirname, join } from "node:path";
@@ -45,6 +47,51 @@ export function linkFixtureNodeModules(fixturePath, workspacePath) {
   } catch {
     // dry-run file checks may still work without deps
   }
+}
+
+/**
+ * When a case declares extra packages (or solution rewrote package.json),
+ * replace the fixture node_modules symlink with a real install in the workspace.
+ */
+export async function ensureWorkspacePackages(workspacePath, task, fixturePath) {
+  const declared = Array.isArray(task?.packages) ? task.packages.filter(Boolean) : [];
+  const pkgPath = join(workspacePath, "package.json");
+  const fixturePkgPath = join(fixturePath ?? task?.fixturePath ?? "", "package.json");
+  let packageJsonChanged = false;
+  if (existsSync(pkgPath) && existsSync(fixturePkgPath)) {
+    packageJsonChanged =
+      readFileSync(pkgPath, "utf8") !== readFileSync(fixturePkgPath, "utf8");
+  } else if (existsSync(pkgPath) && !existsSync(fixturePkgPath)) {
+    packageJsonChanged = true;
+  }
+  if (declared.length === 0 && !packageJsonChanged) {
+    return { method: "skipped", installed: false };
+  }
+
+  const nm = join(workspacePath, "node_modules");
+  if (existsSync(nm)) {
+    try {
+      const st = lstatSync(nm);
+      if (st.isSymbolicLink()) unlinkSync(nm);
+      else rmSync(nm, { recursive: true, force: true });
+    } catch {
+      // continue; npm install may still succeed
+    }
+  }
+
+  const execution = await runProcess({
+    command: "npm install --no-fund --no-audit",
+    cwd: workspacePath,
+    timeoutMs: 300000,
+    shell: true,
+    env: { CI: "1", npm_config_fund: "false", npm_config_audit: "false" },
+  });
+  if (execution.exitCode !== 0) {
+    throw new Error(
+      `npm install failed in workspace (exit ${execution.exitCode}): ${String(execution.stderr || execution.stdout).slice(0, 800)}`,
+    );
+  }
+  return { method: "npm-install", installed: true, durationMs: execution.durationMs };
 }
 
 export async function applyPatch(workspace, patchPath) {

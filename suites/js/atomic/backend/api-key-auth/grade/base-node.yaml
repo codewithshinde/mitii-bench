@@ -4,3 +4,4 @@
 - contains:
     file: src/index.js
     text: "usage"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/admin/keys","json":{"name":"ci"},"expect":{"status":201,"jsonPaths":["key"]}}]}

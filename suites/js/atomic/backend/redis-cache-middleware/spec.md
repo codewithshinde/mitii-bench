@@ -5,4 +5,4 @@ Build a cache lookup middleware using `ioredis`.
 
 ### Fastify Framework
 
-Implement primarily in `src/cacheMiddleware.js` (add helper modules under `src/` as needed). Keep `npm run build` succeeding.
+Implement primarily in `src/cacheMiddleware.js` (add helper modules under `src/` as needed). Keep `npm run build` succeeding. Install required packages: `ioredis`.

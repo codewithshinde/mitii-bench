@@ -4,4 +4,4 @@ Build a batching loader using `dataloader`.
 
 ### CLI & Utility Packages (Commander, Pino, Winston)
 
-Implement primarily in `src/loaders/authorLoader.js` (add helper modules under `src/` as needed). Keep `npm run build` succeeding.
+Implement primarily in `src/loaders/authorLoader.js` (add helper modules under `src/` as needed). Keep `npm run build` succeeding. Install required packages: `dataloader`.

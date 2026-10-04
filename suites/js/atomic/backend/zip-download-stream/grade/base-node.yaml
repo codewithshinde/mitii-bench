@@ -4,3 +4,4 @@
 - contains:
     file: src/index.js
     text: "download-zip"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/api/files/download-zip","json":{"files":["a.txt"]},"expect":{"status":200,"headerContains":{"content-type":"zip"}}}]}

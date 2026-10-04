@@ -10,3 +10,4 @@
 - contains:
     file: src/index.js
     text: "zod"
+- http: {"start":{"command":"node src/index.js","env":{"NODE_ENV":"test","DATABASE_URL":"sqlite://memory"}},"timeoutMs":20000,"requests":[{"method":"GET","path":"/health/liveness","expect":{"status":200,"jsonSubset":{"alive":true}}},{"method":"GET","path":"/health/readiness","expect":{"status":200,"jsonSubset":{"ready":true}}}]}

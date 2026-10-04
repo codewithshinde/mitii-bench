@@ -4,3 +4,4 @@
 - contains:
     file: src/index.js
     text: "pdf"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/api/reports/invoice-pdf","json":{"invoiceId":"X1","total":50},"expect":{"status":200,"headerContains":{"content-type":"pdf"}}}]}

@@ -7,3 +7,4 @@
 - contains:
     file: src/corsMiddleware.js
     text: "CORS"
+- http: {"start":{"command":"node src/index.js","env":{"ORIGIN":"https://app.example.com"}},"timeoutMs":15000,"requests":[{"method":"GET","path":"/data","headers":{"Origin":"https://shop.example.com"},"expect":{"status":200,"headers":{"access-control-allow-origin":"https://shop.example.com"},"headerContains":{"access-control-expose-headers":"X-Total-Count"}}}]}

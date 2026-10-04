@@ -7,3 +7,4 @@
 - contains:
     file: src/index.js
     text: "speakeasy"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/2fa/generate","json":{"userId":"u1"},"expect":{"status":200,"jsonPaths":["secret","qr"]}}]}

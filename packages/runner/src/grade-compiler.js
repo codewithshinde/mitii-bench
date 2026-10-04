@@ -73,6 +73,26 @@ export function compileGrade(gradeItems, { expectWorkspaceChanged = true } = {})
       });
       continue;
     }
+    if (item.api_oracle) {
+      const opts = item.api_oracle === true ? {} : item.api_oracle;
+      checks.push({
+        type: "command",
+        command: opts.command ?? "npm test -- test/oracle.test.js",
+        timeoutMs: opts.timeoutMs ?? 120000,
+      });
+      continue;
+    }
+    if (item.package_deps) {
+      const pkgs = Array.isArray(item.package_deps)
+        ? item.package_deps
+        : (item.package_deps.packages ?? []);
+      checks.push({
+        type: "package_deps",
+        packages: pkgs,
+        file: item.package_deps.file ?? "package.json",
+      });
+      continue;
+    }
     if (typeof item.workspace_changed === "boolean") {
       sawWorkspace = true;
       if (item.workspace_changed) checks.push({ type: "workspace_changed" });

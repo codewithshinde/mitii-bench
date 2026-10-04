@@ -1,0 +1,10 @@
+{
+  "name": "dual-package-demo",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/formatCurrency.js",
+      "require": "./formatCurrency.cjs"
+    }
+  }
+}

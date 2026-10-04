@@ -14,3 +14,6 @@ promptFile: spec.md
 readmeFile: README.md
 grade:
   - build: true
+  - api_oracle:
+      command: "npm test -- test/oracle.test.js"
+      timeoutMs: 120000

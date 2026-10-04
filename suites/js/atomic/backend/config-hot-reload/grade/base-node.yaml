@@ -7,3 +7,4 @@
 - contains:
     file: src/index.js
     text: "fs.watch"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"GET","path":"/config","expect":{"status":200,"jsonType":"object"}}]}

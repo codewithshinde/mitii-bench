@@ -4,3 +4,4 @@
 - contains:
     file: src/index.js
     text: "__"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"GET","path":"/hello","headers":{"Accept-Language":"fr"},"expect":{"status":200,"jsonSubset":{"message":"Bonjour"}}}]}

@@ -48,7 +48,10 @@ const httpExpect = z.object({
   bodyContains: z.string().optional(),
   jsonType: z.enum(["array", "object", "string", "number", "boolean", "null"]).optional(),
   jsonSubset: z.unknown().optional(),
+  jsonEquals: z.unknown().optional(),
   jsonPaths: z.array(z.string()).optional(),
+  headers: z.record(z.string()).optional(),
+  headerContains: z.record(z.string()).optional(),
 });
 
 const httpRequest = z.object({
@@ -90,6 +93,26 @@ const uiOracleGrade = z.object({
   }),
 });
 
+const apiOracleGrade = z.object({
+  api_oracle: z.union([
+    z.literal(true),
+    z.object({
+      command: z.string().optional(),
+      timeoutMs: z.number().optional(),
+    }),
+  ]),
+});
+
+const packageDepsGrade = z.object({
+  package_deps: z.union([
+    z.array(z.string().min(1)),
+    z.object({
+      packages: z.array(z.string().min(1)).min(1),
+      file: z.string().optional(),
+    }),
+  ]),
+});
+
 const workspaceChangedGrade = z.object({
   workspace_changed: z.boolean(),
 });
@@ -108,6 +131,8 @@ export const GradeItemSchema = z.union([
   httpGrade,
   sqliteGrade,
   uiOracleGrade,
+  apiOracleGrade,
+  packageDepsGrade,
   workspaceChangedGrade,
   workspaceUnchangedGrade,
 ]);

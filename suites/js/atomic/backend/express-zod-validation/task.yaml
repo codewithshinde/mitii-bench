@@ -8,9 +8,14 @@ packages: ["zod"]
 difficulty: medium
 category: backend
 language: javascript
-tags: ["node-tasks", "ecosystem", "ecosystem-lib"]
+tags: ["node-tasks", "ecosystem", "ecosystem-lib", "smoke"]
 timeoutSec: 300
 promptFile: spec.md
 readmeFile: README.md
 grade:
   - build: true
+  - package_deps:
+      packages: ["zod"]
+  - api_oracle:
+      command: "npm test -- test/oracle.test.js"
+      timeoutMs: 120000

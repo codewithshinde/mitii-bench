@@ -4,3 +4,4 @@
 - contains:
     file: src/gzipMiddleware.js
     text: "Accept-Encoding"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":15000,"requests":[{"method":"GET","path":"/data","headers":{"Accept-Encoding":"gzip"},"expect":{"status":200,"headerContains":{"content-encoding":"gzip"}}},{"method":"GET","path":"/data","expect":{"status":200,"jsonSubset":{"message":"hello"}}}]}

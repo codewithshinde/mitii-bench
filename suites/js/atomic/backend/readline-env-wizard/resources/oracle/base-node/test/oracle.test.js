@@ -1,0 +1,35 @@
+import { describe, it, before, after } from "node:test";
+import assert from "node:assert/strict";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
+import { Readable } from "node:stream";
+import { writeEnvFile, runInteractiveEnvWizard } from "../src/envWizard.js";
+
+describe("env wizard", () => {
+  /** @type {string} */
+  let dir;
+
+  before(async () => {
+    dir = await mkdtemp(join(tmpdir(), "env-wizard-"));
+  });
+
+  after(async () => {
+    await rm(dir, { recursive: true, force: true });
+  });
+
+  it("writes parsed answers to .env", async () => {
+    const path = join(dir, ".env");
+    const body = await writeEnvFile({ host: "db.local", port: "5432", user: "app" }, path);
+    assert.match(body, /DATABASE_HOST=db.local/);
+    assert.equal(await readFile(path, "utf8"), body);
+  });
+
+  it("skips writing when user declines confirmation", async () => {
+    const path = join(dir, "skip.env");
+    const script = ["db.local", "5432", "app", "n", ""].join("\n");
+    const result = await runInteractiveEnvWizard(Readable.from([script]), null, path);
+    assert.equal(result, null);
+    await assert.rejects(() => readFile(path, "utf8"));
+  });
+});

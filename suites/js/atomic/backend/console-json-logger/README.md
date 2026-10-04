@@ -14,7 +14,7 @@ Build a custom logging wrapper redirecting standard outputs (`process.stdout`, `
 
 ## Packages
 
-_None beyond the base fixture (vanilla / core APIs)._
+_None beyond the base fixture._
 
 ```bash
 pnpm case:dry-run backend-console-json-logger
@@ -24,8 +24,8 @@ pnpm case:dry-run backend-console-json-logger@base-node
 ## How we grade
 
 - Shared: `npm run build`
-- Shared: `npm test` (agent-hidden oracle and/or case tests)
-- Per-base: source marker asserts in `grade/base-node.yaml`
-- `resources/solution/` is dry-run only
+- Shared: `api_oracle` — agent-hidden `node:test` behavioral suite
+- Per-base: structural `contains` markers
+- `resources/solution/` is dry-run only (never shown to the agent)
 
 Source: `references/node-tasks.md`.

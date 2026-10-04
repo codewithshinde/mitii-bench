@@ -4,3 +4,4 @@
 - contains:
     file: src/requestContext.js
     text: "x-request-id"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":15000,"requests":[{"method":"GET","path":"/context","headers":{"x-request-id":"test-req-1"},"expect":{"status":200,"jsonSubset":{"requestId":"test-req-1","message":"handled request"},"headers":{"x-request-id":"test-req-1"}}}]}

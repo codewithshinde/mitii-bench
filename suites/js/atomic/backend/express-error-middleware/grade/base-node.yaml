@@ -7,3 +7,4 @@
 - contains:
     file: src/errorMiddleware.js
     text: "error"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":15000,"requests":[{"method":"GET","path":"/boom","expect":{"status":418,"jsonSubset":{"error":"Something broke","status":418}}},{"method":"GET","path":"/fail","expect":{"status":500,"jsonPaths":["error","status"]}}]}

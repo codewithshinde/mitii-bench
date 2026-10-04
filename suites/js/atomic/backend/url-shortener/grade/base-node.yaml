@@ -4,3 +4,4 @@
 - contains:
     file: src/index.js
     text: "redirect"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/shorten","json":{"url":"https://example.com"},"expect":{"status":201,"jsonPaths":["code"]}}]}

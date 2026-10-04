@@ -6,13 +6,9 @@ export function maskSensitive(input) {
   const out = {};
   for (const [key, value] of Object.entries(input)) {
     const norm = key.toLowerCase().replace(/[^a-z]/g, "");
-    if (SENSITIVE.has(norm)) {
-      out[key] = "***REDACTED***";
-    } else if (value && typeof value === "object") {
-      out[key] = maskSensitive(value);
-    } else {
-      out[key] = value;
-    }
+    if (SENSITIVE.has(norm)) out[key] = "***REDACTED***";
+    else if (value && typeof value === "object") out[key] = maskSensitive(value);
+    else out[key] = value;
   }
   return out;
 }

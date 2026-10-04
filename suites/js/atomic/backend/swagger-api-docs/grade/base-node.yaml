@@ -4,3 +4,4 @@
 - contains:
     file: src/index.js
     text: "swagger"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":15000,"requests":[{"method":"GET","path":"/api-docs/","expect":{"status":200,"bodyContains":"swagger"}},{"method":"GET","path":"/health","expect":{"status":200,"jsonSubset":{"status":"ok"}}}]}

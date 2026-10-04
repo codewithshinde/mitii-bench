@@ -7,3 +7,4 @@
 - contains:
     file: src/index.js
     text: "httpOnly"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/login","json":{"userId":"u1"},"expect":{"status":200,"jsonSubset":{"ok":true}}}]}

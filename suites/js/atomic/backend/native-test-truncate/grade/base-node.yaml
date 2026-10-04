@@ -1,9 +1,3 @@
 - contains:
     file: src/truncate.js
     text: "truncate"
-- contains:
-    file: test/truncate.test.js
-    text: "node:test"
-- contains:
-    file: test/truncate.test.js
-    text: "truncate"

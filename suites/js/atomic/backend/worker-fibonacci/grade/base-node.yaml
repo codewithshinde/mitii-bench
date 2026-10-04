@@ -7,3 +7,4 @@
 - contains:
     file: src/index.js
     text: "worker_threads"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":15000,"requests":[{"method":"GET","path":"/health","expect":{"status":200,"jsonSubset":{"status":"ok"}}},{"method":"GET","path":"/calculate-fibonacci?n=10","expect":{"status":200,"jsonSubset":{"n":10,"result":55}}}]}

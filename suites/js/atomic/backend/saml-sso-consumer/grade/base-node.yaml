@@ -4,3 +4,4 @@
 - contains:
     file: src/index.js
     text: "Assertion"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/auth/saml/acs","headers":{"content-type":"text/xml"},"expect":{"status":401}}]}

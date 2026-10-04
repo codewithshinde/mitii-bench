@@ -7,3 +7,4 @@
 - contains:
     file: src/routes/products.js
     text: "orders"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":15000,"requests":[{"method":"GET","path":"/api/v1/products","expect":{"status":200,"jsonPaths":["items"]}},{"method":"GET","path":"/api/v1/orders","expect":{"status":200,"jsonPaths":["items"]}}]}

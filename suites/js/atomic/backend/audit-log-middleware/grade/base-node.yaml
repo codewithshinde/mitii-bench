@@ -7,3 +7,4 @@
 - contains:
     file: src/index.js
     text: "DELETE"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/resources","json":{"name":"x"},"expect":{"status":201}}]}

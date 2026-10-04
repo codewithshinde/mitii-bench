@@ -4,3 +4,4 @@
 - contains:
     file: src/index.js
     text: "staging"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"GET","path":"/api/data","expect":{"status":200,"jsonSubset":{"ok":true}}}]}

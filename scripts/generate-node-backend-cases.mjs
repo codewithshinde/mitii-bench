@@ -1,16 +1,14 @@
 #!/usr/bin/env node
 /**
- * Materialize references/node-tasks.md into suites/js/atomic/backend/* cases.
- *
- * Core (1–25): base-node, vanilla; smoke subset ships solutions + oracles.
- * Ecosystem (26–55): package-tagged scaffolds; NestJS on base-nest-js.
- * Real-world (56–100): base-node scaffolds (vanilla or ecosystem-lib).
+ * Materialize references/node-tasks.md into suites/js/atomic/backend/* cases
+ * with solutions, api_oracle tests, HTTP payload grades, and package_deps.
  */
 import { mkdirSync, writeFileSync, existsSync, rmSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { nodeBackendMeta } from "./data/node-backend-meta.mjs";
-import { nodeCoreSolutions } from "./data/node-core-solutions.mjs";
+import { nodeCoreCases } from "./data/node-core-cases.mjs";
+import { nodeEcosystemCases } from "./data/node-ecosystem-cases.mjs";
+import { nodeRealworldCases } from "./data/node-realworld-cases.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -21,17 +19,6 @@ const FORCE = process.argv.includes("--force");
 const CORE_ONLY = process.argv.includes("--core-only");
 const ECO_ONLY = process.argv.includes("--eco-only");
 const REAL_ONLY = process.argv.includes("--realworld-only");
-
-const SMOKE = new Set([
-  "http-native-server",
-  "buffer-file-type",
-  "crypto-scrypt-password",
-  "path-traversal-defense",
-  "url-sanitize-redirect",
-  "os-system-stats",
-  "native-test-truncate",
-  "data-masking",
-]);
 
 function yamlQuote(s) {
   return JSON.stringify(s);
@@ -64,22 +51,11 @@ function gradeYaml(file, markers) {
     lines.push(`    file: ${file}`);
     lines.push(`    text: ${yamlQuote(m)}`);
   }
-  return `${lines.join("\n")}\n`;
+  return lines.length ? `${lines.join("\n")}\n` : "";
 }
 
-function gradeFromAsserts(asserts) {
-  const lines = [];
-  for (const item of asserts) {
-    if (item.contains) {
-      lines.push("- contains:");
-      lines.push(`    file: ${item.contains.file}`);
-      lines.push(`    text: ${yamlQuote(item.contains.text)}`);
-    } else if (item.exists) {
-      lines.push("- exists:");
-      lines.push(`    file: ${item.exists.file}`);
-    }
-  }
-  return `${lines.join("\n")}\n`;
+function httpGradeYaml(httpGrade) {
+  return `- http: ${JSON.stringify(httpGrade)}\n`;
 }
 
 function writeCaseDir(caseDir, files) {
@@ -99,47 +75,53 @@ function writeCaseDir(caseDir, files) {
   return true;
 }
 
-function httpGradeYaml(httpGrade) {
-  // Use JSON flow so nested request steps stay unambiguous for the YAML parser.
-  return `- http: ${JSON.stringify(httpGrade)}\n`;
-}
+function materialize(c, promptFromRef) {
+  const id = `backend-${c.slug}`;
+  const caseDir = join(backendRoot, c.slug);
+  const bases = c.bases?.length ? c.bases : ["base-node"];
+  const packages = c.packages ?? [];
+  const primaryBase = bases[0];
+  const prompt = (promptFromRef || c.prompt || "").trim();
+  const hasOracle = Boolean(c.oracle);
+  const hasHttp = Boolean(c.http);
+  const solutionFiles = c.files ?? {};
 
-function materialize(meta, prompt) {
-  const id = `backend-${meta.slug}`;
-  const caseDir = join(backendRoot, meta.slug);
-  const bases = meta.bases ?? ["base-node"];
-  const packages = meta.packages ?? [];
-  const solution = nodeCoreSolutions[meta.slug];
-  const hasOracle = Boolean(solution?.oracle);
-  const hasHttp = Boolean(solution?.httpGrade);
-  const hasSolutionFiles = Boolean(solution?.files && Object.keys(solution.files).length);
-  const isSmoke = SMOKE.has(meta.slug);
+  if (Object.keys(solutionFiles).length === 0) {
+    throw new Error(`Case ${c.slug} has empty solution files`);
+  }
+  if (!hasOracle && !hasHttp) {
+    throw new Error(`Case ${c.slug} needs api_oracle and/or http grades`);
+  }
 
   const tags = [
     ...new Set([
-      ...(meta.tags ?? []),
+      ...(c.tags ?? []),
       "node-tasks",
-      ...(isSmoke ? ["smoke"] : []),
-      ...(packages.length ? ["ecosystem-lib"] : []),
+      ...(c.smoke ? ["smoke"] : []),
+      ...(packages.length ? ["ecosystem-lib"] : ["vanilla"]),
     ]),
   ];
 
   const gradeLines = ["  - build: true"];
-  if (hasOracle || (meta.slug === "native-test-truncate" && hasSolutionFiles)) {
-    gradeLines.push("  - test: true");
+  if (packages.length) {
+    gradeLines.push(
+      `  - package_deps:\n      packages: [${packages.map((p) => yamlQuote(p)).join(", ")}]`,
+    );
   }
-  if (hasHttp) {
-    // http recipe lives in per-base grade file alongside contains
+  if (hasOracle) {
+    gradeLines.push(`  - api_oracle:
+      command: "npm test -- test/oracle.test.js"
+      timeoutMs: 120000`);
   }
 
   const taskYaml = `id: ${id}
-title: ${yamlQuote(meta.title)}
+title: ${yamlQuote(c.title)}
 ecosystem: js
 bases:
 ${bases.map((b) => `  - ${b}`).join("\n")}
 family: api
 packages: [${packages.map((p) => yamlQuote(p)).join(", ")}]
-difficulty: ${meta.difficulty}
+difficulty: ${c.difficulty}
 category: backend
 language: javascript
 tags: [${tags.map((t) => yamlQuote(t)).join(", ")}]
@@ -150,25 +132,24 @@ grade:
 ${gradeLines.join("\n")}
 `;
 
-  const primaryBase = bases[0];
   const implHint =
     primaryBase === "base-nest-js"
-      ? `Implement under the NestJS fixture (\`${meta.gradeFile}\` and related modules). Keep the app buildable with \`npm run build\`.`
-      : `Implement primarily in \`${meta.gradeFile}\` (add helper modules under \`src/\` as needed). Keep \`npm run build\` succeeding.`;
+      ? `Implement under the NestJS fixture (\`${c.gradeFile}\` and related modules). Keep the app buildable with \`npm run build\`.`
+      : `Implement primarily in \`${c.gradeFile}\` (add helper modules under \`src/\` as needed). Keep \`npm run build\` succeeding.${
+          packages.length
+            ? ` Install required packages: ${packages.map((p) => `\`${p}\``).join(", ")}.`
+            : ""
+        }`;
 
-  const spec = `${prompt.trim()}
+  const spec = `${prompt}
 
 ${implHint}
 `;
 
-  const kindLabel =
-    meta.kind === "core"
-      ? "Node.js core / async"
-      : meta.kind === "ecosystem"
-        ? "frameworks & ecosystem packages"
-        : "real-world backend";
+  const kind =
+    c.n <= 25 ? "Node.js core / async" : c.n <= 55 ? "frameworks & ecosystem" : "real-world backend";
 
-  const readme = `# ${meta.title}
+  const readme = `# ${c.title}
 
 ## Goal
 
@@ -176,7 +157,7 @@ ${prompt.split("\n")[0]}
 
 ## Ecosystem
 
-\`js\` — ${kindLabel} (prompt #${meta.n} from \`references/node-tasks.md\`).
+\`js\` — ${kind} (prompt #${c.n} from \`references/node-tasks.md\`).
 
 ## Bases
 
@@ -184,7 +165,7 @@ ${bases.map((b) => `- \`${b}\``).join("\n")}
 
 ## Packages
 
-${packages.length ? packages.map((p) => `- \`${p}\``).join("\n") : "_None beyond the base fixture (vanilla / core APIs)._"}
+${packages.length ? packages.map((p) => `- \`${p}\``).join("\n") : "_None beyond the base fixture._"}
 
 \`\`\`bash
 pnpm case:dry-run ${id}
@@ -194,40 +175,38 @@ pnpm case:dry-run ${id}@${primaryBase}
 ## How we grade
 
 - Shared: \`npm run build\`
-${hasOracle || meta.slug === "native-test-truncate" ? "- Shared: \`npm test\` (agent-hidden oracle and/or case tests)\n" : ""}${hasHttp ? "- Shared: HTTP behavioral checks against a started server\n" : ""}- Per-base: source marker asserts in \`grade/${primaryBase}.yaml\`
-- \`resources/solution/\` is dry-run only
+${packages.length ? "- Shared: \`package_deps\` — required packages listed in \`package.json\`\n" : ""}${hasOracle ? "- Shared: \`api_oracle\` — agent-hidden \`node:test\` behavioral suite\n" : ""}${hasHttp ? "- Per-base: HTTP multi-step status / payload / header checks\n" : ""}- Per-base: structural \`contains\` markers
+- \`resources/solution/\` is dry-run only (never shown to the agent)
 
-${!hasSolutionFiles ? "Dry-run solution not shipped yet — use agent evals for this case.\n" : ""}Source: \`references/node-tasks.md\`.
+Source: \`references/node-tasks.md\`.
 `;
 
-  let perBaseGrade = meta.gradeAsserts?.length
-    ? gradeFromAsserts(meta.gradeAsserts)
-    : gradeYaml(meta.gradeFile, meta.markers);
-  if (hasHttp) {
-    perBaseGrade += httpGradeYaml(solution.httpGrade);
-  }
+  let perBaseGrade = gradeYaml(c.gradeFile, c.markers);
+  if (hasHttp) perBaseGrade += httpGradeYaml(c.http);
 
-  const files = {
+  const outFiles = {
     "task.yaml": taskYaml,
     "spec.md": spec,
     "README.md": readme,
-    [`grade/${primaryBase}.yaml`]: perBaseGrade,
+    [`grade/${primaryBase}.yaml`]: perBaseGrade || "- exists:\n    file: package.json\n",
   };
 
-  if (hasSolutionFiles) {
-    for (const [rel, content] of Object.entries(solution.files)) {
-      files[`resources/solution/${primaryBase}/${rel}`] = content;
-    }
-  } else {
-    files[`resources/solution/${primaryBase}/.gitkeep`] = "";
+  for (const [rel, content] of Object.entries(solutionFiles)) {
+    outFiles[`resources/solution/${primaryBase}/${rel}`] = content;
+  }
+  if (hasOracle) {
+    const oracle = c.oracle.endsWith("\n") ? c.oracle : `${c.oracle}\n`;
+    outFiles[`resources/oracle/${primaryBase}/test/oracle.test.js`] = oracle;
   }
 
-  if (solution?.oracle) {
-    files[`resources/oracle/${primaryBase}/test/oracle.test.js`] = solution.oracle;
-  }
-
-  const wrote = writeCaseDir(caseDir, files);
-  return { id, wrote, kind: meta.kind, smoke: isSmoke };
+  const wrote = writeCaseDir(caseDir, outFiles);
+  return {
+    id,
+    wrote,
+    smoke: Boolean(c.smoke),
+    hasHttp,
+    packages: packages.length,
+  };
 }
 
 function main() {
@@ -236,28 +215,20 @@ function main() {
     process.exit(1);
   }
   const prompts = parsePrompts(readFileSync(REF, "utf8"));
-  if (prompts.size !== 100) {
-    console.warn(`Expected 100 prompts, parsed ${prompts.size}`);
-  }
+  let cases = [...nodeCoreCases, ...nodeEcosystemCases, ...nodeRealworldCases];
+  if (CORE_ONLY) cases = cases.filter((c) => c.n <= 25);
+  if (ECO_ONLY) cases = cases.filter((c) => c.n >= 26 && c.n <= 55);
+  if (REAL_ONLY) cases = cases.filter((c) => c.n >= 56);
 
   const results = [];
-  for (const meta of nodeBackendMeta) {
-    if (CORE_ONLY && meta.kind !== "core") continue;
-    if (ECO_ONLY && meta.kind !== "ecosystem") continue;
-    if (REAL_ONLY && meta.kind !== "realworld") continue;
-    const prompt = prompts.get(meta.n);
-    if (!prompt) {
-      console.warn(`No prompt body for #${meta.n} ${meta.slug}`);
-      continue;
-    }
-    results.push(materialize(meta, prompt));
+  for (const c of cases) {
+    results.push(materialize(c, prompts.get(c.n)));
   }
 
   const wrote = results.filter((r) => r.wrote).length;
   console.log(
-    `Materialized ${wrote} backend cases (${results.length - wrote} skipped). defs=${results.length}`,
+    `Materialized ${wrote}/${results.length} backend cases (http=${results.filter((r) => r.hasHttp).length}, smoke=${results.filter((r) => r.smoke).length}, withPackages=${results.filter((r) => r.packages).length})`,
   );
-  console.log(`Smoke with solutions: ${results.filter((r) => r.smoke && r.wrote).length}`);
 }
 
 main();

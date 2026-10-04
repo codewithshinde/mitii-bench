@@ -4,4 +4,4 @@ Build a Fastify custom plugin using `fastify-plugin`.
 
 ### NestJS Framework
 
-Implement primarily in `src/dbPlugin.js` (add helper modules under `src/` as needed). Keep `npm run build` succeeding.
+Implement primarily in `src/dbPlugin.js` (add helper modules under `src/` as needed). Keep `npm run build` succeeding. Install required packages: `fastify`, `fastify-plugin`.

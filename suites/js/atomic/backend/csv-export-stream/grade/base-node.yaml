@@ -7,3 +7,4 @@
 - contains:
     file: src/index.js
     text: "stream"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"GET","path":"/export/users.csv","expect":{"status":200,"headerContains":{"content-type":"text/csv"},"bodyContains":"User 1"}}]}

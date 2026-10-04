@@ -18,7 +18,12 @@ import {
 import { repoRoot, reportsDir, workspacesDir } from "./paths.js";
 import { diffSnapshots, snapshotTree } from "./snapshot.js";
 import { verifyCheck } from "./verifiers.js";
-import { applyPatch, createWorkspace, linkFixtureNodeModules } from "./workspace.js";
+import {
+  applyPatch,
+  createWorkspace,
+  ensureWorkspacePackages,
+  linkFixtureNodeModules,
+} from "./workspace.js";
 
 export async function dryRunTask(taskIdOrPath, options = {}) {
   const root = repoRoot();
@@ -35,6 +40,7 @@ export async function dryRunTask(taskIdOrPath, options = {}) {
   try {
     prepareSetup(ws.path, task);
     await applySolution(ws.path, task);
+    await ensureWorkspacePackages(ws.path, task, task.fixturePath);
     const before = snapshotTree(ws.path);
     // Solution already applied — snapshot after as "agent work"
     const after = snapshotTree(ws.path);
@@ -55,7 +61,9 @@ export async function dryRunTask(taskIdOrPath, options = {}) {
           (p) =>
             !p.startsWith("node_modules") &&
             !p.startsWith("__bench__") &&
-            !p.includes("/__bench__/"),
+            !p.includes("/__bench__/") &&
+            !p.includes("oracle.test.js") &&
+            !p.startsWith("package-lock.json"),
         );
         results.push({
           type: "workspace_changed",
@@ -119,6 +127,7 @@ export async function runTask(taskIdOrPath, options = {}) {
   }
 
   const after = snapshotTree(ws.path);
+  await ensureWorkspacePackages(ws.path, task, task.fixturePath);
   // Inject agent-hidden oracles after the agent finishes (never visible during agent work)
   applyOracle(ws.path, task);
   const results = [];

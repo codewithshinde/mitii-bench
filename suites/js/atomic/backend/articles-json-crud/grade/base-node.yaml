@@ -7,3 +7,4 @@
 - contains:
     file: src/index.js
     text: "rename"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/articles","json":{"title":"Hello"},"expect":{"status":201,"jsonPaths":["id","title"]}},{"method":"GET","path":"/articles","expect":{"status":200,"jsonType":"array"}}]}

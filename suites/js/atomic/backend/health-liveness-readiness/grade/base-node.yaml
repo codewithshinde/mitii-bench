@@ -4,3 +4,4 @@
 - contains:
     file: src/index.js
     text: "/health/readiness"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"GET","path":"/health/liveness","expect":{"status":200,"jsonSubset":{"alive":true}}},{"method":"GET","path":"/health/readiness","expect":{"status":200,"jsonPaths":["ready"]}}]}

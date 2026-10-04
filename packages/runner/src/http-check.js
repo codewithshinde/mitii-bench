@@ -58,9 +58,36 @@ export async function runHttpCheck(check, cwd) {
       if (expect.jsonSubset && !isSubset(expect.jsonSubset, json)) {
         failures.push(`step ${index + 1} ${label}: JSON body did not contain expected subset`);
       }
+      if (expect.jsonEquals !== undefined) {
+        if (JSON.stringify(json) !== JSON.stringify(expect.jsonEquals)) {
+          failures.push(`step ${index + 1} ${label}: JSON body did not equal expected value`);
+        }
+      }
       for (const path of expect.jsonPaths ?? []) {
         if (readPath(json, path) === undefined) {
           failures.push(`step ${index + 1} ${label}: missing JSON path ${path}`);
+        }
+      }
+      if (expect.headers && typeof expect.headers === "object") {
+        for (const [name, value] of Object.entries(expect.headers)) {
+          const actual = response.headers.get(name);
+          if (actual == null) {
+            failures.push(`step ${index + 1} ${label}: missing header ${name}`);
+          } else if (String(actual).toLowerCase() !== String(value).toLowerCase()) {
+            failures.push(
+              `step ${index + 1} ${label}: header ${name} expected ${JSON.stringify(value)}, got ${JSON.stringify(actual)}`,
+            );
+          }
+        }
+      }
+      if (expect.headerContains && typeof expect.headerContains === "object") {
+        for (const [name, value] of Object.entries(expect.headerContains)) {
+          const actual = response.headers.get(name) ?? "";
+          if (!String(actual).includes(String(value))) {
+            failures.push(
+              `step ${index + 1} ${label}: header ${name} did not contain ${JSON.stringify(value)}`,
+            );
+          }
         }
       }
     }

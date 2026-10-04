@@ -4,3 +4,4 @@
 - contains:
     file: src/rateLimit.js
     text: "Retry-After"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"GET","path":"/ping","expect":{"status":200,"headerContains":{"x-ratelimit-limit":"5"}}},{"method":"GET","path":"/ping","expect":{"status":200,"headerContains":{"x-ratelimit-limit":"5"}}},{"method":"GET","path":"/ping","expect":{"status":200,"headerContains":{"x-ratelimit-limit":"5"}}},{"method":"GET","path":"/ping","expect":{"status":200,"headerContains":{"x-ratelimit-limit":"5"}}},{"method":"GET","path":"/ping","expect":{"status":200,"headerContains":{"x-ratelimit-limit":"5"}}},{"method":"GET","path":"/ping","expect":{"status":429,"headerContains":{"x-ratelimit-remaining":"0"}}}]}

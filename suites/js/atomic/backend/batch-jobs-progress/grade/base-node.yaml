@@ -7,3 +7,4 @@
 - contains:
     file: src/index.js
     text: "percentage"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/api/jobs","json":{"items":[1,2,3,4,5]},"expect":{"status":202,"jsonPaths":["jobId"]}}]}

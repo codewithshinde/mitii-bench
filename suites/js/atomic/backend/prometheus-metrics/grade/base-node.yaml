@@ -4,3 +4,4 @@
 - contains:
     file: src/index.js
     text: "prom-client"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"GET","path":"/metrics","expect":{"status":200,"bodyContains":"process_cpu"}}]}

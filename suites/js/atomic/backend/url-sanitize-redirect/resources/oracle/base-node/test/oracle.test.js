@@ -7,7 +7,12 @@ describe("sanitizeRedirectUrl", () => {
     const out = sanitizeRedirectUrl("https://example.com/path?utm_source=x&ok=1&fbclid=y");
     assert.equal(out, "https://example.com/path?ok=1");
   });
+
   it("rejects unknown hosts", () => {
     assert.throws(() => sanitizeRedirectUrl("https://evil.com/"), /Host not allowed/);
+  });
+
+  it("rejects invalid URLs", () => {
+    assert.throws(() => sanitizeRedirectUrl("not-a-url"), /Invalid URL/);
   });
 });

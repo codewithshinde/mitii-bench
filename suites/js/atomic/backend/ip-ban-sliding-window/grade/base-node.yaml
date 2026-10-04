@@ -7,3 +7,4 @@
 - contains:
     file: src/index.js
     text: "5"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"POST","path":"/login","json":{"password":"bad"},"expect":{"status":401}}]}

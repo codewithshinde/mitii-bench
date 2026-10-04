@@ -7,3 +7,4 @@
 - contains:
     file: src/index.js
     text: "400"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":15000,"requests":[{"method":"POST","path":"/api/users","json":{"email":"user@example.com","age":25,"password":"securepass"},"expect":{"status":201,"jsonPaths":["user.email"]}},{"method":"POST","path":"/api/users","json":{"email":"nope","age":12,"password":"x"},"expect":{"status":400,"jsonPaths":["errors"]}}]}

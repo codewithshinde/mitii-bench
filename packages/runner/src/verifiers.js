@@ -77,6 +77,9 @@ async function verify(check, context) {
   if (check.type === "http") {
     return runHttpCheck(check, workspace);
   }
+  if (check.type === "package_deps") {
+    return runPackageDepsCheck(check, workspace);
+  }
   if (check.type === "sqlite_query") {
     return runSqliteQueryCheck(check, workspace);
   }
@@ -84,6 +87,29 @@ async function verify(check, context) {
     return runWorkflowYamlCheck(check, workspace);
   }
   return result(false, `Unsupported check type: ${check.type}`);
+}
+
+function runPackageDepsCheck(check, workspace) {
+  const rel = check.file ?? "package.json";
+  const path = join(workspace, rel);
+  if (!existsSync(path)) return result(false, `${rel} not found`);
+  let pkg;
+  try {
+    pkg = JSON.parse(readFileSync(path, "utf8"));
+  } catch (error) {
+    return result(false, `invalid package.json: ${error.message}`);
+  }
+  const deps = {
+    ...(pkg.dependencies ?? {}),
+    ...(pkg.devDependencies ?? {}),
+    ...(pkg.optionalDependencies ?? {}),
+    ...(pkg.peerDependencies ?? {}),
+  };
+  const missing = (check.packages ?? []).filter((name) => !(name in deps));
+  return result(
+    missing.length === 0,
+    missing.length ? `missing: ${missing.join(", ")}` : `ok: ${(check.packages ?? []).join(", ")}`,
+  );
 }
 
 function runSqliteQueryCheck(check, workspace) {
