@@ -1,0 +1,9 @@
+- contains:
+    file: src/fetchWithTimeout.js
+    text: "fetchWithTimeout"
+- contains:
+    file: src/fetchWithTimeout.js
+    text: "AbortController"
+- contains:
+    file: src/fetchWithTimeout.js
+    text: "TimeoutError"

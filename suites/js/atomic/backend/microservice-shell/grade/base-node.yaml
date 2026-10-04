@@ -1,0 +1,12 @@
+- contains:
+    file: src/index.js
+    text: "pino"
+- contains:
+    file: src/index.js
+    text: "SIGTERM"
+- contains:
+    file: src/index.js
+    text: "/health/liveness"
+- contains:
+    file: src/index.js
+    text: "zod"

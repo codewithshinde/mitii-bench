@@ -1,0 +1,12 @@
+- contains:
+    file: src/users/users.controller.ts
+    text: "UsersController"
+- contains:
+    file: src/users/users.controller.ts
+    text: "UsersService"
+- contains:
+    file: src/users/users.controller.ts
+    text: "@Get"
+- contains:
+    file: src/users/users.controller.ts
+    text: "@Post"

@@ -1,0 +1,10 @@
+- contains:
+    file: src/index.js
+    text: "createServer"
+- contains:
+    file: src/index.js
+    text: "/health"
+- contains:
+    file: src/index.js
+    text: "/echo"
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":15000,"requests":[{"method":"GET","path":"/health","expect":{"status":200,"jsonPaths":["status","uptime"],"jsonSubset":{"status":"ok"}}},{"method":"POST","path":"/echo","json":{"hello":"world"},"expect":{"status":200,"jsonSubset":{"hello":"world"}}}]}

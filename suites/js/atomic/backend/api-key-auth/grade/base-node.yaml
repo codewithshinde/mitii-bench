@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "X-API-Key"
+- contains:
+    file: src/index.js
+    text: "usage"

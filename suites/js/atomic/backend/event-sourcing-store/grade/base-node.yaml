@@ -1,0 +1,6 @@
+- contains:
+    file: src/eventStore.js
+    text: "appendEvent"
+- contains:
+    file: src/eventStore.js
+    text: "getStream"

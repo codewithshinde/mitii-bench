@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "401"
+- contains:
+    file: src/index.js
+    text: "ban"
+- contains:
+    file: src/index.js
+    text: "5"

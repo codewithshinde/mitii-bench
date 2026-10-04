@@ -1,0 +1,9 @@
+- contains:
+    file: src/productSearch.js
+    text: "totalCount"
+- contains:
+    file: src/productSearch.js
+    text: "totalPages"
+- contains:
+    file: src/productSearch.js
+    text: "page"

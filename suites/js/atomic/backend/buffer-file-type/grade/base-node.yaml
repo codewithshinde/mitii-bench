@@ -1,0 +1,6 @@
+- contains:
+    file: src/detectFileType.js
+    text: "detectFileType"
+- contains:
+    file: src/detectFileType.js
+    text: "Buffer"

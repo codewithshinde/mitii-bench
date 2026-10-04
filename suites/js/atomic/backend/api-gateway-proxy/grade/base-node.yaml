@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "/services/users"
+- contains:
+    file: src/index.js
+    text: "proxy"

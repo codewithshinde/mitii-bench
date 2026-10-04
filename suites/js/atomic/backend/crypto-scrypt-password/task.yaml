@@ -1,0 +1,17 @@
+id: backend-crypto-scrypt-password
+title: "Crypto Module (Password Hashing)"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: []
+difficulty: easy
+category: backend
+language: javascript
+tags: ["node-tasks", "core", "vanilla", "node-core", "smoke"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true
+  - test: true

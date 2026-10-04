@@ -1,0 +1,6 @@
+- contains:
+    file: src/gzipMiddleware.js
+    text: "createGzip"
+- contains:
+    file: src/gzipMiddleware.js
+    text: "Accept-Encoding"

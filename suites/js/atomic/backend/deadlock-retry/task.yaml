@@ -1,0 +1,16 @@
+id: backend-deadlock-retry
+title: "Database Deadlock Retry Handler"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: []
+difficulty: hard
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

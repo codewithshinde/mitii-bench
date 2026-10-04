@@ -1,0 +1,6 @@
+- contains:
+    file: src/crashGuard.js
+    text: "uncaughtException"
+- contains:
+    file: src/crashGuard.js
+    text: "unhandledRejection"

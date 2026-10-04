@@ -1,0 +1,12 @@
+- contains:
+    file: src/orderPipeline.js
+    text: "EventEmitter"
+- contains:
+    file: src/orderPipeline.js
+    text: "order:created"
+- contains:
+    file: src/orderPipeline.js
+    text: "order:paid"
+- contains:
+    file: src/orderPipeline.js
+    text: "order:shipped"

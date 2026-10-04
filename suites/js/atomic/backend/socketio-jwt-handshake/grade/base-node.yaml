@@ -1,0 +1,6 @@
+- contains:
+    file: src/socketAuth.js
+    text: "handshake.auth"
+- contains:
+    file: src/socketAuth.js
+    text: "io.use"

@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "csv"
+- contains:
+    file: src/index.js
+    text: "pipe"
+- contains:
+    file: src/index.js
+    text: "stream"

@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "/metrics"
+- contains:
+    file: src/index.js
+    text: "prom-client"

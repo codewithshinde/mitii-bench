@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "shadow"
+- contains:
+    file: src/index.js
+    text: "staging"

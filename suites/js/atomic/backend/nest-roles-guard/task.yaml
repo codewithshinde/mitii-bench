@@ -1,0 +1,16 @@
+id: backend-nest-roles-guard
+title: "NestJS Custom Guard (RBAC)"
+ecosystem: js
+bases:
+  - base-nest-js
+family: api
+packages: []
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "ecosystem", "ecosystem-lib", "nestjs"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

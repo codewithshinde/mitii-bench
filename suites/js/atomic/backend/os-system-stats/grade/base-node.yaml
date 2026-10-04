@@ -1,0 +1,9 @@
+- contains:
+    file: src/systemStats.js
+    text: "getSystemStats"
+- contains:
+    file: src/systemStats.js
+    text: "loadavg"
+- contains:
+    file: src/systemStats.js
+    text: "freemem"

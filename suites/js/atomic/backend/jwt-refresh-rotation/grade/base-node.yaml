@@ -1,0 +1,6 @@
+- contains:
+    file: src/tokens.js
+    text: "refresh"
+- contains:
+    file: src/tokens.js
+    text: "revoke"

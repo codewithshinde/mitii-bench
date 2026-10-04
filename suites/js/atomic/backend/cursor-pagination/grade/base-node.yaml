@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "cursor"
+- contains:
+    file: src/index.js
+    text: "limit"

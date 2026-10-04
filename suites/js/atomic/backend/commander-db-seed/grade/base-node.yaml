@@ -1,0 +1,6 @@
+- contains:
+    file: src/cli.js
+    text: "db:seed"
+- contains:
+    file: src/cli.js
+    text: "commander"

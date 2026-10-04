@@ -1,0 +1,6 @@
+- contains:
+    file: src/rateLimit.js
+    text: "X-RateLimit-Limit"
+- contains:
+    file: src/rateLimit.js
+    text: "Retry-After"

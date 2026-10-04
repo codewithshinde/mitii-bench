@@ -1,0 +1,16 @@
+id: backend-zip-download-stream
+title: "File Compression & Zip Archiver Service"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["archiver"]
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

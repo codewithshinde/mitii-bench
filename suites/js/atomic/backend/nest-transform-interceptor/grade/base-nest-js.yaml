@@ -1,0 +1,9 @@
+- contains:
+    file: src/interceptors/transform.interceptor.ts
+    text: "NestInterceptor"
+- contains:
+    file: src/interceptors/transform.interceptor.ts
+    text: "timestamp"
+- contains:
+    file: src/interceptors/transform.interceptor.ts
+    text: "data"

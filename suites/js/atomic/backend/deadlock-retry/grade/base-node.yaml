@@ -1,0 +1,9 @@
+- contains:
+    file: src/deadlockRetry.js
+    text: "40001"
+- contains:
+    file: src/deadlockRetry.js
+    text: "40P01"
+- contains:
+    file: src/deadlockRetry.js
+    text: "retry"

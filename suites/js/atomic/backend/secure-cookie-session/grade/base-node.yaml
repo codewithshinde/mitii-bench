@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "SameSite"
+- contains:
+    file: src/index.js
+    text: "AES"
+- contains:
+    file: src/index.js
+    text: "httpOnly"

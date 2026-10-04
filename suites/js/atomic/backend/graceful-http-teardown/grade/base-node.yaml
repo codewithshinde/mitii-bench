@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "close"
+- contains:
+    file: src/index.js
+    text: "destroy"
+- contains:
+    file: src/index.js
+    text: "10000"

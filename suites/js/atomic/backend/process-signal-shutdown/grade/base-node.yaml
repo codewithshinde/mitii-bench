@@ -1,0 +1,6 @@
+- contains:
+    file: src/gracefulShutdown.js
+    text: "SIGINT"
+- contains:
+    file: src/gracefulShutdown.js
+    text: "SIGTERM"

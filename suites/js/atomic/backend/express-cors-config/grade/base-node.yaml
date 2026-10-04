@@ -1,0 +1,9 @@
+- contains:
+    file: src/corsMiddleware.js
+    text: "example.com"
+- contains:
+    file: src/corsMiddleware.js
+    text: "X-Total-Count"
+- contains:
+    file: src/corsMiddleware.js
+    text: "CORS"

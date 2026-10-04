@@ -1,0 +1,9 @@
+- contains:
+    file: src/routes/products.js
+    text: "Router"
+- contains:
+    file: src/routes/products.js
+    text: "products"
+- contains:
+    file: src/routes/products.js
+    text: "orders"

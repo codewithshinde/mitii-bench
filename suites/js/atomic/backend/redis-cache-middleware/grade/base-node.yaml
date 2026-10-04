@@ -1,0 +1,9 @@
+- contains:
+    file: src/cacheMiddleware.js
+    text: "ioredis"
+- contains:
+    file: src/cacheMiddleware.js
+    text: "originalUrl"
+- contains:
+    file: src/cacheMiddleware.js
+    text: "setex"

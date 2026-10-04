@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "articles"
+- contains:
+    file: src/index.js
+    text: "writeFile"
+- contains:
+    file: src/index.js
+    text: "rename"

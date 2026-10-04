@@ -1,0 +1,9 @@
+- contains:
+    file: src/jsonLogger.js
+    text: "JSON"
+- contains:
+    file: src/jsonLogger.js
+    text: "timestamp"
+- contains:
+    file: src/jsonLogger.js
+    text: "severity"

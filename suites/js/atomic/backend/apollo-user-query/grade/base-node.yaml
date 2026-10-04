@@ -1,0 +1,9 @@
+- contains:
+    file: src/graphql.js
+    text: "typeDefs"
+- contains:
+    file: src/graphql.js
+    text: "resolvers"
+- contains:
+    file: src/graphql.js
+    text: "user"

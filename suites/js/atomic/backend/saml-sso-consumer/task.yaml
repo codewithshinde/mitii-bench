@@ -1,0 +1,16 @@
+id: backend-saml-sso-consumer
+title: "Single Sign-On (SSO) SAML Identity Provider Consumer"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["passport-saml"]
+difficulty: hard
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

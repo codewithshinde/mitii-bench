@@ -1,0 +1,9 @@
+- contains:
+    file: src/auth/roles.guard.ts
+    text: "CanActivate"
+- contains:
+    file: src/auth/roles.guard.ts
+    text: "Roles"
+- contains:
+    file: src/auth/roles.guard.ts
+    text: "admin"

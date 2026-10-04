@@ -1,0 +1,9 @@
+- contains:
+    file: src/contentNegotiation.js
+    text: "Accept"
+- contains:
+    file: src/contentNegotiation.js
+    text: "xml"
+- contains:
+    file: src/contentNegotiation.js
+    text: "json"

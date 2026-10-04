@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "text/event-stream"
+- contains:
+    file: src/index.js
+    text: "/api/events"

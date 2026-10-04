@@ -1,0 +1,9 @@
+- contains:
+    file: src/logRotator.js
+    text: "appendLog"
+- contains:
+    file: src/logRotator.js
+    text: ".old"
+- contains:
+    file: src/logRotator.js
+    text: "stat"

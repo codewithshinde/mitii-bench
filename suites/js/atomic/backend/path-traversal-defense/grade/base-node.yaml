@@ -1,0 +1,9 @@
+- contains:
+    file: src/getPublicFile.js
+    text: "getPublicFile"
+- contains:
+    file: src/getPublicFile.js
+    text: "normalize"
+- contains:
+    file: src/getPublicFile.js
+    text: "public"

@@ -1,0 +1,16 @@
+id: backend-passport-google-oauth
+title: "Passport.js OAuth2 Strategy Integration"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["passport", "passport-google-oauth20"]
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "ecosystem", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

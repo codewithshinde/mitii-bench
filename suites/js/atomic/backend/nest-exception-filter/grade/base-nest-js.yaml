@@ -1,0 +1,9 @@
+- contains:
+    file: src/filters/http-exception.filter.ts
+    text: "ExceptionFilter"
+- contains:
+    file: src/filters/http-exception.filter.ts
+    text: "HttpException"
+- contains:
+    file: src/filters/http-exception.filter.ts
+    text: "Catch"

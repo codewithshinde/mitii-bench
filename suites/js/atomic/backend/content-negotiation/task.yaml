@@ -1,0 +1,16 @@
+id: backend-content-negotiation
+title: "Content Negotiation Middleware"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: []
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

@@ -1,0 +1,9 @@
+- contains:
+    file: migrations/001_orders.js
+    text: "orders"
+- contains:
+    file: migrations/001_orders.js
+    text: "exports.up"
+- contains:
+    file: migrations/001_orders.js
+    text: "exports.down"

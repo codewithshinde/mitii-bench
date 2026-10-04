@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "/shorten"
+- contains:
+    file: src/index.js
+    text: "redirect"

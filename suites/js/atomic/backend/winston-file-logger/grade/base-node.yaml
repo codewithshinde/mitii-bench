@@ -1,0 +1,9 @@
+- contains:
+    file: src/logger.js
+    text: "winston"
+- contains:
+    file: src/logger.js
+    text: "error.log"
+- contains:
+    file: src/logger.js
+    text: "combined.log"

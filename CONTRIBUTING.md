@@ -80,3 +80,15 @@ pnpm --filter @mitii-bench/runner bench --dryRun --tag=smoke
 ```
 
 See [docs/REACT_TASKS.md](./docs/REACT_TASKS.md) for which prompts apply to React vs Next vs library scaffolds.
+
+## Bulk Node backend cases
+
+To regenerate the corpus derived from `references/node-tasks.md`:
+
+```bash
+pnpm generate:node-backend --force
+pnpm case:validate
+pnpm --filter @mitii-bench/runner bench --dryRun --tag=smoke --family=api
+```
+
+See [docs/NODE_TASKS.md](./docs/NODE_TASKS.md).

@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "config.json"
+- contains:
+    file: src/index.js
+    text: "watch"
+- contains:
+    file: src/index.js
+    text: "fs.watch"

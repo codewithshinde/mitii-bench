@@ -1,0 +1,6 @@
+- contains:
+    file: src/measureExecutionTime.js
+    text: "measureExecutionTime"
+- contains:
+    file: src/measureExecutionTime.js
+    text: "performance.now"

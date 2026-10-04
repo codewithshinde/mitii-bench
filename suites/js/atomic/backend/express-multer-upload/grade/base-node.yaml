@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "multer"
+- contains:
+    file: src/index.js
+    text: "2"
+- contains:
+    file: src/index.js
+    text: "image/png"

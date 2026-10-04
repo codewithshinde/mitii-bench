@@ -1,0 +1,9 @@
+- contains:
+    file: src/inspectDomain.js
+    text: "inspectDomain"
+- contains:
+    file: src/inspectDomain.js
+    text: "resolve4"
+- contains:
+    file: src/inspectDomain.js
+    text: "resolveMx"

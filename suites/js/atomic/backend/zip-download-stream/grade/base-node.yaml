@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "archiver"
+- contains:
+    file: src/index.js
+    text: "download-zip"

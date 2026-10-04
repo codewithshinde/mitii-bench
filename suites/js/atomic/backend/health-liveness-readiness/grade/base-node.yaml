@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "/health/liveness"
+- contains:
+    file: src/index.js
+    text: "/health/readiness"

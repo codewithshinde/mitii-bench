@@ -1,0 +1,9 @@
+- contains:
+    file: src/RandomDataStream.js
+    text: "RandomDataStream"
+- contains:
+    file: src/RandomDataStream.js
+    text: "Readable"
+- contains:
+    file: src/RandomDataStream.js
+    text: "push"

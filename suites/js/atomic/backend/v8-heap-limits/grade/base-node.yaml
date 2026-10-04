@@ -1,0 +1,6 @@
+- contains:
+    file: src/heapLimits.js
+    text: "checkHeapLimits"
+- contains:
+    file: src/heapLimits.js
+    text: "getHeapStatistics"

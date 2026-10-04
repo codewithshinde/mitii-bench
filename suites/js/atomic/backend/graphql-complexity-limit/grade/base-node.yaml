@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "complexity"
+- contains:
+    file: src/index.js
+    text: "depth"

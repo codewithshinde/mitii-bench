@@ -1,0 +1,9 @@
+- contains:
+    file: src/emailQueue.js
+    text: "emailQueue"
+- contains:
+    file: src/emailQueue.js
+    text: "attempts"
+- contains:
+    file: src/emailQueue.js
+    text: "backoff"

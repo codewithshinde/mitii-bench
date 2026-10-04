@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "audit"
+- contains:
+    file: src/index.js
+    text: "POST"
+- contains:
+    file: src/index.js
+    text: "DELETE"

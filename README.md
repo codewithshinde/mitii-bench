@@ -37,6 +37,16 @@ pnpm cases:open
 
 Details: [docs/REACT_TASKS.md](./docs/REACT_TASKS.md) · [docs/UI_ORACLES.md](./docs/UI_ORACLES.md).
 
+## Backend corpus
+
+~100 Node.js prompts from `references/node-tasks.md` are under `suites/js/atomic/backend/`:
+
+- **Core (1–25)**: `base-node` vanilla modules/APIs; smoke subset ships dry-run solutions + `node:test` oracles
+- **Ecosystem (26–55)**: Express/Prisma/Socket/Bull/Fastify/Nest/… scaffolds (`ecosystem-lib`); NestJS on `base-nest-js`
+- **Real-world (56–100)**: production-style API/ops tasks on `base-node`
+
+Details: [docs/NODE_TASKS.md](./docs/NODE_TASKS.md).
+
 ## Grading & dry-run
 
 **Dry-run applies `resources/solution/`, then runs grades** (no LLM).  

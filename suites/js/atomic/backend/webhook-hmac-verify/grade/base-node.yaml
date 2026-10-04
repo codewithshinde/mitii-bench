@@ -1,0 +1,9 @@
+- contains:
+    file: src/webhook.js
+    text: "x-signature"
+- contains:
+    file: src/webhook.js
+    text: "createHmac"
+- contains:
+    file: src/webhook.js
+    text: "timingSafeEqual"

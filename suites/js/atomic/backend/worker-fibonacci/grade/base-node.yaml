@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "Worker"
+- contains:
+    file: src/index.js
+    text: "fibonacci"
+- contains:
+    file: src/index.js
+    text: "worker_threads"

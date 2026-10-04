@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "x-tenant-id"
+- contains:
+    file: src/index.js
+    text: "tenant"

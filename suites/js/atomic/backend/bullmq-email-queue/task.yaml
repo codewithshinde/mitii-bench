@@ -1,0 +1,16 @@
+id: backend-bullmq-email-queue
+title: "BullMQ Background Worker Queue"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["bullmq", "ioredis"]
+difficulty: hard
+category: backend
+language: javascript
+tags: ["node-tasks", "ecosystem", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

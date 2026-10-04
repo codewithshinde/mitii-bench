@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "/2fa/generate"
+- contains:
+    file: src/index.js
+    text: "/2fa/verify"
+- contains:
+    file: src/index.js
+    text: "speakeasy"

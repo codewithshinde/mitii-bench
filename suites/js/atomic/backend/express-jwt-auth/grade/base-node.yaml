@@ -1,0 +1,9 @@
+- contains:
+    file: src/authenticateToken.js
+    text: "authenticateToken"
+- contains:
+    file: src/authenticateToken.js
+    text: "jsonwebtoken"
+- contains:
+    file: src/authenticateToken.js
+    text: "401"

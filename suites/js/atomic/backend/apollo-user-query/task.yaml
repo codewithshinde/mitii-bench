@@ -1,0 +1,16 @@
+id: backend-apollo-user-query
+title: "Apollo Server Schema & Resolvers"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["@apollo/server", "graphql"]
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "ecosystem", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

@@ -1,0 +1,9 @@
+- contains:
+    file: src/maskSensitive.js
+    text: "REDACTED"
+- contains:
+    file: src/maskSensitive.js
+    text: "ssn"
+- contains:
+    file: src/maskSensitive.js
+    text: "password"

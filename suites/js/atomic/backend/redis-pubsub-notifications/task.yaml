@@ -1,0 +1,16 @@
+id: backend-redis-pubsub-notifications
+title: "Real-Time Distributed Notification System"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["ioredis", "socket.io"]
+difficulty: hard
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

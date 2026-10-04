@@ -1,0 +1,9 @@
+- contains:
+    file: src/storage.js
+    text: "LocalStorageProvider"
+- contains:
+    file: src/storage.js
+    text: "S3StorageProvider"
+- contains:
+    file: src/storage.js
+    text: "upload"

@@ -1,0 +1,9 @@
+- contains:
+    file: src/dbPlugin.js
+    text: "fastify-plugin"
+- contains:
+    file: src/dbPlugin.js
+    text: "decorate"
+- contains:
+    file: src/dbPlugin.js
+    text: "db"

@@ -1,0 +1,9 @@
+- contains:
+    file: src/chat.js
+    text: "join-room"
+- contains:
+    file: src/chat.js
+    text: "send-message"
+- contains:
+    file: src/chat.js
+    text: "to("

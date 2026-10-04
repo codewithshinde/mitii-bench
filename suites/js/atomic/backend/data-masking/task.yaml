@@ -1,0 +1,17 @@
+id: backend-data-masking
+title: "Data Masking & Anonymization Engine"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: []
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "vanilla", "smoke"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true
+  - test: true

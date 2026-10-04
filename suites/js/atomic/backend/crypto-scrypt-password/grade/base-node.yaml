@@ -1,0 +1,9 @@
+- contains:
+    file: src/passwordHash.js
+    text: "scrypt"
+- contains:
+    file: src/passwordHash.js
+    text: "hashPassword"
+- contains:
+    file: src/passwordHash.js
+    text: "salt"

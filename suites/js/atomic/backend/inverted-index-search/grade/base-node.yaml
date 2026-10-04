@@ -1,0 +1,6 @@
+- contains:
+    file: src/searchIndex.js
+    text: "TF-IDF"
+- contains:
+    file: src/searchIndex.js
+    text: "inverted"

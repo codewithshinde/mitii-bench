@@ -1,0 +1,6 @@
+- contains:
+    file: src/auth/google.js
+    text: "GoogleStrategy"
+- contains:
+    file: src/auth/google.js
+    text: "/auth/google"

@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "logout"
+- contains:
+    file: src/index.js
+    text: "blacklist"
+- contains:
+    file: src/index.js
+    text: "TTL"

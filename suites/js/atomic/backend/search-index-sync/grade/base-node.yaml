@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "sync"
+- contains:
+    file: src/index.js
+    text: "index"

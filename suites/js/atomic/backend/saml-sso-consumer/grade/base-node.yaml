@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "SAML"
+- contains:
+    file: src/index.js
+    text: "Assertion"

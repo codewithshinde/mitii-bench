@@ -1,0 +1,16 @@
+id: backend-totp-2fa
+title: "Two-Factor Authentication (2FA) TOTP Service"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["speakeasy", "qrcode"]
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

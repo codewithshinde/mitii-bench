@@ -1,0 +1,9 @@
+- contains:
+    file: src/index.js
+    text: "/upload/init"
+- contains:
+    file: src/index.js
+    text: "/upload/chunk"
+- contains:
+    file: src/index.js
+    text: "/upload/complete"

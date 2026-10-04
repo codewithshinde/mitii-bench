@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "activeConnections"
+- contains:
+    file: src/index.js
+    text: "idleConnections"

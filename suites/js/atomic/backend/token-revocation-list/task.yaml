@@ -1,0 +1,16 @@
+id: backend-token-revocation-list
+title: "OAuth2 Refresh Token Revocation List"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["ioredis"]
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

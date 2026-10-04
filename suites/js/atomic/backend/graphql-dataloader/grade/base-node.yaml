@@ -1,0 +1,6 @@
+- contains:
+    file: src/loaders/authorLoader.js
+    text: "DataLoader"
+- contains:
+    file: src/loaders/authorLoader.js
+    text: "load"

@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "faker"
+- contains:
+    file: src/index.js
+    text: "seed"

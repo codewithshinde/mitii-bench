@@ -1,0 +1,16 @@
+id: backend-prometheus-metrics
+title: "Metrics Exporter for Prometheus"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["prom-client"]
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

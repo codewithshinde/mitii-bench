@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "invoice-pdf"
+- contains:
+    file: src/index.js
+    text: "pdf"

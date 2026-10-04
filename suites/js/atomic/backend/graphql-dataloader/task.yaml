@@ -1,0 +1,16 @@
+id: backend-graphql-dataloader
+title: "GraphQL Dataloader for N+1 Queries"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["dataloader"]
+difficulty: hard
+category: backend
+language: javascript
+tags: ["node-tasks", "ecosystem", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

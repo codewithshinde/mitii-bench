@@ -1,0 +1,9 @@
+- contains:
+    file: src/entities/Author.ts
+    text: "OneToMany"
+- contains:
+    file: src/entities/Author.ts
+    text: "cascade"
+- contains:
+    file: src/entities/Author.ts
+    text: "Author"

@@ -1,0 +1,16 @@
+id: backend-worker-fibonacci
+title: "Worker Threads for Heavy Computation"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: []
+difficulty: hard
+category: backend
+language: javascript
+tags: ["node-tasks", "core", "vanilla", "node-core"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

@@ -1,0 +1,6 @@
+- contains:
+    file: src/rbac.js
+    text: "canUserExecute"
+- contains:
+    file: src/rbac.js
+    text: "permission"

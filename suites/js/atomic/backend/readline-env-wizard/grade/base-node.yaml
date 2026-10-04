@@ -1,0 +1,6 @@
+- contains:
+    file: src/envWizard.js
+    text: "readline"
+- contains:
+    file: src/envWizard.js
+    text: ".env"

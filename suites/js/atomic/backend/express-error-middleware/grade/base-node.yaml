@@ -1,0 +1,9 @@
+- contains:
+    file: src/errorMiddleware.js
+    text: "err"
+- contains:
+    file: src/errorMiddleware.js
+    text: "statusCode"
+- contains:
+    file: src/errorMiddleware.js
+    text: "error"

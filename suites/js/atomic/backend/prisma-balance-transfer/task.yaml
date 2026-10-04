@@ -1,0 +1,16 @@
+id: backend-prisma-balance-transfer
+title: "Prisma ORM Transaction Handling"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["prisma", "@prisma/client"]
+difficulty: hard
+category: backend
+language: javascript
+tags: ["node-tasks", "ecosystem", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

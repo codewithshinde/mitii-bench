@@ -1,0 +1,9 @@
+- contains:
+    file: src/diagnostics.js
+    text: "exec"
+- contains:
+    file: src/diagnostics.js
+    text: "runSystemDiagnostics"
+- contains:
+    file: src/diagnostics.js
+    text: "Timeout"

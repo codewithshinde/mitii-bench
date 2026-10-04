@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "Accept-Language"
+- contains:
+    file: src/index.js
+    text: "__"

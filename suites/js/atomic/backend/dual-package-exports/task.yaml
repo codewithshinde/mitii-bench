@@ -1,0 +1,16 @@
+id: backend-dual-package-exports
+title: "Module System Interop (CJS & ESM)"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: []
+difficulty: hard
+category: backend
+language: javascript
+tags: ["node-tasks", "core", "vanilla", "node-core"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

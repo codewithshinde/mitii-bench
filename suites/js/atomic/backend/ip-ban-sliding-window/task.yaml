@@ -1,0 +1,16 @@
+id: backend-ip-ban-sliding-window
+title: "Sliding Window IP Banning System"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: []
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

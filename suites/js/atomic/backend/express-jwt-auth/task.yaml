@@ -1,0 +1,16 @@
+id: backend-express-jwt-auth
+title: "Express JWT Authentication Middleware"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["jsonwebtoken"]
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "ecosystem", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

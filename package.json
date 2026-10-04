@@ -20,6 +20,7 @@
     "test": "pnpm --filter @mitii-bench/runner test",
     "fixtures:install": "node scripts/install-fixtures.mjs",
     "generate:react-frontend": "node scripts/generate-react-frontend-cases.mjs",
+    "generate:node-backend": "node scripts/generate-node-backend-cases.mjs",
     "postinstall": "pnpm catalog"
   },
   "devDependencies": {

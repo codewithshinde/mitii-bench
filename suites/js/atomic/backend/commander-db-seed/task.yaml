@@ -1,0 +1,16 @@
+id: backend-commander-db-seed
+title: "Commander.js CLI Application"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: ["commander"]
+difficulty: medium
+category: backend
+language: javascript
+tags: ["node-tasks", "ecosystem", "ecosystem-lib"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

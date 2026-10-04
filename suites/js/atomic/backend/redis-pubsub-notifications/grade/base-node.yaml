@@ -1,0 +1,6 @@
+- contains:
+    file: src/index.js
+    text: "publish"
+- contains:
+    file: src/index.js
+    text: "subscribe"

@@ -1,0 +1,6 @@
+- contains:
+    file: src/featureFlags.js
+    text: "isFeatureEnabled"
+- contains:
+    file: src/featureFlags.js
+    text: "rollout"

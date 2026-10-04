@@ -1,0 +1,16 @@
+id: backend-event-sourcing-store
+title: "Microservice Event Sourcing Store"
+ecosystem: js
+bases:
+  - base-node
+family: api
+packages: []
+difficulty: hard
+category: backend
+language: javascript
+tags: ["node-tasks", "realworld", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

@@ -1,0 +1,6 @@
+- contains:
+    file: src/transferBalance.js
+    text: "$transaction"
+- contains:
+    file: src/transferBalance.js
+    text: "transferBalance"
