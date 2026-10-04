@@ -77,7 +77,8 @@ export function compileGrade(gradeItems, { expectWorkspaceChanged = true } = {})
       const opts = item.api_oracle === true ? {} : item.api_oracle;
       checks.push({
         type: "command",
-        command: opts.command ?? "npm test -- test/oracle.test.js",
+        command:
+          opts.command ?? "MITII_NO_LISTEN=1 node --test test/oracle.test.js",
         timeoutMs: opts.timeoutMs ?? 120000,
       });
       continue;

@@ -23,7 +23,9 @@ app.get("/items", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(`listening on ${addr.port}`);
 });

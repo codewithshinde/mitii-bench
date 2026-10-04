@@ -12,8 +12,13 @@ export async function writeEnvFile({ host, port, user }, outputPath = ".env") {
   return body;
 }
 
-export async function runInteractiveEnvWizard(input, output, outputPath = ".env") {
-  const rl = createInterface({ input, output });
+export async function runInteractiveEnvWizard(
+  input,
+  output,
+  outputPath = ".env",
+  createInterfaceFn = createInterface,
+) {
+  const rl = createInterfaceFn({ input, output });
   try {
     const host = await rl.question("Database Host: ");
     const port = await rl.question("Database Port: ");

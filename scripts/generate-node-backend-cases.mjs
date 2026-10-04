@@ -109,8 +109,10 @@ function materialize(c, promptFromRef) {
     );
   }
   if (hasOracle) {
+    // Run ONLY the agent-hidden oracle file (not fixture test/health.test.js).
+    // MITII_NO_LISTEN prevents solution servers from holding the test process open.
     gradeLines.push(`  - api_oracle:
-      command: "npm test -- test/oracle.test.js"
+      command: "MITII_NO_LISTEN=1 node --test test/oracle.test.js"
       timeoutMs: 120000`);
   }
 

@@ -328,7 +328,7 @@ describe("OrderPipeline", () => {
     packages: [],
     bases: ["base-node"],
     gradeFile: "src/csvTransform.js",
-    markers: ["Transform","jsonl"],
+    markers: ["Transform","Jsonl"],
     files: {
       "src/csvTransform.js": `import { Transform } from "node:stream";
 
@@ -749,6 +749,9 @@ describe("getPublicFile", () => {
       "package.json": `{
   "name": "dual-package-demo",
   "type": "module",
+  "scripts": {
+    "build": "node -e \\"console.log('build ok')\\""
+  },
   "exports": {
     ".": {
       "import": "./src/formatCurrency.js",
@@ -818,8 +821,13 @@ export async function writeEnvFile({ host, port, user }, outputPath = ".env") {
   return body;
 }
 
-export async function runInteractiveEnvWizard(input, output, outputPath = ".env") {
-  const rl = createInterface({ input, output });
+export async function runInteractiveEnvWizard(
+  input,
+  output,
+  outputPath = ".env",
+  createInterfaceFn = createInterface,
+) {
+  const rl = createInterfaceFn({ input, output });
   try {
     const host = await rl.question("Database Host: ");
     const port = await rl.question("Database Port: ");
@@ -840,8 +848,15 @@ import assert from "node:assert/strict";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { Readable } from "node:stream";
+import { Writable } from "node:stream";
 import { writeEnvFile, runInteractiveEnvWizard } from "../src/envWizard.js";
+
+function mockCreateInterface(answers) {
+  return () => ({
+    question: async (prompt) => answers[prompt] ?? "",
+    close() {},
+  });
+}
 
 describe("env wizard", () => {
   /** @type {string} */
@@ -864,8 +879,19 @@ describe("env wizard", () => {
 
   it("skips writing when user declines confirmation", async () => {
     const path = join(dir, "skip.env");
-    const script = ["db.local", "5432", "app", "n", ""].join("\\n");
-    const result = await runInteractiveEnvWizard(Readable.from([script]), null, path);
+    const answers = {
+      "Database Host: ": "db.local",
+      "Database Port: ": "5432",
+      "Database User: ": "app",
+      "Write .env? (y/N): ": "n",
+    };
+    const output = new Writable({ write(_chunk, _enc, cb) { cb(); } });
+    const result = await runInteractiveEnvWizard(
+      null,
+      output,
+      path,
+      mockCreateInterface(answers),
+    );
     assert.equal(result, null);
     await assert.rejects(() => readFile(path, "utf8"));
   });
@@ -1008,11 +1034,7 @@ describe("fetchWithTimeout", () => {
       "src/crashGuard.js": `import { appendFile, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 
-let installed = false;
-
 export function installCrashGuard(logPath = "logs/crash.log", options = {}) {
-  if (installed) return { installed: false };
-  installed = true;
   const exitFn = options.exitFn ?? (() => process.exit(1));
 
   async function logAndExit(kind, error) {
@@ -1069,8 +1091,11 @@ describe("installCrashGuard", () => {
   it("writes structured JSON when unhandledRejection fires", async () => {
     const logPath = join(dir, "reject.log");
     installCrashGuard(logPath, { exitFn() {} });
-    process.emit("unhandledRejection", new Error("boom"));
-    await new Promise((r) => setTimeout(r, 50));
+    const handlers = process.listeners("unhandledRejection");
+    const handler = handlers.at(-1);
+    assert.equal(typeof handler, "function");
+    handler(new Error("boom"), Promise.resolve());
+    await new Promise((r) => setTimeout(r, 100));
     const lines = (await readFile(logPath, "utf8")).trim().split("\\n");
     const last = JSON.parse(lines.at(-1));
     assert.equal(last.kind, "unhandledRejection");
@@ -1100,11 +1125,11 @@ export function workerCount() {
   return os.cpus().length;
 }
 
-export function forkWorkers(onMessage) {
-  if (!cluster.isPrimary) return [];
+export function forkWorkers(onMessage, clusterModule = cluster) {
+  if (!clusterModule.isPrimary) return [];
   const workers = [];
   for (let i = 0; i < workerCount(); i++) {
-    const worker = cluster.fork();
+    const worker = clusterModule.fork();
     onMessage?.(worker);
     workers.push(worker);
   }
@@ -1121,7 +1146,9 @@ export function startClusterServer(port = Number(process.env.PORT || 3000)) {
     res.writeHead(200, { "content-type": "application/json" });
     res.end(JSON.stringify({ pid: process.pid, worker: true }));
   });
-  server.listen(port);
+  if (process.env.MITII_NO_LISTEN !== "1") {
+    server.listen(port);
+  }
   return server;
 }
 `,
@@ -1136,9 +1163,29 @@ describe("clusterServer helpers", () => {
     assert.equal(workerCount(), os.cpus().length);
   });
 
-  it("returns an array from forkWorkers in worker context", () => {
-    const workers = forkWorkers();
-    assert.ok(Array.isArray(workers));
+  it("forkWorkers returns empty array when not primary", () => {
+    const fakeCluster = {
+      isPrimary: false,
+      fork() {
+        throw new Error("fork should not be called");
+      },
+    };
+    assert.deepEqual(forkWorkers(undefined, fakeCluster), []);
+  });
+
+  it("forkWorkers invokes onMessage for each forked worker", () => {
+    let forkCalls = 0;
+    const fakeCluster = {
+      isPrimary: true,
+      fork() {
+        forkCalls += 1;
+        return { id: forkCalls };
+      },
+    };
+    const seen = [];
+    const workers = forkWorkers((worker) => seen.push(worker), fakeCluster);
+    assert.equal(workers.length, os.cpus().length);
+    assert.equal(seen.length, os.cpus().length);
   });
 });
 `,
@@ -1159,7 +1206,9 @@ describe("clusterServer helpers", () => {
       "src/gzipMiddleware.js": `import zlib from "node:zlib";
 
 export function shouldCompress(req) {
-  const accept = String(req.headers["accept-encoding"] ?? "");
+  const accept = String(
+    req.headers["Accept-Encoding"] ?? req.headers["accept-encoding"] ?? "",
+  );
   return accept.includes("gzip");
 }
 
@@ -1170,18 +1219,21 @@ export function sendMaybeCompressed(req, res, body, contentType = "application/j
     res.end(payload);
     return;
   }
-  zlib.gzip(Buffer.from(payload), (err, compressed) => {
-    if (err) {
-      res.writeHead(500);
-      res.end("compression failed");
-      return;
-    }
+  const gzip = zlib.createGzip();
+  const chunks = [];
+  gzip.on("data", (chunk) => chunks.push(chunk));
+  gzip.on("error", () => {
+    res.writeHead(500);
+    res.end("compression failed");
+  });
+  gzip.on("end", () => {
     res.writeHead(200, {
       "content-type": contentType,
       "content-encoding": "gzip",
     });
-    res.end(compressed);
+    res.end(Buffer.concat(chunks));
   });
+  gzip.end(payload);
 }
 `,
       "src/index.js": `import http from "node:http";

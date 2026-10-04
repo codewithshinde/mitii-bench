@@ -10,4 +10,4 @@
 - contains:
     file: src/users/users.controller.ts
     text: "@Post"
-- http: {"start":{"command":"npm run start:dev"},"timeoutMs":30000,"requests":[{"method":"GET","path":"/users","expect":{"status":200,"jsonType":"array"}},{"method":"POST","path":"/users","json":{"email":"new@example.com"},"headers":{"content-type":"application/json"},"expect":{"status":200,"jsonSubset":{"email":"new@example.com"}}}]}
+- http: {"start":{"command":"npm run start:dev"},"timeoutMs":30000,"requests":[{"method":"GET","path":"/users","expect":{"status":200,"jsonType":"array"}},{"method":"POST","path":"/users","json":{"email":"new@example.com"},"headers":{"content-type":"application/json"},"expect":{"status":201,"jsonSubset":{"email":"new@example.com"}}}]}

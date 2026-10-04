@@ -3,8 +3,15 @@ import assert from "node:assert/strict";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { Readable } from "node:stream";
+import { Writable } from "node:stream";
 import { writeEnvFile, runInteractiveEnvWizard } from "../src/envWizard.js";
+
+function mockCreateInterface(answers) {
+  return () => ({
+    question: async (prompt) => answers[prompt] ?? "",
+    close() {},
+  });
+}
 
 describe("env wizard", () => {
   /** @type {string} */
@@ -27,8 +34,19 @@ describe("env wizard", () => {
 
   it("skips writing when user declines confirmation", async () => {
     const path = join(dir, "skip.env");
-    const script = ["db.local", "5432", "app", "n", ""].join("\n");
-    const result = await runInteractiveEnvWizard(Readable.from([script]), null, path);
+    const answers = {
+      "Database Host: ": "db.local",
+      "Database Port: ": "5432",
+      "Database User: ": "app",
+      "Write .env? (y/N): ": "n",
+    };
+    const output = new Writable({ write(_chunk, _enc, cb) { cb(); } });
+    const result = await runInteractiveEnvWizard(
+      null,
+      output,
+      path,
+      mockCreateInterface(answers),
+    );
     assert.equal(result, null);
     await assert.rejects(() => readFile(path, "utf8"));
   });

@@ -8,8 +8,28 @@ describe("clusterServer helpers", () => {
     assert.equal(workerCount(), os.cpus().length);
   });
 
-  it("returns an array from forkWorkers in worker context", () => {
-    const workers = forkWorkers();
-    assert.ok(Array.isArray(workers));
+  it("forkWorkers returns empty array when not primary", () => {
+    const fakeCluster = {
+      isPrimary: false,
+      fork() {
+        throw new Error("fork should not be called");
+      },
+    };
+    assert.deepEqual(forkWorkers(undefined, fakeCluster), []);
+  });
+
+  it("forkWorkers invokes onMessage for each forked worker", () => {
+    let forkCalls = 0;
+    const fakeCluster = {
+      isPrimary: true,
+      fork() {
+        forkCalls += 1;
+        return { id: forkCalls };
+      },
+    };
+    const seen = [];
+    const workers = forkWorkers((worker) => seen.push(worker), fakeCluster);
+    assert.equal(workers.length, os.cpus().length);
+    assert.equal(seen.length, os.cpus().length);
   });
 });

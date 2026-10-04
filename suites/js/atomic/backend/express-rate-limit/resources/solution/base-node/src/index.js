@@ -7,7 +7,9 @@ app.use(rateLimitMiddleware);
 app.get("/ping", (_req, res) => res.json({ pong: true }));
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(`listening on ${address.port}`);
 });

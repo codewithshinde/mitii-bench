@@ -30,8 +30,11 @@ describe("installCrashGuard", () => {
   it("writes structured JSON when unhandledRejection fires", async () => {
     const logPath = join(dir, "reject.log");
     installCrashGuard(logPath, { exitFn() {} });
-    process.emit("unhandledRejection", new Error("boom"));
-    await new Promise((r) => setTimeout(r, 50));
+    const handlers = process.listeners("unhandledRejection");
+    const handler = handlers.at(-1);
+    assert.equal(typeof handler, "function");
+    handler(new Error("boom"), Promise.resolve());
+    await new Promise((r) => setTimeout(r, 100));
     const lines = (await readFile(logPath, "utf8")).trim().split("\n");
     const last = JSON.parse(lines.at(-1));
     assert.equal(last.kind, "unhandledRejection");

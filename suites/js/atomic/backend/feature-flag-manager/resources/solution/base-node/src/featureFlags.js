@@ -2,8 +2,9 @@ import { createHash } from "node:crypto";
 
 const flags = new Map();
 
+/** Configure percentage rollout for a feature key (0–100). */
 export function setFeatureRollout(key, pct) {
-  flags.set(key, { pct: Math.max(0, Math.min(100, Number(pct))) });
+  flags.set(key, { pct: Math.max(0, Math.min(100, Number(pct))), rollout: true });
 }
 
 function bucket(userId, key) {

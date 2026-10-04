@@ -17,5 +17,5 @@ grade:
   - package_deps:
       packages: ["jose"]
   - api_oracle:
-      command: "npm test -- test/oracle.test.js"
+      command: "MITII_NO_LISTEN=1 node --test test/oracle.test.js"
       timeoutMs: 120000

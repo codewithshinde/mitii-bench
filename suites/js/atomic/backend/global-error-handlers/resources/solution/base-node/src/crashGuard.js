@@ -1,11 +1,7 @@
 import { appendFile, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 
-let installed = false;
-
 export function installCrashGuard(logPath = "logs/crash.log", options = {}) {
-  if (installed) return { installed: false };
-  installed = true;
   const exitFn = options.exitFn ?? (() => process.exit(1));
 
   async function logAndExit(kind, error) {

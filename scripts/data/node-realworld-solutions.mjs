@@ -65,7 +65,9 @@ app.delete("/articles/:id", async (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -148,7 +150,9 @@ app.post("/admin/keys", (req, res) => res.status(201).json({ key: createApiKey(r
 app.get("/protected", apiKeyMiddleware, (req, res) => res.json({ ok: true, usage: req.apiKey.usage_count + 1 }));
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -211,7 +215,9 @@ app.post("/webhook", express.raw({ type: "*/*" }), (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -270,7 +276,9 @@ app.get("/health/readiness", (_req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -341,7 +349,9 @@ app.get("/api/jobs/:id", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -396,7 +406,9 @@ app.post("/api/files/download-zip", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -433,7 +445,9 @@ const app = express();
 app.get("/slow", (_req, res) => setTimeout(() => res.json({ ok: true }), 50));
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -493,7 +507,9 @@ app.get("/api/events", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -597,7 +613,9 @@ app.post("/items", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -658,7 +676,9 @@ app.post("/resources", (req, res) => res.status(201).json({ id: 1, ...req.body }
 app.delete("/resources/:id", (req, res) => res.status(204).end());
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -727,7 +747,9 @@ app.post("/upload/complete", express.json(), async (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -882,7 +904,9 @@ app.get("/export/users.csv", (_req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -946,7 +970,9 @@ app.post("/login", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -1002,7 +1028,9 @@ app.get("/items", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -1107,7 +1135,9 @@ app.post("/logout", (req, res) => {
 app.get("/check/:jti", (req, res) => res.json({ revoked: blacklist.has(req.params.jti) }));
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -1235,8 +1265,9 @@ describe("content-negotiation", () => {
 
 const flags = new Map();
 
+/** Configure percentage rollout for a feature key (0–100). */
 export function setFeatureRollout(key, pct) {
-  flags.set(key, { pct: Math.max(0, Math.min(100, Number(pct))) });
+  flags.set(key, { pct: Math.max(0, Math.min(100, Number(pct))), rollout: true });
 }
 
 function bucket(userId, key) {
@@ -1361,7 +1392,9 @@ app.use(idempotencyMiddleware);
 app.post("/pay", (req, res) => res.status(201).json({ paid: true, amount: req.body?.amount ?? 0 }));
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -1466,7 +1499,9 @@ app.use(shadowMiddleware("http://staging.internal"));
 app.get("/api/data", (_req, res) => res.json({ ok: true }));
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -1571,7 +1606,9 @@ app.post("/api/reports/invoice-pdf", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -1620,7 +1657,9 @@ const app = express();
 app.get("/config", (_req, res) => res.json(config));
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -1692,7 +1731,9 @@ app.post("/login", (req, res) => {
 app.get("/me", (req, res) => res.json(req.session));
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -1843,7 +1884,9 @@ app.post("/graphql", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -1900,7 +1943,9 @@ app.use(i18nMiddleware);
 app.get("/hello", (req, res) => res.json({ message: req.__("greeting"), locale: req.locale }));
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -2057,7 +2102,9 @@ app.post("/2fa/verify", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -2121,7 +2168,9 @@ app.use(
 );
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -2225,7 +2274,9 @@ app.get("/stats/:code", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -2380,7 +2431,9 @@ app.get("/health", (_req, res) => res.json({ ok: true }));
 app.get("/boom", (_req, res) => res.status(500).json({ error: "boom" }));
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -2430,7 +2483,9 @@ app.post("/auth/saml/acs", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
@@ -2522,7 +2577,9 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: err.message });
 });
 
-const server = app.listen(config.PORT, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(config.PORT, () => {
   const addr = server.address();
   log.info({ port: typeof addr === "object" ? addr?.port : config.PORT }, "server started");
 });

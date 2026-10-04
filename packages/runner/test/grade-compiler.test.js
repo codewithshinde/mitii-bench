@@ -30,7 +30,9 @@ test("compiles package_deps and api_oracle", () => {
   assert.deepEqual(pkg.packages, ["zod", "multer"]);
   assert.ok(
     checks.some(
-      (c) => c.type === "command" && c.command === "npm test -- test/oracle.test.js",
+      (c) =>
+        c.type === "command" &&
+        c.command === "MITII_NO_LISTEN=1 node --test test/oracle.test.js",
     ),
   );
 });

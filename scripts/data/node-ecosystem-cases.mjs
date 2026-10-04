@@ -200,7 +200,9 @@ app.get("/fail", (_req, _res, next) => next(new Error("Internal failure")));
 app.use(errorMiddleware);
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") {
     console.log(\`listening on \${address.port}\`);
@@ -335,7 +337,9 @@ app.use(rateLimitMiddleware);
 app.get("/ping", (_req, res) => res.json({ pong: true }));
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(\`listening on \${address.port}\`);
 });
@@ -427,7 +431,9 @@ app.post("/api/users", validateUserBody, (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(\`listening on \${address.port}\`);
 });
@@ -522,7 +528,9 @@ app.post("/api/upload", (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(\`listening on \${address.port}\`);
 });
@@ -583,7 +591,9 @@ app.post("/login", (req, res) => {
 app.get("/protected", authenticateToken, (req, res) => res.json({ user: req.user }));
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(\`listening on \${address.port}\`);
 });
@@ -652,7 +662,9 @@ app.use("/api/v1/products", productsRouter);
 app.use("/api/v1/orders", ordersRouter);
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(\`listening on \${address.port}\`);
 });
@@ -733,7 +745,9 @@ app.get("/data", (_req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(\`listening on \${address.port}\`);
 });
@@ -1360,7 +1374,9 @@ app.use(cacheMiddleware);
 app.get("/api/items", (_req, res) => res.json({ items: [1, 2, 3] }));
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(\`listening on \${address.port}\`);
 });
@@ -1623,7 +1639,7 @@ describe("UsersController", () => {
           path: "/users",
           json: { email: "new@example.com" },
           headers: { "content-type": "application/json" },
-          expect: { status: 200, jsonSubset: { email: "new@example.com" } },
+          expect: { status: 201, jsonSubset: { email: "new@example.com" } },
         },
       ],
     },
@@ -1860,7 +1876,9 @@ app.get("/auth/google/callback", passport.authenticate("google", { failureRedire
 });
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(\`listening on \${address.port}\`);
 });
@@ -1930,7 +1948,9 @@ app.post("/token/refresh", async (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(\`listening on \${address.port}\`);
 });
@@ -2204,7 +2224,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(spec));
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
 
 const port = Number(process.env.PORT || 0);
-export const server = app.listen(port, () => {
+export const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(port, () => {
   const address = server.address();
   if (address && typeof address === "object") console.log(\`listening on \${address.port}\`);
 });

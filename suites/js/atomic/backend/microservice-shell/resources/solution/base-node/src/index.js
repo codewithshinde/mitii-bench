@@ -23,7 +23,9 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: err.message });
 });
 
-const server = app.listen(config.PORT, () => {
+const server = process.env.MITII_NO_LISTEN === "1"
+  ? { close() {}, address: () => null }
+  : app.listen(config.PORT, () => {
   const addr = server.address();
   log.info({ port: typeof addr === "object" ? addr?.port : config.PORT }, "server started");
 });
