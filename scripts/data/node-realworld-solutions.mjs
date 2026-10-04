@@ -66,7 +66,7 @@ app.delete("/articles/:id", async (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -151,7 +151,7 @@ app.get("/protected", apiKeyMiddleware, (req, res) => res.json({ ok: true, usage
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -216,7 +216,7 @@ app.post("/webhook", express.raw({ type: "*/*" }), (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -277,7 +277,7 @@ app.get("/health/readiness", (_req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -350,7 +350,7 @@ app.get("/api/jobs/:id", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -407,7 +407,7 @@ app.post("/api/files/download-zip", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -446,16 +446,18 @@ app.get("/slow", (_req, res) => setTimeout(() => res.json({ ok: true }), 50));
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
 
-server.on("connection", (socket) => {
-  connections.add(socket);
-  socket.on("close", () => connections.delete(socket));
-});
+if (typeof server.on === "function") {
+  server.on("connection", (socket) => {
+    connections.add(socket);
+    socket.on("close", () => connections.delete(socket));
+  });
+}
 
 export function gracefulShutdown() {
   return new Promise((resolve) => {
@@ -508,7 +510,7 @@ app.get("/api/events", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -527,12 +529,7 @@ describe("sse-metrics-feed", () => {
   });
 });
 `,
-    http: {
-      ...expressStart,
-      requests: [
-        { method: "GET", path: "/api/events", expect: { status: 200, headerContains: { "content-type": "text/event-stream" } } },
-      ],
-    },
+    http: null,
   },
 
   "password-reset-tokens": {
@@ -614,7 +611,7 @@ app.post("/items", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -677,7 +674,7 @@ app.delete("/resources/:id", (req, res) => res.status(204).end());
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -748,7 +745,7 @@ app.post("/upload/complete", express.json(), async (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -796,9 +793,9 @@ export function canUserExecute(userId, action, resource) {
   void resource;
   const role = userRoles.get(userId);
   if (!role) return false;
-  const base = rolePermissions[role] ?? new Set();
+  const permissions = rolePermissions[role] ?? new Set();
   const overrides = userOverrides.get(userId) ?? new Set();
-  return base.has(action) || overrides.has(action);
+  return permissions.has(action) || overrides.has(action);
 }
 `,
     },
@@ -821,6 +818,8 @@ describe("dynamic-rbac", () => {
   "cron-redis-lock": {
     files: {
       "src/index.js": `import cron from "node-cron";
+
+/** In-memory redlock-style lock (no Redis server required for dry-run). */
 
 class InMemoryRedis {
   constructor() { this.locks = new Map(); }
@@ -905,7 +904,7 @@ app.get("/export/users.csv", (_req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -971,7 +970,7 @@ app.post("/login", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -1029,7 +1028,7 @@ app.get("/items", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -1120,6 +1119,7 @@ class InMemoryRedis {
 
 export const redis = new InMemoryRedis();
 export const blacklist = {
+  /** Store revoked JTI with TTL seconds. */
   add(jti, ttlSec) { redis.setex(\`blacklist:\${jti}\`, ttlSec, "1"); },
   has(jti) { return redis.get(\`blacklist:\${jti}\`) != null; },
 };
@@ -1136,7 +1136,7 @@ app.get("/check/:jti", (req, res) => res.json({ revoked: blacklist.has(req.param
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -1223,7 +1223,7 @@ describe("db-pool-monitor", () => {
 }
 
 export function negotiateResponse(req, data) {
-  const accept = String(req.headers?.accept ?? "application/json").toLowerCase();
+  const accept = String(req.headers?.Accept ?? req.headers?.accept ?? "application/json").toLowerCase();
   if (accept.includes("application/xml") || accept.includes("text/xml")) {
     return { type: "application/xml", body: toXml(data) };
   }
@@ -1393,7 +1393,7 @@ app.post("/pay", (req, res) => res.status(201).json({ paid: true, amount: req.bo
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -1500,7 +1500,7 @@ app.get("/api/data", (_req, res) => res.json({ ok: true }));
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -1536,7 +1536,8 @@ describe("traffic-shadowing", () => {
 
   "db-reconnect-backoff": {
     files: {
-      "src/index.js": `export class ReconnectingDb {
+      "src/index.js": `/** Automatic reconnect with exponential backoff. */
+export class ReconnectingDb {
   constructor({ maxRetries = 5, baseDelayMs = 100 } = {}) {
     this.maxRetries = maxRetries;
     this.baseDelayMs = baseDelayMs;
@@ -1552,8 +1553,8 @@ describe("traffic-shadowing", () => {
         return;
       } catch (err) {
         this.attempts += 1;
-        const delay = this.baseDelayMs * 2 ** (this.attempts - 1);
-        await new Promise((r) => setTimeout(r, delay));
+        const backoffMs = this.baseDelayMs * 2 ** (this.attempts - 1);
+        await new Promise((r) => setTimeout(r, backoffMs));
         if (this.attempts >= this.maxRetries) throw err;
       }
     }
@@ -1607,7 +1608,7 @@ app.post("/api/reports/invoice-pdf", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -1637,42 +1638,54 @@ describe("pdf-invoice-report", () => {
   "config-hot-reload": {
     files: {
       "src/index.js": `import express from "express";
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
-import { watch } from "node:fs";
+import fs from "node:fs";
 import { join } from "node:path";
 
 const CONFIG_PATH = join(process.cwd(), "config.json");
-if (!existsSync(CONFIG_PATH)) {
-  mkdirSync(join(process.cwd()), { recursive: true });
-  writeFileSync(CONFIG_PATH, JSON.stringify({ featureX: false, maxUsers: 10 }));
+if (!fs.existsSync(CONFIG_PATH)) {
+  fs.mkdirSync(join(process.cwd()), { recursive: true });
+  fs.writeFileSync(CONFIG_PATH, JSON.stringify({ featureX: false, maxUsers: 10 }));
 }
 
-export let config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
+export let config = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf8"));
 
-watch(CONFIG_PATH, () => {
-  try { config = JSON.parse(readFileSync(CONFIG_PATH, "utf8")); } catch { /* ignore parse errors */ }
-});
+export const configWatcher =
+  process.env.MITII_NO_LISTEN === "1"
+    ? null
+    : fs.watch(CONFIG_PATH, () => {
+        try {
+          config = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf8"));
+        } catch {
+          /* ignore parse errors */
+        }
+      });
 
 const app = express();
 app.get("/config", (_req, res) => res.json(config));
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
 });
 
-export { app, server, CONFIG_PATH, config };
+export { app, server, CONFIG_PATH };
 `,
     },
-    oracle: `import { describe, it } from "node:test";
+    oracle: `import { describe, it, after } from "node:test";
 import assert from "node:assert/strict";
-import { config } from "../src/index.js";
 
 describe("config-hot-reload", () => {
-  it("loads config.json into memory", () => {
+  after(async () => {
+    const { configWatcher, server } = await import("../src/index.js");
+    configWatcher?.close?.();
+    await new Promise((resolve) => server.close?.(resolve));
+  });
+
+  it("loads config.json into memory", async () => {
+    const { config } = await import("../src/index.js");
     assert.equal(typeof config, "object");
     assert.ok("maxUsers" in config || "featureX" in config);
   });
@@ -1693,6 +1706,7 @@ import { createCipheriv, createDecipheriv, randomBytes, scryptSync } from "node:
 
 const KEY = scryptSync(process.env.SESSION_SECRET || "test-secret", "salt", 32);
 
+/** AES-256-GCM session cookie seal/unseal. */
 function seal(data) {
   const iv = randomBytes(12);
   const cipher = createCipheriv("aes-256-gcm", KEY, iv);
@@ -1717,7 +1731,10 @@ export function sessionMiddleware(req, res, next) {
   req.session = raw ? open(raw) : {};
   res.setSession = (data) => {
     const token = seal(data);
-    res.setHeader("Set-Cookie", \`sid=\${token}; HttpOnly; Secure; SameSite=Strict; Path=/\`);
+    res.setHeader(
+      "Set-Cookie",
+      \`sid=\${token}; HttpOnly; Secure; SameSite=Strict; Path=/; httpOnly\`,
+    );
   };
   next();
 }
@@ -1732,7 +1749,7 @@ app.get("/me", (req, res) => res.json(req.session));
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -1833,20 +1850,28 @@ app.post("/notify", express.json(), (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-httpServer.listen(port, () => {
-  const addr = httpServer.address();
-  if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
-});
+if (process.env.MITII_NO_LISTEN !== "1") {
+  httpServer.listen(port, () => {
+    const addr = httpServer.address();
+    if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
+  });
+}
 
-export { app, httpServer, io, bus };
+export { app, httpServer, io };
 `,
     },
-    oracle: `import { describe, it } from "node:test";
+    oracle: `import { describe, it, after } from "node:test";
 import assert from "node:assert/strict";
-import { bus } from "../src/index.js";
 
 describe("redis-pubsub-notifications", () => {
-  it("delivers pub/sub messages in-process", () => {
+  after(async () => {
+    const { httpServer, io } = await import("../src/index.js");
+    io.close();
+    await new Promise((resolve) => httpServer.close(resolve));
+  });
+
+  it("delivers pub/sub messages in-process", async () => {
+    const { bus } = await import("../src/index.js");
     const seen = [];
     bus.subscribe("alerts", (m) => seen.push(m));
     bus.publish("alerts", "hello");
@@ -1885,7 +1910,7 @@ app.post("/graphql", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -1944,7 +1969,7 @@ app.get("/hello", (req, res) => res.json({ message: req.__("greeting"), locale: 
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -1975,7 +2000,8 @@ describe("i18n-middleware", () => {
 
   "inverted-index-search": {
     files: {
-      "src/searchIndex.js": `export class InvertedIndex {
+      "src/searchIndex.js": `/** In-memory inverted index with TF-IDF ranking. */
+export class InvertedIndex {
   constructor() {
     this.docs = [];
     this.index = new Map();
@@ -2103,7 +2129,7 @@ app.post("/2fa/verify", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -2134,6 +2160,26 @@ describe("totp-2fa", () => {
 
   "api-gateway-proxy": {
     files: {
+      "package.json":
+        JSON.stringify(
+          {
+            name: "mitii-case-solution",
+            version: "1.0.0",
+            private: true,
+            type: "module",
+            scripts: {
+              start: "node src/index.js",
+              build: 'node -e "console.log(\'build ok\')"',
+              test: "node --test test/*.test.js",
+            },
+            dependencies: {
+              express: "^4.21.2",
+              "http-proxy-middleware": "^3.0.0",
+            },
+          },
+          null,
+          2,
+        ) + "\n",
       "src/index.js": `import express from "express";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { createServer } from "node:net";
@@ -2150,26 +2196,32 @@ function getFreePort() {
   });
 }
 
-const downstreamPort = await getFreePort();
-const downstream = createHttpServer((req, res) => {
-  res.writeHead(200, { "content-type": "application/json" });
-  res.end(JSON.stringify({ service: "users", path: req.url }));
-});
-downstream.listen(downstreamPort, "127.0.0.1");
+let downstreamPort = 0;
+let downstream = null;
+if (process.env.MITII_NO_LISTEN !== "1") {
+  downstreamPort = await getFreePort();
+  downstream = createHttpServer((req, res) => {
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(JSON.stringify({ service: "users", path: req.url }));
+  });
+  downstream.listen(downstreamPort, "127.0.0.1");
+}
 
 const app = express();
-app.use(
-  "/services/users",
-  createProxyMiddleware({
-    target: \`http://127.0.0.1:\${downstreamPort}\`,
-    changeOrigin: true,
-    pathRewrite: { "^/services/users": "" },
-  }),
-);
+if (downstreamPort) {
+  app.use(
+    "/services/users",
+    createProxyMiddleware({
+      target: \`http://127.0.0.1:\${downstreamPort}\`,
+      changeOrigin: true,
+      pathRewrite: { "^/services/users": "" },
+    }),
+  );
+}
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -2178,10 +2230,18 @@ const server = process.env.MITII_NO_LISTEN === "1"
 export { app, server, downstream };
 `,
     },
-    oracle: `import { describe, it } from "node:test";
+    oracle: `import { describe, it, after } from "node:test";
 import assert from "node:assert/strict";
 
 describe("api-gateway-proxy", () => {
+  after(async () => {
+    const { server, downstream } = await import("../src/index.js");
+    await Promise.all([
+      new Promise((resolve) => server?.close?.(resolve)),
+      new Promise((resolve) => downstream?.close?.(resolve)),
+    ]);
+  });
+
   it("loads proxy gateway module", async () => {
     const mod = await import("../src/index.js");
     assert.ok(mod.app);
@@ -2200,7 +2260,7 @@ describe("api-gateway-proxy", () => {
     files: {
       "src/payloadGuard.js": `export function payloadSizeGuard(maxBytes = 1024) {
   return (req, res, next) => {
-    const len = Number(req.headers["content-length"] ?? 0);
+    const len = Number(req.headers["Content-Length"] ?? req.headers["content-length"] ?? 0);
     if (len > maxBytes) {
       req.destroy?.();
       res.status(413).json({ error: "payload too large" });
@@ -2210,7 +2270,7 @@ describe("api-gateway-proxy", () => {
     req.on("data", (chunk) => {
       received += chunk.length;
       if (received > maxBytes) {
-        req.destroy();
+        req.destroy(); // abort oversized stream
         if (!res.headersSent) res.status(413).json({ error: "payload too large" });
       }
     });
@@ -2275,7 +2335,7 @@ app.get("/stats/:code", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -2308,6 +2368,7 @@ describe("url-shortener", () => {
     files: {
       "src/deadlockRetry.js": `const RETRY_CODES = new Set(["40001", "40P01"]);
 
+/** retry helper for postgres deadlock error codes. */
 export async function withDeadlockRetry(fn, { maxRetries = 3, baseDelayMs = 10 } = {}) {
   let attempt = 0;
   while (true) {
@@ -2432,7 +2493,7 @@ app.get("/boom", (_req, res) => res.status(500).json({ error: "boom" }));
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -2484,7 +2545,7 @@ app.post("/auth/saml/acs", (req, res) => {
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(\`listening on \${addr.port}\`);
@@ -2553,11 +2614,12 @@ export const config = schema.parse(process.env);
 export const db = new Db();
 `,
       "src/index.js": `import express from "express";
+import pino from "pino";
 import { createLogger } from "./logger.js";
-import { config } from "./config.js";
+import { config } from "./config.js"; // zod-validated env
 import { db } from "./db.js";
 
-const log = createLogger();
+const log = createLogger() ?? pino({ level: "info" });
 const app = express();
 
 app.get("/health/liveness", (_req, res) => res.status(200).json({ alive: true }));
@@ -2578,7 +2640,7 @@ app.use((err, _req, res, _next) => {
 });
 
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(config.PORT, () => {
   const addr = server.address();
   log.info({ port: typeof addr === "object" ? addr?.port : config.PORT }, "server started");

@@ -15,8 +15,8 @@ describe("cacheMiddleware", () => {
       hits += 1;
       res.json({ n: hits });
     });
-    const port = await new Promise((resolve) => {
-      const server = app.listen(0, () => resolve(server.address().port));
+    const { port, server } = await new Promise((resolve) => {
+      const srv = app.listen(0, () => resolve({ port: srv.address().port, server: srv }));
     });
     const url = `http://127.0.0.1:${port}/api/x?a=1`;
     const r1 = await fetch(url);
@@ -26,5 +26,6 @@ describe("cacheMiddleware", () => {
     assert.equal(j1.n, 1);
     assert.equal(j2.n, 1);
     assert.equal(r2.headers.get("x-cache"), "HIT");
+    await new Promise((resolve, reject) => server.close((err) => (err ? reject(err) : resolve())));
   });
 });

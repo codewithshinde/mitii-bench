@@ -22,7 +22,14 @@ export const prisma = {
     },
   },
   async $transaction(fn) {
-    const tx = db.transaction(() => fn(prisma));
-    return tx();
+    db.exec("BEGIN IMMEDIATE");
+    try {
+      const result = await fn(prisma);
+      db.exec("COMMIT");
+      return result;
+    } catch (err) {
+      db.exec("ROLLBACK");
+      throw err;
+    }
   },
 };

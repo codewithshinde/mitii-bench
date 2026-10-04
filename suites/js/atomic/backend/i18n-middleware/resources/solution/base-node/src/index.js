@@ -25,7 +25,7 @@ app.get("/hello", (req, res) => res.json({ message: req.__("greeting"), locale: 
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(`listening on ${addr.port}`);

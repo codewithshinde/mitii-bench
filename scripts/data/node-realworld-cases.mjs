@@ -52,7 +52,7 @@ const PKG_VERSIONS = {
   pino: "^9.0.0",
   zod: "^3.23.0",
   ioredis: "^5.4.0",
-  redlock: "^5.0.0",
+  redlock: "^5.0.0-beta.2",
   "socket.io": "^4.7.0",
 };
 

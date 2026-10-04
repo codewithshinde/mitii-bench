@@ -1,3 +1,4 @@
+/** Automatic reconnect with exponential backoff. */
 export class ReconnectingDb {
   constructor({ maxRetries = 5, baseDelayMs = 100 } = {}) {
     this.maxRetries = maxRetries;
@@ -14,8 +15,8 @@ export class ReconnectingDb {
         return;
       } catch (err) {
         this.attempts += 1;
-        const delay = this.baseDelayMs * 2 ** (this.attempts - 1);
-        await new Promise((r) => setTimeout(r, delay));
+        const backoffMs = this.baseDelayMs * 2 ** (this.attempts - 1);
+        await new Promise((r) => setTimeout(r, backoffMs));
         if (this.attempts >= this.maxRetries) throw err;
       }
     }

@@ -1,3 +1,4 @@
+/** CORS middleware for custom origin and header rules. */
 const ALLOWED_METHODS = "GET, POST, PUT, DELETE";
 const EXPOSED = "X-Total-Count";
 

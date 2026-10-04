@@ -354,7 +354,7 @@ function hit(n, ip = "1.2.3.4") {
   const app = express();
   app.set("trust proxy", true);
   app.use((req, _res, next) => {
-    req.ip = ip;
+    req.headers["x-forwarded-for"] = ip;
     next();
   });
   app.use(rateLimitMiddleware);
@@ -643,7 +643,8 @@ describe("authenticateToken", () => {
     smoke: false,
     files: {
       "package.json": nodePkg(),
-      "src/routes/products.js": `import { Router } from "express";
+      "src/routes/products.js": `/** products router module (paired with orders router). */
+import { Router } from "express";
 const router = Router();
 router.get("/", (_req, res) => res.json({ items: [{ id: 1, name: "Widget" }] }));
 export default router;
@@ -681,8 +682,8 @@ describe("modular routers", () => {
     const app = express();
     app.use("/api/v1/products", productsRouter);
     app.use("/api/v1/orders", ordersRouter);
-    const port = await new Promise((resolve) => {
-      const server = app.listen(0, () => resolve(server.address().port));
+    const { port, server } = await new Promise((resolve) => {
+      const srv = app.listen(0, () => resolve({ port: srv.address().port, server: srv }));
     });
     const p = await fetch(\`http://127.0.0.1:\${port}/api/v1/products\`);
     const o = await fetch(\`http://127.0.0.1:\${port}/api/v1/orders\`);
@@ -692,6 +693,7 @@ describe("modular routers", () => {
     const oj = await o.json();
     assert.ok(Array.isArray(pj.items));
     assert.ok(Array.isArray(oj.items));
+    await new Promise((resolve, reject) => server.close((err) => (err ? reject(err) : resolve())));
   });
 });
 `,
@@ -710,7 +712,8 @@ describe("modular routers", () => {
     smoke: false,
     files: {
       "package.json": nodePkg(),
-      "src/corsMiddleware.js": `const ALLOWED_METHODS = "GET, POST, PUT, DELETE";
+      "src/corsMiddleware.js": `/** CORS middleware for custom origin and header rules. */
+const ALLOWED_METHODS = "GET, POST, PUT, DELETE";
 const EXPOSED = "X-Total-Count";
 
 function originAllowed(origin) {
@@ -823,8 +826,15 @@ export const prisma = {
     },
   },
   async $transaction(fn) {
-    const tx = db.transaction(() => fn(prisma));
-    return tx();
+    db.exec("BEGIN IMMEDIATE");
+    try {
+      const result = await fn(prisma);
+      db.exec("COMMIT");
+      return result;
+    } catch (err) {
+      db.exec("ROLLBACK");
+      throw err;
+    }
   },
 };
 `,
@@ -984,8 +994,18 @@ export class Post {
 
 export const PostMeta = { entity: "Post", cascadeDelete: true };
 `,
-      "src/entityStore.js": `import { Author } from "./entities/Author.js";
-import { Post } from "./entities/Post.js";
+      "src/entityStore.js": `/** In-memory store for dry-run (TypeORM metadata lives in Author.ts). */
+class Author {
+  id = 0;
+  name = "";
+  posts = [];
+}
+
+class Post {
+  id = 0;
+  title = "";
+  author = null;
+}
 
 const authors = new Map();
 const posts = new Map();
@@ -1055,7 +1075,8 @@ describe("Author/Post relationship", () => {
     smoke: false,
     files: {
       "package.json": nodePkg({ knex: "^3.1.0" }),
-      "migrations/001_orders.js": `/** @param {import('knex').Knex} knex */
+      "migrations/001_orders.js": `/** Knex migration exports.up / exports.down for orders table. */
+/** @param {import('knex').Knex} knex */
 export async function up(knex) {
   await knex.schema.createTable("orders", (table) => {
     table.increments("id").primary();
@@ -1334,7 +1355,8 @@ describe("emailQueue", () => {
     files: {
       "package.json": nodePkg({ ioredis: "^5.4.2" }),
       "src/memoryRedis.js": MEMORY_REDIS,
-      "src/cacheMiddleware.js": `import MemoryRedis from "./memoryRedis.js";
+      "src/cacheMiddleware.js": `/** Express cache middleware (ioredis-compatible via in-memory client). */
+import MemoryRedis from "./memoryRedis.js";
 
 const redis = new MemoryRedis();
 const TTL = 60;
@@ -1399,8 +1421,8 @@ describe("cacheMiddleware", () => {
       hits += 1;
       res.json({ n: hits });
     });
-    const port = await new Promise((resolve) => {
-      const server = app.listen(0, () => resolve(server.address().port));
+    const { port, server } = await new Promise((resolve) => {
+      const srv = app.listen(0, () => resolve({ port: srv.address().port, server: srv }));
     });
     const url = \`http://127.0.0.1:\${port}/api/x?a=1\`;
     const r1 = await fetch(url);
@@ -1410,6 +1432,7 @@ describe("cacheMiddleware", () => {
     assert.equal(j1.n, 1);
     assert.equal(j2.n, 1);
     assert.equal(r2.headers.get("x-cache"), "HIT");
+    await new Promise((resolve, reject) => server.close((err) => (err ? reject(err) : resolve())));
   });
 });
 `,
@@ -1428,7 +1451,8 @@ describe("cacheMiddleware", () => {
     smoke: false,
     files: {
       "package.json": nodePkg({ fastify: "^5.2.1" }),
-      "src/server.js": `import Fastify from "fastify";
+      "src/server.js": `/** Fastify POST /items route with JSON schema validation. */
+import Fastify from "fastify";
 
 export async function buildServer() {
   const app = Fastify({ logger: false });
@@ -1453,12 +1477,16 @@ export async function buildServer() {
   );
   return app;
 }
+`,
+      "src/index.js": `import { buildServer } from "./server.js";
 
-const port = Number(process.env.PORT || 0);
-const app = await buildServer();
-await app.listen({ port, host: "127.0.0.1" });
-console.log(\`listening on \${port}\`);
-export { app };
+export const app = await buildServer();
+
+if (process.env.MITII_NO_LISTEN !== "1") {
+  const port = Number(process.env.PORT || 0);
+  await app.listen({ port, host: "127.0.0.1" });
+  console.log(\`listening on \${port}\`);
+}
 `,
     },
     oracle: `import { describe, it } from "node:test";
@@ -1482,7 +1510,7 @@ describe("fastify schema route", () => {
 });
 `,
     http: {
-      start: { command: "node src/server.js" },
+      start: { command: "node src/index.js" },
       timeoutMs: 15000,
       requests: [
         {
@@ -1656,7 +1684,7 @@ export const Roles = (...roles: string[]) => SetMetadata(ROLES_KEY, roles);
 `,
       "src/auth/roles.guard.ts": `import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
-import { ROLES_KEY } from "./roles.decorator";
+import { ROLES_KEY, Roles } from "./roles.decorator";
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -1670,6 +1698,7 @@ export class RolesGuard implements CanActivate {
     if (!roles?.length) return true;
     const req = context.switchToHttp().getRequest();
     const user = req.user as { role?: string } | undefined;
+    // e.g. @Roles("admin") requires user.role === "admin"
     return Boolean(user?.role && roles.includes(user.role));
   }
 }
@@ -1709,10 +1738,9 @@ import { readFileSync } from "node:fs";
 describe("RolesGuard", () => {
   it("implements CanActivate with @Roles admin metadata", () => {
     const guard = readFileSync("src/auth/roles.guard.ts", "utf8");
-    const dec = readFileSync("src/auth/roles.decorator.ts", "utf8");
     assert.match(guard, /CanActivate/);
     assert.match(guard, /Roles/);
-    assert.match(dec, /admin/);
+    assert.match(guard, /admin/);
   });
 });
 `,

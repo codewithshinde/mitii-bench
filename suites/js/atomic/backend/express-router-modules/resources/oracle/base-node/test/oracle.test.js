@@ -9,8 +9,8 @@ describe("modular routers", () => {
     const app = express();
     app.use("/api/v1/products", productsRouter);
     app.use("/api/v1/orders", ordersRouter);
-    const port = await new Promise((resolve) => {
-      const server = app.listen(0, () => resolve(server.address().port));
+    const { port, server } = await new Promise((resolve) => {
+      const srv = app.listen(0, () => resolve({ port: srv.address().port, server: srv }));
     });
     const p = await fetch(`http://127.0.0.1:${port}/api/v1/products`);
     const o = await fetch(`http://127.0.0.1:${port}/api/v1/orders`);
@@ -20,5 +20,6 @@ describe("modular routers", () => {
     const oj = await o.json();
     assert.ok(Array.isArray(pj.items));
     assert.ok(Array.isArray(oj.items));
+    await new Promise((resolve, reject) => server.close((err) => (err ? reject(err) : resolve())));
   });
 });

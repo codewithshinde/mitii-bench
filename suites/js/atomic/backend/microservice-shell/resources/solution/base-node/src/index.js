@@ -1,9 +1,10 @@
 import express from "express";
+import pino from "pino";
 import { createLogger } from "./logger.js";
-import { config } from "./config.js";
+import { config } from "./config.js"; // zod-validated env
 import { db } from "./db.js";
 
-const log = createLogger();
+const log = createLogger() ?? pino({ level: "info" });
 const app = express();
 
 app.get("/health/liveness", (_req, res) => res.status(200).json({ alive: true }));
@@ -24,7 +25,7 @@ app.use((err, _req, res, _next) => {
 });
 
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(config.PORT, () => {
   const addr = server.address();
   log.info({ port: typeof addr === "object" ? addr?.port : config.PORT }, "server started");

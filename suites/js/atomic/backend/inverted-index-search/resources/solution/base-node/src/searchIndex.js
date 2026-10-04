@@ -1,3 +1,4 @@
+/** In-memory inverted index with TF-IDF ranking. */
 export class InvertedIndex {
   constructor() {
     this.docs = [];

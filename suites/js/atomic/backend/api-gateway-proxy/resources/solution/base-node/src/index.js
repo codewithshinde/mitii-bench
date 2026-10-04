@@ -14,26 +14,32 @@ function getFreePort() {
   });
 }
 
-const downstreamPort = await getFreePort();
-const downstream = createHttpServer((req, res) => {
-  res.writeHead(200, { "content-type": "application/json" });
-  res.end(JSON.stringify({ service: "users", path: req.url }));
-});
-downstream.listen(downstreamPort, "127.0.0.1");
+let downstreamPort = 0;
+let downstream = null;
+if (process.env.MITII_NO_LISTEN !== "1") {
+  downstreamPort = await getFreePort();
+  downstream = createHttpServer((req, res) => {
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(JSON.stringify({ service: "users", path: req.url }));
+  });
+  downstream.listen(downstreamPort, "127.0.0.1");
+}
 
 const app = express();
-app.use(
-  "/services/users",
-  createProxyMiddleware({
-    target: `http://127.0.0.1:${downstreamPort}`,
-    changeOrigin: true,
-    pathRewrite: { "^/services/users": "" },
-  }),
-);
+if (downstreamPort) {
+  app.use(
+    "/services/users",
+    createProxyMiddleware({
+      target: `http://127.0.0.1:${downstreamPort}`,
+      changeOrigin: true,
+      pathRewrite: { "^/services/users": "" },
+    }),
+  );
+}
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(`listening on ${addr.port}`);

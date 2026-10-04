@@ -1,5 +1,15 @@
-import { Author } from "./entities/Author.js";
-import { Post } from "./entities/Post.js";
+/** In-memory store for dry-run (TypeORM metadata lives in Author.ts). */
+class Author {
+  id = 0;
+  name = "";
+  posts = [];
+}
+
+class Post {
+  id = 0;
+  title = "";
+  author = null;
+}
 
 const authors = new Map();
 const posts = new Map();

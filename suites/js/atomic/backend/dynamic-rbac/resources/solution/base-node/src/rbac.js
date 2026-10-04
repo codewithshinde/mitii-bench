@@ -17,7 +17,7 @@ export function canUserExecute(userId, action, resource) {
   void resource;
   const role = userRoles.get(userId);
   if (!role) return false;
-  const base = rolePermissions[role] ?? new Set();
+  const permissions = rolePermissions[role] ?? new Set();
   const overrides = userOverrides.get(userId) ?? new Set();
-  return base.has(action) || overrides.has(action);
+  return permissions.has(action) || overrides.has(action);
 }

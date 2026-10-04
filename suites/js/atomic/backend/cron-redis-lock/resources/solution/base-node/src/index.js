@@ -1,5 +1,7 @@
 import cron from "node-cron";
 
+/** In-memory redlock-style lock (no Redis server required for dry-run). */
+
 class InMemoryRedis {
   constructor() { this.locks = new Map(); }
   async set(key, value, mode, ttlType, ttlMs) {

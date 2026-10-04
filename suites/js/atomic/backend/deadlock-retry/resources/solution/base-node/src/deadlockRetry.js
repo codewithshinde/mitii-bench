@@ -1,5 +1,6 @@
 const RETRY_CODES = new Set(["40001", "40P01"]);
 
+/** retry helper for postgres deadlock error codes. */
 export async function withDeadlockRetry(fn, { maxRetries = 3, baseDelayMs = 10 } = {}) {
   let attempt = 0;
   while (true) {

@@ -1,3 +1,4 @@
+/** Express cache middleware (ioredis-compatible via in-memory client). */
 import MemoryRedis from "./memoryRedis.js";
 
 const redis = new MemoryRedis();

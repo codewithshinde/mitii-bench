@@ -7,4 +7,4 @@
 - contains:
     file: src/server.js
     text: "/items"
-- http: {"start":{"command":"node src/server.js"},"timeoutMs":15000,"requests":[{"method":"POST","path":"/items","json":{"name":"Widget","qty":3},"expect":{"status":200,"jsonSubset":{"name":"Widget","qty":3}}}]}
+- http: {"start":{"command":"node src/index.js"},"timeoutMs":15000,"requests":[{"method":"POST","path":"/items","json":{"name":"Widget","qty":3},"expect":{"status":200,"jsonSubset":{"name":"Widget","qty":3}}}]}

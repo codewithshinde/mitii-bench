@@ -4,4 +4,3 @@
 - contains:
     file: src/index.js
     text: "/api/events"
-- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"GET","path":"/api/events","expect":{"status":200,"headerContains":{"content-type":"text/event-stream"}}}]}

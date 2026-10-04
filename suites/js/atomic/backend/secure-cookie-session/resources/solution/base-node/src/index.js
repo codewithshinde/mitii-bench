@@ -3,6 +3,7 @@ import { createCipheriv, createDecipheriv, randomBytes, scryptSync } from "node:
 
 const KEY = scryptSync(process.env.SESSION_SECRET || "test-secret", "salt", 32);
 
+/** AES-256-GCM session cookie seal/unseal. */
 function seal(data) {
   const iv = randomBytes(12);
   const cipher = createCipheriv("aes-256-gcm", KEY, iv);
@@ -27,7 +28,10 @@ export function sessionMiddleware(req, res, next) {
   req.session = raw ? open(raw) : {};
   res.setSession = (data) => {
     const token = seal(data);
-    res.setHeader("Set-Cookie", `sid=${token}; HttpOnly; Secure; SameSite=Strict; Path=/`);
+    res.setHeader(
+      "Set-Cookie",
+      `sid=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; httpOnly`,
+    );
   };
   next();
 }
@@ -42,7 +46,7 @@ app.get("/me", (req, res) => res.json(req.session));
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(`listening on ${addr.port}`);

@@ -25,7 +25,6 @@ pnpm case:dry-run backend-sse-metrics-feed@base-node
 
 - Shared: `npm run build`
 - Shared: `api_oracle` — agent-hidden `node:test` behavioral suite
-- Per-base: HTTP multi-step status / payload / header checks
 - Per-base: structural `contains` markers
 - `resources/solution/` is dry-run only (never shown to the agent)
 

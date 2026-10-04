@@ -7,7 +7,7 @@ function hit(n, ip = "1.2.3.4") {
   const app = express();
   app.set("trust proxy", true);
   app.use((req, _res, next) => {
-    req.ip = ip;
+    req.headers["x-forwarded-for"] = ip;
     next();
   });
   app.use(rateLimitMiddleware);

@@ -36,7 +36,7 @@ app.get("/boom", (_req, res) => res.status(500).json({ error: "boom" }));
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
-  ? { close() {}, address: () => null }
+  ? { close(cb) { cb?.(); }, address: () => null }
   : app.listen(port, () => {
   const addr = server.address();
   if (addr && typeof addr === "object") console.log(`listening on ${addr.port}`);

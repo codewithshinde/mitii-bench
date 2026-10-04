@@ -1,9 +1,15 @@
-import { describe, it } from "node:test";
+import { describe, it, after } from "node:test";
 import assert from "node:assert/strict";
-import { config } from "../src/index.js";
 
 describe("config-hot-reload", () => {
-  it("loads config.json into memory", () => {
+  after(async () => {
+    const { configWatcher, server } = await import("../src/index.js");
+    configWatcher?.close?.();
+    await new Promise((resolve) => server.close?.(resolve));
+  });
+
+  it("loads config.json into memory", async () => {
+    const { config } = await import("../src/index.js");
     assert.equal(typeof config, "object");
     assert.ok("maxUsers" in config || "featureX" in config);
   });

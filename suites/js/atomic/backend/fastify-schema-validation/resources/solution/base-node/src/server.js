@@ -1,3 +1,4 @@
+/** Fastify POST /items route with JSON schema validation. */
 import Fastify from "fastify";
 
 export async function buildServer() {
@@ -23,9 +24,3 @@ export async function buildServer() {
   );
   return app;
 }
-
-const port = Number(process.env.PORT || 0);
-const app = await buildServer();
-await app.listen({ port, host: "127.0.0.1" });
-console.log(`listening on ${port}`);
-export { app };

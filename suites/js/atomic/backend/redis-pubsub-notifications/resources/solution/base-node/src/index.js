@@ -34,9 +34,11 @@ app.post("/notify", express.json(), (req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-httpServer.listen(port, () => {
-  const addr = httpServer.address();
-  if (addr && typeof addr === "object") console.log(`listening on ${addr.port}`);
-});
+if (process.env.MITII_NO_LISTEN !== "1") {
+  httpServer.listen(port, () => {
+    const addr = httpServer.address();
+    if (addr && typeof addr === "object") console.log(`listening on ${addr.port}`);
+  });
+}
 
-export { app, httpServer, io, bus };
+export { app, httpServer, io };
