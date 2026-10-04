@@ -68,6 +68,14 @@ const httpGrade = z.object({
       command: z.string().min(1),
       env: z.record(z.string()).optional(),
     }),
+    /** Optional companion process (e.g. mock upstream). Its PORT is injected into start.env via portEnv. */
+    sidecar: z
+      .object({
+        command: z.string().min(1),
+        env: z.record(z.string()).optional(),
+        portEnv: z.string().min(1).optional(),
+      })
+      .optional(),
     request: httpRequest.optional(),
     requests: z.array(httpRequest).optional(),
     expect: httpExpect.optional(),

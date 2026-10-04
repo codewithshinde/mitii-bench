@@ -22,9 +22,9 @@ Data:
 1. **`contains` / `exists`** — structural source contracts (routes, APIs, markers)
 2. **`package_deps`** — required names listed in workspace `package.json` (when `packages:` is non-empty)
 3. **`api_oracle`** — agent-hidden `MITII_NO_LISTEN=1 node --test test/oracle.test.js` (happy path + failure/edge)
-4. **`http`** — start the server and assert status, JSON payload (`jsonSubset` / `jsonEquals` / `jsonPaths`), and headers
+4. **`http`** — start the server and assert status, JSON payload (`jsonSubset` / `jsonEquals` / `jsonPaths`), and headers. Optional `sidecar` starts a companion process (e.g. mock upstream) and injects its port via `sidecar.portEnv`.
 
-Workspace `npm install` runs **only for packages not already in the fixture `node_modules`**. Solutions gate `listen()` on `MITII_NO_LISTEN` so oracles do not hang.
+Workspace `npm install` runs **only for packages not already in the fixture `node_modules`**. The `base-node` fixture and solutions gate `listen()` on `MITII_NO_LISTEN` so oracles do not hang.
 
 ## Tags
 

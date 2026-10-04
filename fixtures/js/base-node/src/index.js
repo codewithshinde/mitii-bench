@@ -40,11 +40,14 @@ app.get("/", (_req, res) => {
 });
 
 const port = Number(process.env.PORT || 0);
-const server = app.listen(port, () => {
-  const address = server.address();
-  if (address && typeof address === "object") {
-    console.log(`listening on ${address.port}`);
-  }
-});
+const server =
+  process.env.MITII_NO_LISTEN === "1"
+    ? { close(cb) { cb?.(); }, address: () => null }
+    : app.listen(port, () => {
+        const address = server.address();
+        if (address && typeof address === "object") {
+          console.log(`listening on ${address.port}`);
+        }
+      });
 
 export { app, db, server };

@@ -7,7 +7,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { join } from "node:path";
-import { runMitiiAgent } from "@mitii-bench/adapter-mitii";
+import { readMitiiSessionMetrics, runMitiiAgent } from "@mitii-bench/adapter-mitii";
 import { loadConfig } from "./config.js";
 import {
   discoverProjects,
@@ -143,6 +143,7 @@ export async function runTask(taskIdOrPath, options = {}) {
     );
   }
 
+  const session = options.skipAgent ? null : readMitiiSessionMetrics(ws.path);
   const report = {
     id: task.runId ?? task.id,
     base: task.base,
@@ -150,9 +151,17 @@ export async function runTask(taskIdOrPath, options = {}) {
     passed: results.every((r) => r.passed),
     agent: {
       exitCode: agentResult.exitCode,
-      durationMs: agentResult.durationMs,
+      durationMs: session?.durationMs ?? agentResult.durationMs,
       timedOut: agentResult.timedOut,
       skipped: agentResult.skipped,
+      model: session?.model ?? null,
+      startTime: session?.startTime ?? null,
+      endTime: session?.endTime ?? null,
+      inputTokens: session?.inputTokens ?? null,
+      outputTokens: session?.outputTokens ?? null,
+      totalTokens: session?.totalTokens ?? null,
+      modelCalls: session?.modelCalls ?? null,
+      toolCalls: session?.toolCalls ?? null,
     },
     workspace: ws.path,
     checks: results,
@@ -393,6 +402,7 @@ function writeCaseReport(root, runId, report) {
     "",
     `Passed: **${report.passed}**`,
     "",
+    ...formatAgentMarkdown(report.agent),
     "## Checks",
     "",
     ...(report.checks ?? []).map(
@@ -401,4 +411,29 @@ function writeCaseReport(root, runId, report) {
     "",
   ];
   writeFileSync(join(dir, `${name}.md`), lines.join("\n"));
+}
+
+function formatAgentMarkdown(agent) {
+  if (!agent || agent.skipped) {
+    return ["## Agent", "", "_No agent session (dry-run / skipped)._", ""];
+  }
+  const totalMs = agent.durationMs;
+  const totalLabel =
+    totalMs == null
+      ? "n/a"
+      : `${(totalMs / 1000).toFixed(1)}s (${totalMs}ms)`;
+  return [
+    "## Agent",
+    "",
+    `| Field | Value |`,
+    `| --- | --- |`,
+    `| Model | ${agent.model ?? "n/a"} |`,
+    `| Start | ${agent.startTime ?? "n/a"} |`,
+    `| End | ${agent.endTime ?? "n/a"} |`,
+    `| Total time | ${totalLabel} |`,
+    `| Input tokens | ${agent.inputTokens ?? "n/a"} |`,
+    `| Output tokens | ${agent.outputTokens ?? "n/a"} |`,
+    `| Total tokens | ${agent.totalTokens ?? "n/a"} |`,
+    "",
+  ];
 }

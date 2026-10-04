@@ -4,4 +4,4 @@
 - contains:
     file: src/index.js
     text: "proxy"
-- http: {"start":{"command":"node src/index.js"},"timeoutMs":20000,"requests":[{"method":"GET","path":"/services/users/1","expect":{"status":200,"jsonSubset":{"service":"users"}}}]}
+- http: {"start":{"command":"node src/index.js"},"sidecar":{"command":"node --input-type=module -e \"import http from 'node:http'; http.createServer((q,s)=>{s.writeHead(200,{'content-type':'application/json'});s.end(JSON.stringify({service:'users',path:q.url}))}).listen(Number(process.env.PORT))\"","portEnv":"USER_SERVICE_PORT"},"timeoutMs":20000,"requests":[{"method":"GET","path":"/services/users/1","expect":{"status":200,"jsonSubset":{"service":"users"}}}]}

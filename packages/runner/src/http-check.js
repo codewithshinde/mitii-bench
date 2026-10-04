@@ -3,10 +3,38 @@ import { createServer } from "node:net";
 
 export async function runHttpCheck(check, cwd) {
   const port = await getFreePort();
-  const command = check.start.command.replaceAll("{port}", String(port));
+  let sidecarPort;
+  let sidecarChild;
+  const startEnv = { ...(check.start.env ?? {}) };
+
+  if (check.sidecar?.command) {
+    sidecarPort = await getFreePort();
+    const portEnvName = check.sidecar.portEnv ?? "SIDECAR_PORT";
+    startEnv[portEnvName] = String(sidecarPort);
+    for (const [key, value] of Object.entries(startEnv)) {
+      startEnv[key] = String(value)
+        .replaceAll("{sidecarPort}", String(sidecarPort))
+        .replaceAll("{port}", String(port));
+    }
+    sidecarChild = spawn(check.sidecar.command, {
+      cwd,
+      env: {
+        ...process.env,
+        PORT: String(sidecarPort),
+        ...(check.sidecar.env ?? {}),
+      },
+      shell: true,
+      detached: process.platform !== "win32",
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+  }
+
+  const command = check.start.command
+    .replaceAll("{port}", String(port))
+    .replaceAll("{sidecarPort}", sidecarPort != null ? String(sidecarPort) : "");
   const child = spawn(command, {
     cwd,
-    env: { ...process.env, PORT: String(port), ...(check.start.env ?? {}) },
+    env: { ...process.env, PORT: String(port), ...startEnv },
     shell: true,
     detached: process.platform !== "win32",
     stdio: ["ignore", "pipe", "pipe"],
@@ -100,7 +128,11 @@ export async function runHttpCheck(check, cwd) {
     return { passed: false, details: `${error.message}; server output: ${logs.slice(0, 500)}` };
   } finally {
     terminateTree(child, "SIGTERM");
-    setTimeout(() => terminateTree(child, "SIGKILL"), 1000).unref();
+    if (sidecarChild) terminateTree(sidecarChild, "SIGTERM");
+    setTimeout(() => {
+      terminateTree(child, "SIGKILL");
+      if (sidecarChild) terminateTree(sidecarChild, "SIGKILL");
+    }, 1000).unref();
   }
 }
 
