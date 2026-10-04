@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Base Node</title>
+    <style>
+      body { font-family: Georgia, serif; margin: 2rem; background: #f6f1e7; }
+      #cards { display: grid; gap: 0.5rem; margin-top: 1rem; }
+      .card { padding: 0.75rem 1rem; background: #fff; border: 1px solid #d8cfc0; }
+    </style>
+  </head>
+  <body>
+    <h1>Cards</h1>
+    <p>Sync via <code>/get-cards</code>, then this list updates from <code>/cards</code>.</p>
+    <div id="cards" data-testid="cards-list"></div>
+    <script>
+      async function load() {
+        const res = await fetch("/cards");
+        const data = await res.json();
+        const root = document.getElementById("cards");
+        root.innerHTML = data.length
+          ? data.map((c) => `<div class="card">${c.title} (${c.suit})</div>`).join("")
+          : "<em>No cards yet</em>";
+      }
+      load();
+    </script>
+  </body>
+</html>

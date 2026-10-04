@@ -1,0 +1,17 @@
+id: frontend-site-nav-pages
+title: "Site nav + footer pages with dummy content"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: [nav, footer, pages]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

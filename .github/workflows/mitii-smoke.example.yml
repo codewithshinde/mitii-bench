@@ -1,0 +1,40 @@
+# Example workflow for the Mitii product repo to pin a mitii-bench corpus tag
+# and dry-run a smoke subset (no live model required).
+#
+# Copy into Mitii as .github/workflows/mitii-bench-smoke.yml and adjust the
+# repository / ref. This file lives in mitii-bench as documentation only.
+name: mitii-bench-smoke
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Mitii
+        uses: actions/checkout@v4
+      - name: Checkout mitii-bench corpus
+        uses: actions/checkout@v4
+        with:
+          repository: YOUR_ORG/mitii-bench
+          ref: v0.1.0
+          path: mitii-bench
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: mitii-bench/pnpm-lock.yaml
+      - name: Install + dry-run smoke subset
+        working-directory: mitii-bench
+        run: |
+          pnpm install
+          pnpm fixtures:install
+          pnpm case:validate
+          pnpm case:dry-run ui-docs-and-terms-buttons
+          pnpm case:dry-run api-todo-sqlite-crud

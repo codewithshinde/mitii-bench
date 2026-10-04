@@ -1,0 +1,17 @@
+node_modules/
+.workspaces/
+reports/
+*.sqlite
+.DS_Store
+dist/
+.env
+.env.*
+!.env.example
+runner.config.local.ts
+runner.config.local.json
+*.log
+.pnpm-store/
+# Auto-generated — run `pnpm case:validate` or `pnpm catalog`
+catalog/catalog.json
+catalog/cases.html
+catalog/catalog.json.bak

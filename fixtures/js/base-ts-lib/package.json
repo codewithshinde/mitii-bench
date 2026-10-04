@@ -1,0 +1,13 @@
+{
+  "name": "mitii-bench-base-ts-lib",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test test/smoke.test.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

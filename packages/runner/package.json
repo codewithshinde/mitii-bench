@@ -1,0 +1,26 @@
+{
+  "name": "@mitii-bench/runner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "mitii-bench": "./src/cli.js"
+  },
+  "scripts": {
+    "case:new": "node src/cli.js case:new",
+    "case:validate": "node src/cli.js case:validate",
+    "case:dry-run": "node src/cli.js case:dry-run",
+    "cases": "node src/cli.js cases",
+    "cases:open": "node src/cli.js cases --open",
+    "bench": "node src/cli.js bench",
+    "catalog": "node src/cli.js catalog",
+    "import:solid": "node src/cli.js import:solid",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@mitii-bench/adapter-mitii": "workspace:*",
+    "@mitii-bench/schema": "workspace:*",
+    "better-sqlite3": "^11.8.1",
+    "yaml": "^2.7.0"
+  }
+}

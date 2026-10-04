@@ -1,0 +1,33 @@
+- contains:
+    file: src/App.jsx
+    text: "Home"
+- contains:
+    file: src/App.jsx
+    text: "About"
+- contains:
+    file: src/App.jsx
+    text: "Careers"
+- contains:
+    file: src/App.jsx
+    text: "Terms and Conditions"
+- contains:
+    file: src/App.jsx
+    text: "Privacy Policy"
+- contains:
+    file: src/App.jsx
+    text: 'data-testid="main-nav"'
+- contains:
+    file: src/App.jsx
+    text: 'data-testid="site-footer"'
+- contains:
+    file: src/App.jsx
+    text: "About page"
+- contains:
+    file: src/App.jsx
+    text: "Careers page"
+- contains:
+    file: src/App.jsx
+    text: "Terms and Conditions page"
+- contains:
+    file: src/App.jsx
+    text: "Privacy Policy page"

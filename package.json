@@ -1,0 +1,27 @@
+{
+  "name": "mitii-bench",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Open-source Mitii coding-agent evaluation benchmark: folder-per-case tasks, YAML contribution UX, behavior-based grading.",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "case:new": "pnpm --filter @mitii-bench/runner case:new",
+    "case:validate": "pnpm --filter @mitii-bench/runner case:validate",
+    "case:dry-run": "pnpm --filter @mitii-bench/runner case:dry-run",
+    "cases": "pnpm --filter @mitii-bench/runner cases",
+    "cases:open": "pnpm --filter @mitii-bench/runner cases:open",
+    "bench": "pnpm --filter @mitii-bench/runner bench",
+    "catalog": "pnpm --filter @mitii-bench/runner catalog",
+    "import:solid": "pnpm --filter @mitii-bench/runner import:solid",
+    "test": "pnpm --filter @mitii-bench/runner test",
+    "fixtures:install": "node scripts/install-fixtures.mjs",
+    "postinstall": "pnpm catalog"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

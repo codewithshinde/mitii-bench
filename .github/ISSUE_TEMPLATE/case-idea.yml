@@ -1,0 +1,42 @@
+name: Case idea
+description: Propose a new benchmark task (Bronze-friendly)
+title: "case: "
+labels: ["case-idea"]
+body:
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Agent prompt
+      description: Exact instructions you would give the coding agent
+      placeholder: Add a Docs link with href="#" to the main nav…
+    validations:
+      required: true
+  - type: dropdown
+    id: fixture
+    attributes:
+      label: Suggested fixture
+      options:
+        - base-frontend
+        - sqlite-todo
+        - broken-build
+        - fullstack-cards
+        - unsure
+    validations:
+      required: true
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: Difficulty
+      options:
+        - easy
+        - medium
+        - hard
+    validations:
+      required: true
+  - type: textarea
+    id: grade
+    attributes:
+      label: How should we know it passed?
+      description: e.g. file contains "Docs", GET /todos returns 200, npm run build exits 0
+    validations:
+      required: true
