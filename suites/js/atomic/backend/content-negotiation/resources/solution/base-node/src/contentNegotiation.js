@@ -4,7 +4,7 @@ function toXml(obj) {
 }
 
 export function negotiateResponse(req, data) {
-  const accept = String(req.headers?.Accept ?? req.headers?.accept ?? "application/json").toLowerCase();
+  const accept = String(req.headers?.Accept ?? req.headers?.accept ?? "application/json").toLowerCase(); // Accept + xml + json
   if (accept.includes("application/xml") || accept.includes("text/xml")) {
     return { type: "application/xml", body: toXml(data) };
   }

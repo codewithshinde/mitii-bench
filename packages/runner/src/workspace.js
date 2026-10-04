@@ -49,40 +49,47 @@ export function linkFixtureNodeModules(fixturePath, workspacePath) {
   }
 }
 
+function packageResolves(root, name) {
+  return existsSync(join(root, "node_modules", name)) || existsSync(join(root, "node_modules", name.split("/")[0]));
+}
+
 /**
- * When a case declares extra packages (or solution rewrote package.json),
- * replace the fixture node_modules symlink with a real install in the workspace.
+ * Install extra packages only when they are not already resolvable from the
+ * fixture node_modules symlink. Avoids multi-minute full `npm install` timeouts.
  */
 export async function ensureWorkspacePackages(workspacePath, task, fixturePath) {
   const declared = Array.isArray(task?.packages) ? task.packages.filter(Boolean) : [];
-  const pkgPath = join(workspacePath, "package.json");
-  const fixturePkgPath = join(fixturePath ?? task?.fixturePath ?? "", "package.json");
-  let packageJsonChanged = false;
-  if (existsSync(pkgPath) && existsSync(fixturePkgPath)) {
-    packageJsonChanged =
-      readFileSync(pkgPath, "utf8") !== readFileSync(fixturePkgPath, "utf8");
-  } else if (existsSync(pkgPath) && !existsSync(fixturePkgPath)) {
-    packageJsonChanged = true;
-  }
-  if (declared.length === 0 && !packageJsonChanged) {
+  const fixtureRoot = fixturePath ?? task?.fixturePath ?? "";
+  const missing = declared.filter(
+    (name) => !packageResolves(workspacePath, name) && !packageResolves(fixtureRoot, name),
+  );
+  if (missing.length === 0) {
     return { method: "skipped", installed: false };
   }
 
   const nm = join(workspacePath, "node_modules");
+  const fixtureNm = join(fixtureRoot, "node_modules");
   if (existsSync(nm)) {
     try {
       const st = lstatSync(nm);
       if (st.isSymbolicLink()) unlinkSync(nm);
-      else rmSync(nm, { recursive: true, force: true });
     } catch {
-      // continue; npm install may still succeed
+      // continue
+    }
+  }
+  if (!existsSync(nm) && existsSync(fixtureNm)) {
+    try {
+      cpSync(fixtureNm, nm, { recursive: true });
+    } catch {
+      // fall through to npm install
     }
   }
 
+  const specs = missing.map((name) => JSON.stringify(name)).join(" ");
   const execution = await runProcess({
-    command: "npm install --no-fund --no-audit",
+    command: `npm install --no-fund --no-audit --prefer-offline ${specs}`,
     cwd: workspacePath,
-    timeoutMs: 300000,
+    timeoutMs: 180000,
     shell: true,
     env: { CI: "1", npm_config_fund: "false", npm_config_audit: "false" },
   });
@@ -91,7 +98,7 @@ export async function ensureWorkspacePackages(workspacePath, task, fixturePath) 
       `npm install failed in workspace (exit ${execution.exitCode}): ${String(execution.stderr || execution.stdout).slice(0, 800)}`,
     );
   }
-  return { method: "npm-install", installed: true, durationMs: execution.durationMs };
+  return { method: "npm-install", installed: true, packages: missing, durationMs: execution.durationMs };
 }
 
 export async function applyPatch(workspace, patchPath) {

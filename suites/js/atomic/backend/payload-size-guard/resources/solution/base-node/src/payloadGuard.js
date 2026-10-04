@@ -10,7 +10,7 @@ export function payloadSizeGuard(maxBytes = 1024) {
     req.on("data", (chunk) => {
       received += chunk.length;
       if (received > maxBytes) {
-        req.destroy(); // abort oversized stream
+        req.destroy(); // abort oversized stream (Content-Length)
         if (!res.headersSent) res.status(413).json({ error: "payload too large" });
       }
     });

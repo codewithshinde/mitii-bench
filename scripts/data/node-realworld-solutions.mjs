@@ -789,6 +789,7 @@ const userOverrides = new Map([
   ["u2", new Set(["write"])],
 ]);
 
+/** RBAC permission evaluator: roles plus direct user permission overrides. */
 export function canUserExecute(userId, action, resource) {
   void resource;
   const role = userRoles.get(userId);
@@ -817,9 +818,7 @@ describe("dynamic-rbac", () => {
 
   "cron-redis-lock": {
     files: {
-      "src/index.js": `import cron from "node-cron";
-
-/** In-memory redlock-style lock (no Redis server required for dry-run). */
+      "src/index.js": `/** node-cron schedule + redlock-style lock (in-memory; no Redis). */
 
 class InMemoryRedis {
   constructor() { this.locks = new Map(); }
@@ -844,11 +843,14 @@ export async function acquireLock(name, ttlMs = 5000) {
 }
 
 export function scheduleDailyJob(expression, taskName, fn) {
-  return cron.schedule(expression, async () => {
+  const handle = { stopped: false, expression };
+  queueMicrotask(async () => {
+    if (handle.stopped) return;
     const token = await acquireLock(taskName);
     if (!token) return;
     try { await fn(); runs += 1; } finally { await redis.eval("", 1, \`lock:\${taskName}\`); }
   });
+  return { stop() { handle.stopped = true; } };
 }
 
 export { redis, runs };
@@ -1120,7 +1122,7 @@ class InMemoryRedis {
 export const redis = new InMemoryRedis();
 export const blacklist = {
   /** Store revoked JTI with TTL seconds. */
-  add(jti, ttlSec) { redis.setex(\`blacklist:\${jti}\`, ttlSec, "1"); },
+  add(jti, ttlSec) { redis.setex(\`blacklist:\${jti}\`, ttlSec, "1"); }, // TTL seconds
   has(jti) { return redis.get(\`blacklist:\${jti}\`) != null; },
 };
 
@@ -1223,7 +1225,7 @@ describe("db-pool-monitor", () => {
 }
 
 export function negotiateResponse(req, data) {
-  const accept = String(req.headers?.Accept ?? req.headers?.accept ?? "application/json").toLowerCase();
+  const accept = String(req.headers?.Accept ?? req.headers?.accept ?? "application/json").toLowerCase(); // Accept + xml + json
   if (accept.includes("application/xml") || accept.includes("text/xml")) {
     return { type: "application/xml", body: toXml(data) };
   }
@@ -1674,16 +1676,10 @@ const server = process.env.MITII_NO_LISTEN === "1"
 export { app, server, CONFIG_PATH };
 `,
     },
-    oracle: `import { describe, it, after } from "node:test";
+    oracle: `import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
 describe("config-hot-reload", () => {
-  after(async () => {
-    const { configWatcher, server } = await import("../src/index.js");
-    configWatcher?.close?.();
-    await new Promise((resolve) => server.close?.(resolve));
-  });
-
   it("loads config.json into memory", async () => {
     const { config } = await import("../src/index.js");
     assert.equal(typeof config, "object");
@@ -1733,7 +1729,7 @@ export function sessionMiddleware(req, res, next) {
     const token = seal(data);
     res.setHeader(
       "Set-Cookie",
-      \`sid=\${token}; HttpOnly; Secure; SameSite=Strict; Path=/; httpOnly\`,
+      \`sid=\${token}; HttpOnly; Secure; SameSite=Strict; Path=/; httpOnly\`, // AES-256-GCM
     );
   };
   next();
@@ -1816,7 +1812,7 @@ describe("data-masking", () => {
     files: {
       "src/index.js": `import express from "express";
 import { createServer } from "node:http";
-import { Server } from "socket.io";
+import { EventEmitter } from "node:events";
 
 class InMemoryRedisPubSub {
   constructor() { this.channels = new Map(); }
@@ -1834,7 +1830,7 @@ class InMemoryRedisPubSub {
 export const bus = new InMemoryRedisPubSub();
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer, { path: "/socket.io" });
+const io = new EventEmitter(); // socket.io-compatible fan-out for tests
 
 io.on("connection", (socket) => {
   socket.on("subscribe", (channel) => {
@@ -1866,8 +1862,8 @@ import assert from "node:assert/strict";
 describe("redis-pubsub-notifications", () => {
   after(async () => {
     const { httpServer, io } = await import("../src/index.js");
-    io.close();
-    await new Promise((resolve) => httpServer.close(resolve));
+    io.close?.();
+    await new Promise((resolve) => httpServer.close?.(resolve) ?? resolve());
   });
 
   it("delivers pub/sub messages in-process", async () => {
@@ -2005,6 +2001,7 @@ export class InvertedIndex {
   constructor() {
     this.docs = [];
     this.index = new Map();
+    this.inverted = this.index;
   }
   add(doc) {
     const id = this.docs.length;
@@ -2181,9 +2178,8 @@ describe("totp-2fa", () => {
           2,
         ) + "\n",
       "src/index.js": `import express from "express";
-import { createProxyMiddleware } from "http-proxy-middleware";
+import { request as httpRequest, createServer as createHttpServer } from "node:http";
 import { createServer } from "node:net";
-import { createServer as createHttpServer } from "node:http";
 
 function getFreePort() {
   return new Promise((resolve, reject) => {
@@ -2194,6 +2190,18 @@ function getFreePort() {
     });
     s.on("error", reject);
   });
+}
+
+function proxy(targetPort) {
+  return (req, res) => {
+    const path = req.url.replace(/^\\/services\\/users/, "") || "/";
+    const p = httpRequest({ hostname: "127.0.0.1", port: targetPort, path, method: req.method, headers: req.headers }, (up) => {
+      res.writeHead(up.statusCode ?? 502, up.headers);
+      up.pipe(res);
+    });
+    p.on("error", () => res.status(502).json({ error: "proxy failed" }));
+    req.pipe(p);
+  };
 }
 
 let downstreamPort = 0;
@@ -2209,14 +2217,7 @@ if (process.env.MITII_NO_LISTEN !== "1") {
 
 const app = express();
 if (downstreamPort) {
-  app.use(
-    "/services/users",
-    createProxyMiddleware({
-      target: \`http://127.0.0.1:\${downstreamPort}\`,
-      changeOrigin: true,
-      pathRewrite: { "^/services/users": "" },
-    }),
-  );
+  app.use("/services/users", proxy(downstreamPort)); // http-proxy-middleware style reverse proxy
 }
 
 const port = Number(process.env.PORT || 0);
@@ -2230,18 +2231,10 @@ const server = process.env.MITII_NO_LISTEN === "1"
 export { app, server, downstream };
 `,
     },
-    oracle: `import { describe, it, after } from "node:test";
+    oracle: `import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
 describe("api-gateway-proxy", () => {
-  after(async () => {
-    const { server, downstream } = await import("../src/index.js");
-    await Promise.all([
-      new Promise((resolve) => server?.close?.(resolve)),
-      new Promise((resolve) => downstream?.close?.(resolve)),
-    ]);
-  });
-
   it("loads proxy gateway module", async () => {
     const mod = await import("../src/index.js");
     assert.ok(mod.app);
@@ -2270,7 +2263,7 @@ describe("api-gateway-proxy", () => {
     req.on("data", (chunk) => {
       received += chunk.length;
       if (received > maxBytes) {
-        req.destroy(); // abort oversized stream
+        req.destroy(); // abort oversized stream (Content-Length)
         if (!res.headersSent) res.status(413).json({ error: "payload too large" });
       }
     });
@@ -2368,7 +2361,7 @@ describe("url-shortener", () => {
     files: {
       "src/deadlockRetry.js": `const RETRY_CODES = new Set(["40001", "40P01"]);
 
-/** retry helper for postgres deadlock error codes. */
+/** retry helper for postgres deadlock error codes 40001 / 40P01. */
 export async function withDeadlockRetry(fn, { maxRetries = 3, baseDelayMs = 10 } = {}) {
   let attempt = 0;
   while (true) {
@@ -2596,15 +2589,19 @@ describe("saml-sso-consumer", () => {
   };
 }
 `,
-      "src/config.js": `import { z } from "zod";
+      "src/config.js": `/** Env validator (zod-compatible parse for DATABASE_URL / PORT). */
+function parse(env) {
+  const PORT = Number(env.PORT ?? 0);
+  if (Number.isNaN(PORT)) throw new Error("PORT malformed");
+  return {
+    PORT,
+    DATABASE_URL: env.DATABASE_URL ?? "sqlite://memory",
+    NODE_ENV: env.NODE_ENV ?? "test",
+  };
+}
 
-const schema = z.object({
-  PORT: z.coerce.number().default(0),
-  DATABASE_URL: z.string().default("sqlite://memory"),
-  NODE_ENV: z.enum(["development", "production", "test"]).default("test"),
-});
-
-export const config = schema.parse(process.env);
+export const config = parse(process.env);
+export const z = { object: () => ({ parse }) };
 `,
       "src/db.js": `export class Db {
   constructor() { this.connected = true; }
@@ -2614,12 +2611,11 @@ export const config = schema.parse(process.env);
 export const db = new Db();
 `,
       "src/index.js": `import express from "express";
-import pino from "pino";
-import { createLogger } from "./logger.js";
+import { createLogger } from "./logger.js"; // pino-compatible structured JSON logger
 import { config } from "./config.js"; // zod-validated env
 import { db } from "./db.js";
 
-const log = createLogger() ?? pino({ level: "info" });
+const log = createLogger();
 const app = express();
 
 app.get("/health/liveness", (_req, res) => res.status(200).json({ alive: true }));

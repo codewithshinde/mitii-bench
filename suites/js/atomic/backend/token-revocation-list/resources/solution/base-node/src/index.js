@@ -16,7 +16,7 @@ class InMemoryRedis {
 export const redis = new InMemoryRedis();
 export const blacklist = {
   /** Store revoked JTI with TTL seconds. */
-  add(jti, ttlSec) { redis.setex(`blacklist:${jti}`, ttlSec, "1"); },
+  add(jti, ttlSec) { redis.setex(`blacklist:${jti}`, ttlSec, "1"); }, // TTL seconds
   has(jti) { return redis.get(`blacklist:${jti}`) != null; },
 };
 

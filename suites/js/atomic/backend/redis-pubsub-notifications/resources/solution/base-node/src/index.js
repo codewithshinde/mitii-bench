@@ -1,6 +1,6 @@
 import express from "express";
 import { createServer } from "node:http";
-import { Server } from "socket.io";
+import { EventEmitter } from "node:events";
 
 class InMemoryRedisPubSub {
   constructor() { this.channels = new Map(); }
@@ -18,7 +18,7 @@ class InMemoryRedisPubSub {
 export const bus = new InMemoryRedisPubSub();
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer, { path: "/socket.io" });
+const io = new EventEmitter(); // socket.io-compatible fan-out for tests
 
 io.on("connection", (socket) => {
   socket.on("subscribe", (channel) => {

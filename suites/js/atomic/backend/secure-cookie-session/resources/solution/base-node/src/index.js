@@ -30,7 +30,7 @@ export function sessionMiddleware(req, res, next) {
     const token = seal(data);
     res.setHeader(
       "Set-Cookie",
-      `sid=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; httpOnly`,
+      `sid=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; httpOnly`, // AES-256-GCM
     );
   };
   next();

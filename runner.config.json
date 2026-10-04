@@ -1,6 +1,6 @@
 {
-  "mitiiBin": null,
+  "mitiiBin": "/Users/codewithshinde/Applications/workspace/ai-agents/Mitii/apps/cli/bin/mitii.js",
   "timeoutSec": 300,
-  "keepWorkspaces": false,
+  "keepWorkspaces": true,
   "env": {}
 }

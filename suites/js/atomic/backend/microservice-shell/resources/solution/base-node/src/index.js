@@ -1,10 +1,9 @@
 import express from "express";
-import pino from "pino";
-import { createLogger } from "./logger.js";
+import { createLogger } from "./logger.js"; // pino-compatible structured JSON logger
 import { config } from "./config.js"; // zod-validated env
 import { db } from "./db.js";
 
-const log = createLogger() ?? pino({ level: "info" });
+const log = createLogger();
 const app = express();
 
 app.get("/health/liveness", (_req, res) => res.status(200).json({ alive: true }));

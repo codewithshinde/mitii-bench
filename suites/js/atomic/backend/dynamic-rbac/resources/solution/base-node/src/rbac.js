@@ -13,6 +13,7 @@ const userOverrides = new Map([
   ["u2", new Set(["write"])],
 ]);
 
+/** RBAC permission evaluator: roles plus direct user permission overrides. */
 export function canUserExecute(userId, action, resource) {
   void resource;
   const role = userRoles.get(userId);

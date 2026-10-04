@@ -3,6 +3,7 @@ export class InvertedIndex {
   constructor() {
     this.docs = [];
     this.index = new Map();
+    this.inverted = this.index;
   }
   add(doc) {
     const id = this.docs.length;

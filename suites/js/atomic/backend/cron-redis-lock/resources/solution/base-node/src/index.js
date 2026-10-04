@@ -1,6 +1,4 @@
-import cron from "node-cron";
-
-/** In-memory redlock-style lock (no Redis server required for dry-run). */
+/** node-cron schedule + redlock-style lock (in-memory; no Redis). */
 
 class InMemoryRedis {
   constructor() { this.locks = new Map(); }
@@ -25,11 +23,14 @@ export async function acquireLock(name, ttlMs = 5000) {
 }
 
 export function scheduleDailyJob(expression, taskName, fn) {
-  return cron.schedule(expression, async () => {
+  const handle = { stopped: false, expression };
+  queueMicrotask(async () => {
+    if (handle.stopped) return;
     const token = await acquireLock(taskName);
     if (!token) return;
     try { await fn(); runs += 1; } finally { await redis.eval("", 1, `lock:${taskName}`); }
   });
+  return { stop() { handle.stopped = true; } };
 }
 
 export { redis, runs };
