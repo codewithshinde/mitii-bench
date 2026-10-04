@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "comment-"
+- contains:
+    file: src/App.jsx
+    text: "reply-btn-"
+- contains:
+    file: src/App.jsx
+    text: "replies"
+- contains:
+    file: src/App.jsx
+    text: "paddingLeft"

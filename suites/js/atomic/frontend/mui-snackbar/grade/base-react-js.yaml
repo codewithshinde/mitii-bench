@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"show-alert-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"mui-snackbar\""
+- contains:
+    file: src/App.jsx
+    text: "@mui/material"
+- contains:
+    file: src/App.jsx
+    text: "Snackbar"
+- contains:
+    file: src/App.jsx
+    text: "Alert"

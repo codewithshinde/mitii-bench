@@ -1,0 +1,9 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"title-input\""
+- contains:
+    file: src/App.jsx
+    text: "useEffect"
+- contains:
+    file: src/App.jsx
+    text: "document.title"

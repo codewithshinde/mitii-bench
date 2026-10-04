@@ -1,0 +1,17 @@
+id: frontend-password-strength
+title: "Password Strength Meter"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["password", "validation", "meter", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

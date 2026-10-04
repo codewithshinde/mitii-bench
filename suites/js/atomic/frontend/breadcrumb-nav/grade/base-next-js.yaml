@@ -1,0 +1,12 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"breadcrumb-nav\""
+- contains:
+    file: app/page.js
+    text: "Home"
+- contains:
+    file: app/page.js
+    text: "Products"
+- contains:
+    file: app/page.js
+    text: "Electronics"

@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"antd-form\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"antd-submit\""
+- contains:
+    file: src/App.jsx
+    text: "antd"
+- contains:
+    file: src/App.jsx
+    text: "Form"
+- contains:
+    file: src/App.jsx
+    text: "rules"

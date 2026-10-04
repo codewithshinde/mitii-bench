@@ -1,0 +1,12 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"cookie-banner\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"accept-cookies-btn\""
+- contains:
+    file: app/page.js
+    text: "cookies_accepted"
+- contains:
+    file: app/page.js
+    text: "localStorage"

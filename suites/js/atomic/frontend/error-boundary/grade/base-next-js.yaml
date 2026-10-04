@@ -1,0 +1,15 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"crash-btn\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"error-fallback\""
+- contains:
+    file: app/page.js
+    text: "componentDidCatch"
+- contains:
+    file: app/page.js
+    text: "getDerivedStateFromError"
+- contains:
+    file: app/page.js
+    text: "Something went wrong"

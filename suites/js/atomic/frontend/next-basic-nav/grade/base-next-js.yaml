@@ -1,0 +1,20 @@
+- contains:
+    file: components/Nav.js
+    text: "data-testid=\"link-home\""
+- contains:
+    file: components/Nav.js
+    text: "data-testid=\"link-dashboard\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"view-home\""
+- contains:
+    file: app/dashboard/page.js
+    text: "data-testid=\"view-dashboard\""
+- contains:
+    file: components/Nav.js
+    text: "next/link"
+- contains:
+    file: components/Nav.js
+    text: "Link"
+- exists:
+    file: app/dashboard/page.js

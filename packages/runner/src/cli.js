@@ -39,13 +39,23 @@ async function main() {
       if (flags.open) {
         const path = openCasesBrowser();
         console.log(`Opened ${path}`);
-      } else if (flags.search || flags.base || flags.family || flags.package || flags.ecosystem) {
+      } else if (
+        flags.search ||
+        flags.base ||
+        flags.family ||
+        flags.package ||
+        flags.ecosystem ||
+        flags.tag ||
+        flags.difficulty
+      ) {
         const tasks = discoverTasks(repoRoot(), {
           search: flags.search,
           base: flags.base,
           family: flags.family,
           package: flags.package,
           ecosystem: flags.ecosystem,
+          tag: flags.tag,
+          difficulty: flags.difficulty,
         });
         for (const t of tasks.filter((x) => !x.error)) {
           console.log(

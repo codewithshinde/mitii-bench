@@ -1,0 +1,21 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"login-form\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"email-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"password-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"submit-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"form-status\""
+- contains:
+    file: src/App.jsx
+    text: "Welcome,"
+- contains:
+    file: src/App.jsx
+    text: "Please fill all fields"

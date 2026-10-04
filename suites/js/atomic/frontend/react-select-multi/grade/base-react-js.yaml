@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"react-select-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"selected-values\""
+- contains:
+    file: src/App.jsx
+    text: "react-select"
+- contains:
+    file: src/App.jsx
+    text: "isMulti"

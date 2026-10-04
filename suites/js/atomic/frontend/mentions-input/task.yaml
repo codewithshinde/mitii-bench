@@ -1,0 +1,17 @@
+id: frontend-mentions-input
+title: "Mentions Input Field (@username)"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["mentions", "autocomplete", "textarea", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

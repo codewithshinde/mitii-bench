@@ -1,0 +1,18 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"user-card\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"user-avatar\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"user-name\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"user-role\""
+- contains:
+    file: app/page.js
+    text: "UserProfileCard"
+- contains:
+    file: app/page.js
+    text: "avatarUrl"

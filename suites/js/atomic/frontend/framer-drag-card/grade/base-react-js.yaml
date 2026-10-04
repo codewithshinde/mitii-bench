@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"drag-card\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"drag-container\""
+- contains:
+    file: src/App.jsx
+    text: "framer-motion"
+- contains:
+    file: src/App.jsx
+    text: "drag"
+- contains:
+    file: src/App.jsx
+    text: "dragConstraints"

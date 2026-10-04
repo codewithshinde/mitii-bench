@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"trigger-toast\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"toast-list\""
+- contains:
+    file: src/App.jsx
+    text: "zustand"
+- contains:
+    file: src/App.jsx
+    text: "create"
+- contains:
+    file: src/App.jsx
+    text: "addNotification"

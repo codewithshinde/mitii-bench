@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"theme-toggle\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"content-panel\""
+- contains:
+    file: src/App.jsx
+    text: "createContext"
+- contains:
+    file: src/App.jsx
+    text: "ThemeProvider"
+- contains:
+    file: src/App.jsx
+    text: "useContext"

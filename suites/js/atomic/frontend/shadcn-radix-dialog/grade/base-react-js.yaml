@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"dialog-trigger\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"dialog-content\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"dialog-close\""
+- contains:
+    file: src/App.jsx
+    text: "@radix-ui/react-dialog"
+- contains:
+    file: src/App.jsx
+    text: "Dialog"

@@ -1,0 +1,16 @@
+id: frontend-rhf-registration
+title: "React Hook Form: Basic Registration"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["react-hook-form"]
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "react-hook-form", "forms", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

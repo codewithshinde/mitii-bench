@@ -1,0 +1,18 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"open-cart-btn\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"cart-drawer\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"close-cart-btn\""
+- contains:
+    file: app/page.js
+    text: "open-cart-btn"
+- contains:
+    file: app/page.js
+    text: "close-cart-btn"
+- contains:
+    file: app/page.js
+    text: "cart-drawer"

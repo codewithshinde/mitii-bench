@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "task-card-"
+- contains:
+    file: src/App.jsx
+    text: "To Do"
+- contains:
+    file: src/App.jsx
+    text: "In Progress"
+- contains:
+    file: src/App.jsx
+    text: "Done"
+- contains:
+    file: src/App.jsx
+    text: "Move Left"
+- contains:
+    file: src/App.jsx
+    text: "Move Right"

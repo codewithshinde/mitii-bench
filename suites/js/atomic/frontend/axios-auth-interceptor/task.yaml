@@ -1,0 +1,16 @@
+id: frontend-axios-auth-interceptor
+title: "Axios Integration with Custom Interceptor Hook"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["axios"]
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "axios", "auth", "http", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

@@ -22,13 +22,20 @@ Python will not dump into the same `atomic/` as JS — each ecosystem has its ow
 pnpm install              # also regenerates catalog/
 pnpm fixtures:install
 pnpm case:validate        # regenerates catalog/catalog.json + cases.html
-pnpm case:dry-run frontend-site-nav-pages
+pnpm --filter @mitii-bench/runner bench --dryRun --tag=smoke
 pnpm cases:open
 ```
 
-## Current case
+## Frontend corpus
 
-`frontend-site-nav-pages` — Home / About / Careers in top nav; Terms and Conditions + Privacy Policy in footer; dummy page content. Matrix: `base-react-js` + `base-next-js`.
+~100 React prompts from `references/react-tasks.md` are under `suites/js/atomic/frontend/`:
+
+- **Vanilla** (core + real-world widgets): matrix on `base-react-js` + `base-next-js`, with dry-run solutions
+- **Ecosystem libs** (MUI, Redux, RHF, …): React-first scaffolds (`ecosystem-lib`); agent installs packages
+- **Skipped**: React Native Paper (not a web fixture)
+- **Next routing**: parallel App Router cases with solutions (`frontend-next-*`)
+
+Details: [docs/REACT_TASKS.md](./docs/REACT_TASKS.md).
 
 ## Grading & dry-run
 

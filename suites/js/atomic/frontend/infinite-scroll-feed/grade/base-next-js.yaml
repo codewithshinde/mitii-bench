@@ -1,0 +1,9 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"infinite-feed\""
+- contains:
+    file: app/page.js
+    text: "IntersectionObserver"
+- contains:
+    file: app/page.js
+    text: "rootMargin"

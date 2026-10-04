@@ -1,0 +1,15 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"item-input\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"add-btn\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"item-list\""
+- contains:
+    file: app/page.js
+    text: "item-row-"
+- contains:
+    file: app/page.js
+    text: "key="

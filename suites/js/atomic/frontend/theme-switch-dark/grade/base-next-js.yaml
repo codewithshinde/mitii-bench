@@ -1,0 +1,12 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"theme-switch\""
+- contains:
+    file: app/page.js
+    text: "dark"
+- contains:
+    file: app/page.js
+    text: "localStorage"
+- contains:
+    file: app/page.js
+    text: "document.body"

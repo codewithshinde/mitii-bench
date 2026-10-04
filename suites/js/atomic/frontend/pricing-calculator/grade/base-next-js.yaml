@@ -1,0 +1,21 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"user-slider\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"billing-toggle\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"calculated-price\""
+- contains:
+    file: app/page.js
+    text: "Monthly"
+- contains:
+    file: app/page.js
+    text: "Yearly"
+- contains:
+    file: app/page.js
+    text: "20%"
+- contains:
+    file: app/page.js
+    text: "calculated-price"

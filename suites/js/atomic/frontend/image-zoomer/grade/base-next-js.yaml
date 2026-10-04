@@ -1,0 +1,15 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"product-image\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"zoom-preview\""
+- contains:
+    file: app/page.js
+    text: "backgroundPosition"
+- contains:
+    file: app/page.js
+    text: "backgroundSize"
+- contains:
+    file: app/page.js
+    text: "onMouseMove"

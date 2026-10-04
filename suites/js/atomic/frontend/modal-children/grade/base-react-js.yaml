@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"modal-wrapper\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"modal-title\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"modal-body\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"modal-close-btn\""
+- contains:
+    file: src/App.jsx
+    text: "children"
+- contains:
+    file: src/App.jsx
+    text: "onClose"

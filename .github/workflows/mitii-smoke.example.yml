@@ -36,5 +36,4 @@ jobs:
           pnpm install
           pnpm fixtures:install
           pnpm case:validate
-          pnpm case:dry-run ui-docs-and-terms-buttons
-          pnpm case:dry-run api-todo-sqlite-crud
+          pnpm --filter @mitii-bench/runner bench --dryRun --tag=smoke

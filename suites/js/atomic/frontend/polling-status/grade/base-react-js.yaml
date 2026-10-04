@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"server-status\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"pause-polling-btn\""
+- contains:
+    file: src/App.jsx
+    text: "Healthy"
+- contains:
+    file: src/App.jsx
+    text: "Unreachable"
+- contains:
+    file: src/App.jsx
+    text: "5000"
+- contains:
+    file: src/App.jsx
+    text: "pause"

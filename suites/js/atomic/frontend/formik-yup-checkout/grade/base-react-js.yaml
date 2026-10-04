@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"zip-input\""
+- contains:
+    file: src/App.jsx
+    text: "formik"
+- contains:
+    file: src/App.jsx
+    text: "yup"
+- contains:
+    file: src/App.jsx
+    text: "Formik"

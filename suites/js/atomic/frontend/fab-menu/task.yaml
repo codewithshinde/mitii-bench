@@ -1,0 +1,17 @@
+id: frontend-fab-menu
+title: "Animated Floating Action Button (FAB) Menu"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["fab", "menu", "animation", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

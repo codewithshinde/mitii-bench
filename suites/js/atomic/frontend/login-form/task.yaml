@@ -1,0 +1,17 @@
+id: frontend-login-form
+title: "Controlled Inputs & Form State"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["react", "forms", "controlled-inputs", "react-tasks", "vanilla", "smoke"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

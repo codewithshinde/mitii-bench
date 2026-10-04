@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"comment-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"comment-submit\""
+- contains:
+    file: src/App.jsx
+    text: "@tanstack/react-query"
+- contains:
+    file: src/App.jsx
+    text: "useMutation"
+- contains:
+    file: src/App.jsx
+    text: "onMutate"

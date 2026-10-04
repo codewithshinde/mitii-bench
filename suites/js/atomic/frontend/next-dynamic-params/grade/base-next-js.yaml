@@ -1,0 +1,14 @@
+- contains:
+    file: app/products/[id]/page.js
+    text: "data-testid=\"product-detail\""
+- contains:
+    file: app/products/[id]/page.js
+    text: "useParams"
+- contains:
+    file: app/products/[id]/page.js
+    text: "next/navigation"
+- contains:
+    file: app/products/[id]/page.js
+    text: "[id]"
+- exists:
+    file: app/products/[id]/page.js

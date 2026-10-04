@@ -1,0 +1,16 @@
+id: frontend-next-dynamic-params
+title: "Next.js App Router: Dynamic URL Parameters"
+ecosystem: js
+bases:
+  - base-next-js
+family: frontend
+packages: []
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["next-router", "routing", "params", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

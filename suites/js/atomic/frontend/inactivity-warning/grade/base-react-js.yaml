@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"inactivity-modal\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"stay-active-btn\""
+- contains:
+    file: src/App.jsx
+    text: "60000"
+- contains:
+    file: src/App.jsx
+    text: "mousemove"
+- contains:
+    file: src/App.jsx
+    text: "keypress"
+- contains:
+    file: src/App.jsx
+    text: "Stay Logged In"

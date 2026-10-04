@@ -9,7 +9,7 @@ packages: []
 difficulty: easy
 category: frontend
 language: javascript
-tags: [nav, footer, pages]
+tags: [nav, footer, pages, smoke, react-tasks, vanilla]
 timeoutSec: 300
 promptFile: spec.md
 readmeFile: README.md

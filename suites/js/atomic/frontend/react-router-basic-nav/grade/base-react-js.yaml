@@ -1,0 +1,24 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"link-home\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"link-dashboard\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"view-home\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"view-dashboard\""
+- contains:
+    file: src/App.jsx
+    text: "react-router-dom"
+- contains:
+    file: src/App.jsx
+    text: "Link"
+- contains:
+    file: src/App.jsx
+    text: "Routes"
+- contains:
+    file: src/App.jsx
+    text: "Route"

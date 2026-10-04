@@ -1,0 +1,16 @@
+id: frontend-tanstack-table-sort
+title: "TanStack Table v8: Sortable Data Table"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["tanstack-table"]
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "tanstack-table", "table", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

@@ -1,0 +1,16 @@
+id: frontend-redux-cart-slice
+title: "Redux Toolkit: Slice & Store Integration"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["redux"]
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "redux", "state", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

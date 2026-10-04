@@ -1,0 +1,18 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"search-input\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"search-suggestions\""
+- contains:
+    file: app/page.js
+    text: "ArrowDown"
+- contains:
+    file: app/page.js
+    text: "ArrowUp"
+- contains:
+    file: app/page.js
+    text: "300"
+- contains:
+    file: app/page.js
+    text: "debounce"

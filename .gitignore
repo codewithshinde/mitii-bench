@@ -15,3 +15,9 @@ runner.config.local.json
 catalog/catalog.json
 catalog/cases.html
 catalog/catalog.json.bak
+references/*
+
+# Mitii local runtime data
+.mitii/
+.mitii-session-export.json
+.mitii-audit-pack.json

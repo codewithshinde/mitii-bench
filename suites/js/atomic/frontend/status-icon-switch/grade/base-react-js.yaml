@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"status-icon\""
+- contains:
+    file: src/App.jsx
+    text: "success"
+- contains:
+    file: src/App.jsx
+    text: "warning"
+- contains:
+    file: src/App.jsx
+    text: "error"

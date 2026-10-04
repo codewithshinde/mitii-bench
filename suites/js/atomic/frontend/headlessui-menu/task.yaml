@@ -1,0 +1,16 @@
+id: frontend-headlessui-menu
+title: "Tailwind / Headless UI: Accessible Menu Dropdown"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["headlessui"]
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "headlessui", "menu", "a11y", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

@@ -1,0 +1,17 @@
+id: frontend-nested-comments
+title: "Nested Comments System (Tree Structure)"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: hard
+category: frontend
+language: javascript
+tags: ["comments", "tree", "recursive", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

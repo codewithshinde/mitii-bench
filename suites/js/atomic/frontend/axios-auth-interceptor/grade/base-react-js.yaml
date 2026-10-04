@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"axios-fetch-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"global-auth-error\""
+- contains:
+    file: src/App.jsx
+    text: "axios"
+- contains:
+    file: src/App.jsx
+    text: "interceptors"
+- contains:
+    file: src/App.jsx
+    text: "401"

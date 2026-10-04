@@ -1,0 +1,15 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"chip-input\""
+- contains:
+    file: app/page.js
+    text: "chip-"
+- contains:
+    file: app/page.js
+    text: "Enter"
+- contains:
+    file: app/page.js
+    text: ","
+- contains:
+    file: app/page.js
+    text: "X"

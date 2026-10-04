@@ -1,0 +1,6 @@
+- contains:
+    file: app/page.js
+    text: "accordion-header-"
+- contains:
+    file: app/page.js
+    text: "accordion-panel-"

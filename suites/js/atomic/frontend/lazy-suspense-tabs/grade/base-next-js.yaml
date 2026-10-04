@@ -1,0 +1,12 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"suspense-fallback\""
+- contains:
+    file: app/page.js
+    text: "lazy("
+- contains:
+    file: app/page.js
+    text: "Suspense"
+- contains:
+    file: app/page.js
+    text: "Loading module..."

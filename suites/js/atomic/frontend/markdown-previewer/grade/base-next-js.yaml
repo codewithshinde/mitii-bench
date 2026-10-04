@@ -1,0 +1,18 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"markdown-input\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"markdown-preview\""
+- contains:
+    file: app/page.js
+    text: "# "
+- contains:
+    file: app/page.js
+    text: "**"
+- contains:
+    file: app/page.js
+    text: "- "
+- contains:
+    file: app/page.js
+    text: "dangerouslySetInnerHTML"

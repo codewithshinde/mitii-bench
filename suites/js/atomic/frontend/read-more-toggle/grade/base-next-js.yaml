@@ -1,0 +1,15 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"text-block\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"toggle-read-more\""
+- contains:
+    file: app/page.js
+    text: "Read More"
+- contains:
+    file: app/page.js
+    text: "Read Less"
+- contains:
+    file: app/page.js
+    text: "100"

@@ -22,3 +22,17 @@ Cross-cutting filters still work: `--family=frontend`, `--base=base-react-js`, `
 
 `resources/solution/` is dry-run only (known-good files → grades). Agent runs never compare to it.  
 Details: [docs/GRADING_AND_DRY_RUN.md](../docs/GRADING_AND_DRY_RUN.md).
+
+## React frontend corpus
+
+Prompts from `references/react-tasks.md` are materialized under `suites/js/atomic/frontend/`.
+
+- Vanilla React/Next cases ship solutions + grades (matrix on `base-react-js` + `base-next-js`)
+- Ecosystem-library cases are React-first scaffolds (`packages` + `ecosystem-lib` tag)
+- Regenerator: `pnpm generate:react-frontend` — see [docs/REACT_TASKS.md](../docs/REACT_TASKS.md)
+
+```bash
+pnpm cases --tag=vanilla --family=frontend
+pnpm cases --tag=ecosystem-lib
+pnpm --filter @mitii-bench/runner bench --dryRun --tag=smoke
+```

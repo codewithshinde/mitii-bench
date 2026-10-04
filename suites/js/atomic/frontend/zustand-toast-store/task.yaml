@@ -1,0 +1,16 @@
+id: frontend-zustand-toast-store
+title: "Zustand: Global Store"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["zustand"]
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "zustand", "state", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

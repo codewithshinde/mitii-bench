@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"thunk-status\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"thunk-data-list\""
+- contains:
+    file: src/App.jsx
+    text: "@reduxjs/toolkit"
+- contains:
+    file: src/App.jsx
+    text: "createAsyncThunk"

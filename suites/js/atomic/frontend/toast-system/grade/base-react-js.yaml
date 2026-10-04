@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"btn-toast-success\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"btn-toast-error\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"toast-container\""
+- contains:
+    file: src/App.jsx
+    text: "Success"
+- contains:
+    file: src/App.jsx
+    text: "Error"
+- contains:
+    file: src/App.jsx
+    text: "setTimeout"

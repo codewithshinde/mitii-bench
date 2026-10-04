@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"number-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"prime-result\""
+- contains:
+    file: src/App.jsx
+    text: "useMemo"
+- contains:
+    file: src/App.jsx
+    text: "isPrime"

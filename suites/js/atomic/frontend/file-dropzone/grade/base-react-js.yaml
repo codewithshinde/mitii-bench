@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"dropzone\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"uploaded-file-list\""
+- contains:
+    file: src/App.jsx
+    text: "active"
+- contains:
+    file: src/App.jsx
+    text: "KB"
+- contains:
+    file: src/App.jsx
+    text: "onDragOver"
+- contains:
+    file: src/App.jsx
+    text: "onDrop"

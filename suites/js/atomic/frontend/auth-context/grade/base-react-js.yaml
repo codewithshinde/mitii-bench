@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"login-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"logout-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"user-greeting\""
+- contains:
+    file: src/App.jsx
+    text: "AuthContext"
+- contains:
+    file: src/App.jsx
+    text: "isAuthenticated"
+- contains:
+    file: src/App.jsx
+    text: "Logged in as"

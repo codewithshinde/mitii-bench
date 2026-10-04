@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"login-view\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"protected-view\""
+- contains:
+    file: src/App.jsx
+    text: "react-router-dom"
+- contains:
+    file: src/App.jsx
+    text: "Outlet"
+- contains:
+    file: src/App.jsx
+    text: "Navigate"
+- contains:
+    file: src/App.jsx
+    text: "RequireAuth"

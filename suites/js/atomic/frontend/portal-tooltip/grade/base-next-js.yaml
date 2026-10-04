@@ -1,0 +1,12 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"tooltip-target\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"portal-tooltip\""
+- contains:
+    file: app/page.js
+    text: "createPortal"
+- contains:
+    file: app/page.js
+    text: "modal-root"

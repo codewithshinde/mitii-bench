@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"chakra-card\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"chakra-theme-btn\""
+- contains:
+    file: src/App.jsx
+    text: "@chakra-ui/react"
+- contains:
+    file: src/App.jsx
+    text: "useColorMode"

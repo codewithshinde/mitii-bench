@@ -1,0 +1,16 @@
+id: frontend-rhf-zod-profile
+title: "React Hook Form + Zod Resolver"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["react-hook-form", "zod"]
+difficulty: hard
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "react-hook-form", "zod", "forms", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "swatch-"
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"hex-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"color-preview\""
+- contains:
+    file: src/App.jsx
+    text: "#ff0000"
+- contains:
+    file: src/App.jsx
+    text: "hex-input"
+- contains:
+    file: src/App.jsx
+    text: "color-preview"

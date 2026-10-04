@@ -1,0 +1,21 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"step-display\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"next-btn\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"prev-btn\""
+- contains:
+    file: app/page.js
+    text: "useReducer"
+- contains:
+    file: app/page.js
+    text: "NEXT_STEP"
+- contains:
+    file: app/page.js
+    text: "PREV_STEP"
+- contains:
+    file: app/page.js
+    text: "RESET"

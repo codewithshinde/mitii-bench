@@ -1,0 +1,16 @@
+id: frontend-next-protected-route
+title: "Next.js App Router: Protected Routes"
+ecosystem: js
+bases:
+  - base-next-js
+family: frontend
+packages: []
+difficulty: hard
+category: frontend
+language: javascript
+tags: ["next-router", "routing", "auth", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

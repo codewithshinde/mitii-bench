@@ -1,0 +1,21 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"todo-input\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"add-todo-btn\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"todo-list\""
+- contains:
+    file: app/page.js
+    text: "todo-check-"
+- contains:
+    file: app/page.js
+    text: "todo-delete-"
+- contains:
+    file: app/page.js
+    text: "onDoubleClick"
+- contains:
+    file: app/page.js
+    text: "complete"

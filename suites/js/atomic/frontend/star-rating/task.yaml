@@ -1,0 +1,17 @@
+id: frontend-star-rating
+title: "Rating Component (Star Rating)"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["rating", "stars", "hover", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

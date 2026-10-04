@@ -1,0 +1,15 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"code-block\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"copy-btn\""
+- contains:
+    file: app/page.js
+    text: "Copied!"
+- contains:
+    file: app/page.js
+    text: "Copy"
+- contains:
+    file: app/page.js
+    text: "clipboard"

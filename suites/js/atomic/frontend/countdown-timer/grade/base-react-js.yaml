@@ -1,0 +1,21 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"countdown-display\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"event-launched-msg\""
+- contains:
+    file: src/App.jsx
+    text: "Days"
+- contains:
+    file: src/App.jsx
+    text: "Hours"
+- contains:
+    file: src/App.jsx
+    text: "Minutes"
+- contains:
+    file: src/App.jsx
+    text: "Seconds"
+- contains:
+    file: src/App.jsx
+    text: "launched"

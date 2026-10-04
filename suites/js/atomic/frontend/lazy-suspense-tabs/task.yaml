@@ -1,0 +1,17 @@
+id: frontend-lazy-suspense-tabs
+title: "React.lazy & Suspense"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: hard
+category: frontend
+language: javascript
+tags: ["react", "lazy", "suspense", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

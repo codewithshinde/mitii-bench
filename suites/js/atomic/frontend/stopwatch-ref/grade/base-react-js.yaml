@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"timer-display\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"start-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"stop-btn\""
+- contains:
+    file: src/App.jsx
+    text: "useRef"
+- contains:
+    file: src/App.jsx
+    text: "setInterval"
+- contains:
+    file: src/App.jsx
+    text: "clearInterval"

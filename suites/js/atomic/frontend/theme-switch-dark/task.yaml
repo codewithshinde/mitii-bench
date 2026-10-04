@@ -1,0 +1,17 @@
+id: frontend-theme-switch-dark
+title: "Dark Mode / Light Mode Theme Toggle"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["theme", "dark-mode", "localStorage", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

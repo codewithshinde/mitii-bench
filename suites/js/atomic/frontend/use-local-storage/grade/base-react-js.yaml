@@ -1,0 +1,9 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"persistent-input\""
+- contains:
+    file: src/App.jsx
+    text: "useLocalStorage"
+- contains:
+    file: src/App.jsx
+    text: "localStorage"

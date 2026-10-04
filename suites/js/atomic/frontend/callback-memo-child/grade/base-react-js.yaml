@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"parent-count\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"child-action-btn\""
+- contains:
+    file: src/App.jsx
+    text: "useCallback"
+- contains:
+    file: src/App.jsx
+    text: "memo("
+- contains:
+    file: src/App.jsx
+    text: "ChildButton"

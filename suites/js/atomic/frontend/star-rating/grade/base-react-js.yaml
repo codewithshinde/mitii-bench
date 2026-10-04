@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "star-"
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"selected-rating\""
+- contains:
+    file: src/App.jsx
+    text: "selected-rating"
+- contains:
+    file: src/App.jsx
+    text: "onMouseEnter"

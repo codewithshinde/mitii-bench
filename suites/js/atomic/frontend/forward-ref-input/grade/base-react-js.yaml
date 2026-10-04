@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"parent-focus-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"fancy-input\""
+- contains:
+    file: src/App.jsx
+    text: "forwardRef"
+- contains:
+    file: src/App.jsx
+    text: "FancyInput"

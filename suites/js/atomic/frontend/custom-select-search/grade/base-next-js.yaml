@@ -1,0 +1,15 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"custom-select-trigger\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"custom-select-search\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"custom-select-options\""
+- contains:
+    file: app/page.js
+    text: "custom-select-options"
+- contains:
+    file: app/page.js
+    text: "filter"

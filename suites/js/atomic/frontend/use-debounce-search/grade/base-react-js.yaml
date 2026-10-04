@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"debounced-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"debounced-value\""
+- contains:
+    file: src/App.jsx
+    text: "useDebounce"
+- contains:
+    file: src/App.jsx
+    text: "500"

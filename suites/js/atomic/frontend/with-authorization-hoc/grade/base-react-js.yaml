@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"dashboard-view\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"unauthorized-msg\""
+- contains:
+    file: src/App.jsx
+    text: "withAuthorization"
+- contains:
+    file: src/App.jsx
+    text: "admin"
+- contains:
+    file: src/App.jsx
+    text: "Dashboard"

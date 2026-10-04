@@ -63,5 +63,18 @@ pnpm case:dry-run <id>
 pnpm cases --ecosystem=js
 pnpm cases --family=frontend
 pnpm cases --base=base-react-js
+pnpm cases --tag=smoke
 pnpm case:dry-run frontend-site-nav-pages@base-next-js
 ```
+
+## Bulk React frontend cases
+
+To regenerate the corpus derived from `references/react-tasks.md`:
+
+```bash
+pnpm generate:react-frontend --force
+pnpm case:validate
+pnpm --filter @mitii-bench/runner bench --dryRun --tag=smoke
+```
+
+See [docs/REACT_TASKS.md](./docs/REACT_TASKS.md) for which prompts apply to React vs Next vs library scaffolds.

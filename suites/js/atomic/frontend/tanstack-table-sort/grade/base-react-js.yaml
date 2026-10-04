@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"sort-header-name\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"table-row-0\""
+- contains:
+    file: src/App.jsx
+    text: "@tanstack/react-table"
+- contains:
+    file: src/App.jsx
+    text: "useReactTable"
+- contains:
+    file: src/App.jsx
+    text: "getSortedRowModel"

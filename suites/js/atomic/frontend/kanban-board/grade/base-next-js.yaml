@@ -1,0 +1,18 @@
+- contains:
+    file: app/page.js
+    text: "task-card-"
+- contains:
+    file: app/page.js
+    text: "To Do"
+- contains:
+    file: app/page.js
+    text: "In Progress"
+- contains:
+    file: app/page.js
+    text: "Done"
+- contains:
+    file: app/page.js
+    text: "Move Left"
+- contains:
+    file: app/page.js
+    text: "Move Right"

@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"tooltip-target\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"portal-tooltip\""
+- contains:
+    file: src/App.jsx
+    text: "createPortal"
+- contains:
+    file: src/App.jsx
+    text: "modal-root"

@@ -1,0 +1,16 @@
+id: frontend-i18next-greeting
+title: "React-i18next: Internationalization"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["i18next"]
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "i18next", "i18n", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

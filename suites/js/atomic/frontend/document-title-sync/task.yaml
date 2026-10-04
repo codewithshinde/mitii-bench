@@ -1,0 +1,17 @@
+id: frontend-document-title-sync
+title: "useEffect & Side Effects (DOM Title Synchronization)"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["react", "useEffect", "side-effects", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

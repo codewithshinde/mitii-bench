@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"carousel-image\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"carousel-prev\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"carousel-next\""
+- contains:
+    file: src/App.jsx
+    text: "carousel-dot-"

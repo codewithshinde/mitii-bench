@@ -1,0 +1,18 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"btn-toast-success\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"btn-toast-error\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"toast-container\""
+- contains:
+    file: app/page.js
+    text: "Success"
+- contains:
+    file: app/page.js
+    text: "Error"
+- contains:
+    file: app/page.js
+    text: "setTimeout"

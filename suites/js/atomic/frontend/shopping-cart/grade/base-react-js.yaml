@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "cart-item-"
+- contains:
+    file: src/App.jsx
+    text: "inc-"
+- contains:
+    file: src/App.jsx
+    text: "dec-"
+- contains:
+    file: src/App.jsx
+    text: "line-total-"
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"grand-total\""
+- contains:
+    file: src/App.jsx
+    text: "grand-total"

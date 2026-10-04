@@ -1,0 +1,21 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"table-search\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"page-size-select\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"next-page\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"prev-page\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"page-indicator\""
+- contains:
+    file: app/page.js
+    text: "Page "
+- contains:
+    file: app/page.js
+    text: " of "

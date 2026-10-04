@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"code-block\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"copy-btn\""
+- contains:
+    file: src/App.jsx
+    text: "Copied!"
+- contains:
+    file: src/App.jsx
+    text: "Copy"
+- contains:
+    file: src/App.jsx
+    text: "clipboard"

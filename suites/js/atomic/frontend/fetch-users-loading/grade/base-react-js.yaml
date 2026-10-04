@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"loading-spinner\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"user-list\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"error-message\""
+- contains:
+    file: src/App.jsx
+    text: "useEffect"
+- contains:
+    file: src/App.jsx
+    text: "loading"
+- contains:
+    file: src/App.jsx
+    text: "setTimeout"

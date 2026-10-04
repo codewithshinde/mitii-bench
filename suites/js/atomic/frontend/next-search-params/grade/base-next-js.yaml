@@ -1,0 +1,12 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"query-input\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"search-results\""
+- contains:
+    file: app/page.js
+    text: "useSearchParams"
+- contains:
+    file: app/page.js
+    text: "next/navigation"

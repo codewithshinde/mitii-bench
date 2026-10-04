@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"password-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"strength-meter\""
+- contains:
+    file: src/App.jsx
+    text: "Weak"
+- contains:
+    file: src/App.jsx
+    text: "Medium"
+- contains:
+    file: src/App.jsx
+    text: "Strong"

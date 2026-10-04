@@ -1,0 +1,16 @@
+id: frontend-react-router-basic-nav
+title: "React Router v6: Basic Navigation"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["react-router"]
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "react-router", "routing", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

@@ -1,0 +1,18 @@
+- contains:
+    file: app/page.js
+    text: "cart-item-"
+- contains:
+    file: app/page.js
+    text: "inc-"
+- contains:
+    file: app/page.js
+    text: "dec-"
+- contains:
+    file: app/page.js
+    text: "line-total-"
+- contains:
+    file: app/page.js
+    text: "data-testid=\"grand-total\""
+- contains:
+    file: app/page.js
+    text: "grand-total"

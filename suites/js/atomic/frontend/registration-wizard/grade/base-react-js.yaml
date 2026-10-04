@@ -1,0 +1,24 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"wizard-summary\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"wizard-next\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"wizard-back\""
+- contains:
+    file: src/App.jsx
+    text: "Name"
+- contains:
+    file: src/App.jsx
+    text: "Email"
+- contains:
+    file: src/App.jsx
+    text: "Username"
+- contains:
+    file: src/App.jsx
+    text: "Password"
+- contains:
+    file: src/App.jsx
+    text: "wizard-summary"

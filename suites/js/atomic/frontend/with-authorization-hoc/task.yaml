@@ -1,0 +1,17 @@
+id: frontend-with-authorization-hoc
+title: "High Order Components (HOC)"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: hard
+category: frontend
+language: javascript
+tags: ["react", "hoc", "authorization", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

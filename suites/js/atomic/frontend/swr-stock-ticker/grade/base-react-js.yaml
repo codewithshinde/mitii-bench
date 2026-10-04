@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"stock-price\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"swr-validating\""
+- contains:
+    file: src/App.jsx
+    text: "swr"
+- contains:
+    file: src/App.jsx
+    text: "useSWR"
+- contains:
+    file: src/App.jsx
+    text: "isValidating"

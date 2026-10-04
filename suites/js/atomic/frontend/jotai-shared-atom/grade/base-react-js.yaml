@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"atom-inc-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"atom-value-display\""
+- contains:
+    file: src/App.jsx
+    text: "jotai"
+- contains:
+    file: src/App.jsx
+    text: "atom"
+- contains:
+    file: src/App.jsx
+    text: "useAtom"
+- contains:
+    file: src/App.jsx
+    text: "countAtom"

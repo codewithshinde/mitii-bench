@@ -1,0 +1,17 @@
+id: frontend-toast-system
+title: "Toast Notification System"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["toast", "notifications", "feedback", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

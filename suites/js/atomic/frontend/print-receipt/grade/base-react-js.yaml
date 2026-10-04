@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"invoice-view\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"print-btn\""
+- contains:
+    file: src/App.jsx
+    text: "window.print"
+- contains:
+    file: src/App.jsx
+    text: "@media print"

@@ -1,0 +1,21 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"counter-container\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"count-display\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"increment-btn\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"decrement-btn\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"reset-btn\""
+- contains:
+    file: app/page.js
+    text: "useState"
+- contains:
+    file: app/page.js
+    text: "Math.max"

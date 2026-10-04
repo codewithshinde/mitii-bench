@@ -1,0 +1,16 @@
+id: frontend-recharts-bar
+title: "Recharts: Dynamic Bar Chart"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["recharts"]
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "recharts", "charts", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

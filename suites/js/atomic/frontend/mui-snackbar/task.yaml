@@ -1,0 +1,16 @@
+id: frontend-mui-snackbar
+title: "Material UI (MUI): Snackbar Alerts"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["mui"]
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "mui", "feedback", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

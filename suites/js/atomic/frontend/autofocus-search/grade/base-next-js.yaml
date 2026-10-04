@@ -1,0 +1,12 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"search-input\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"focus-btn\""
+- contains:
+    file: app/page.js
+    text: "useRef"
+- contains:
+    file: app/page.js
+    text: ".focus("

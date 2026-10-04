@@ -1,0 +1,16 @@
+id: frontend-mui-data-grid
+title: "Material UI (MUI): Data Grid & Pagination"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["mui"]
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "mui", "data-grid", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

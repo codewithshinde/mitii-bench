@@ -1,0 +1,17 @@
+id: frontend-read-more-toggle
+title: "Read More / Read Less Text Truncator"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["truncate", "read-more", "text", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

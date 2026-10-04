@@ -1,0 +1,6 @@
+- contains:
+    file: src/App.jsx
+    text: "accordion-header-"
+- contains:
+    file: src/App.jsx
+    text: "accordion-panel-"

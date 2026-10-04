@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"mui-data-grid\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"grid-search\""
+- contains:
+    file: src/App.jsx
+    text: "@mui/x-data-grid"
+- contains:
+    file: src/App.jsx
+    text: "DataGrid"

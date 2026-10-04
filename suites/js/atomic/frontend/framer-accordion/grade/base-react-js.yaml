@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"accordion-toggle\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"motion-panel\""
+- contains:
+    file: src/App.jsx
+    text: "framer-motion"
+- contains:
+    file: src/App.jsx
+    text: "AnimatePresence"
+- contains:
+    file: src/App.jsx
+    text: "motion"

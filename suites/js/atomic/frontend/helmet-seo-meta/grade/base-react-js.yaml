@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"seo-title-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"seo-description-input\""
+- contains:
+    file: src/App.jsx
+    text: "react-helmet-async"
+- contains:
+    file: src/App.jsx
+    text: "Helmet"
+- contains:
+    file: src/App.jsx
+    text: "HelmetProvider"

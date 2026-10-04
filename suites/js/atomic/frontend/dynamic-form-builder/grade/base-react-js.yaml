@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"add-field-btn\""
+- contains:
+    file: src/App.jsx
+    text: "custom-field-"
+- contains:
+    file: src/App.jsx
+    text: "Text"
+- contains:
+    file: src/App.jsx
+    text: "Number"
+- contains:
+    file: src/App.jsx
+    text: "Remove"

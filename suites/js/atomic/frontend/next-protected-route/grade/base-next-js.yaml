@@ -1,0 +1,17 @@
+- contains:
+    file: app/login/page.js
+    text: "data-testid=\"login-view\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"protected-view\""
+- contains:
+    file: middleware.js
+    text: "middleware"
+- contains:
+    file: middleware.js
+    text: "redirect"
+- contains:
+    file: app/page.js
+    text: "next/navigation"
+- exists:
+    file: middleware.js

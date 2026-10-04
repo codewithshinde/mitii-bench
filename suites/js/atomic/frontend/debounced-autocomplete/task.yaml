@@ -1,0 +1,17 @@
+id: frontend-debounced-autocomplete
+title: "Search Bar with Live Debounced Auto-Complete"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["search", "debounce", "autocomplete", "keyboard", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

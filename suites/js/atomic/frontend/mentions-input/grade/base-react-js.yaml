@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"mention-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"mention-dropdown\""
+- contains:
+    file: src/App.jsx
+    text: "@"
+- contains:
+    file: src/App.jsx
+    text: "mention-dropdown"
+- contains:
+    file: src/App.jsx
+    text: "USERS"

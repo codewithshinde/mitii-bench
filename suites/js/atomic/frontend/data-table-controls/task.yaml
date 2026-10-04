@@ -1,0 +1,17 @@
+id: frontend-data-table-controls
+title: "Data Table with Pagination, Sorting & Filtering"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: hard
+category: frontend
+language: javascript
+tags: ["table", "pagination", "filter", "sort", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

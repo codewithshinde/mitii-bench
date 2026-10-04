@@ -1,0 +1,16 @@
+id: frontend-framer-accordion
+title: "Framer Motion: Animate Presence & Toggle"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["framer-motion"]
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "framer-motion", "animation", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

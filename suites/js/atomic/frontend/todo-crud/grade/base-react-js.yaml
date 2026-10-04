@@ -1,0 +1,21 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"todo-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"add-todo-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"todo-list\""
+- contains:
+    file: src/App.jsx
+    text: "todo-check-"
+- contains:
+    file: src/App.jsx
+    text: "todo-delete-"
+- contains:
+    file: src/App.jsx
+    text: "onDoubleClick"
+- contains:
+    file: src/App.jsx
+    text: "complete"

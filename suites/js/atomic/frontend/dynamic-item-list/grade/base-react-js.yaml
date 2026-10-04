@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"item-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"add-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"item-list\""
+- contains:
+    file: src/App.jsx
+    text: "item-row-"
+- contains:
+    file: src/App.jsx
+    text: "key="

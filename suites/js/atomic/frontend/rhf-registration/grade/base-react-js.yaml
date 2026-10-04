@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"input-username\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"input-password\""
+- contains:
+    file: src/App.jsx
+    text: "react-hook-form"
+- contains:
+    file: src/App.jsx
+    text: "useForm"
+- contains:
+    file: src/App.jsx
+    text: "register"

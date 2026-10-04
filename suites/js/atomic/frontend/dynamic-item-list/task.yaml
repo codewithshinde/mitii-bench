@@ -1,0 +1,17 @@
+id: frontend-dynamic-item-list
+title: "Dynamic List Rendering & Key Props"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["react", "lists", "keys", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

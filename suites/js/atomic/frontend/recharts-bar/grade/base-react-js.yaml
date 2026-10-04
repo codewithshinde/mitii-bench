@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"recharts-wrapper\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"chart-filter\""
+- contains:
+    file: src/App.jsx
+    text: "recharts"
+- contains:
+    file: src/App.jsx
+    text: "BarChart"
+- contains:
+    file: src/App.jsx
+    text: "Bar"

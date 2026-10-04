@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"network-status-banner\""
+- contains:
+    file: src/App.jsx
+    text: "You are offline"
+- contains:
+    file: src/App.jsx
+    text: "Connection restored"
+- contains:
+    file: src/App.jsx
+    text: "offline"
+- contains:
+    file: src/App.jsx
+    text: "online"

@@ -1,0 +1,16 @@
+id: frontend-helmet-seo-meta
+title: "React Helmet Async: SEO Meta Tags"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["helmet"]
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "helmet", "seo", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

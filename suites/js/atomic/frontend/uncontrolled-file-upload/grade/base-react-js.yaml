@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"file-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"upload-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"file-name-display\""
+- contains:
+    file: src/App.jsx
+    text: "fileInputRef"
+- contains:
+    file: src/App.jsx
+    text: "files?.[0]"

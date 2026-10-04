@@ -1,0 +1,16 @@
+id: frontend-shadcn-radix-dialog
+title: "Shadcn UI / Radix Primitives: Dialog"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["radix"]
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "radix", "shadcn", "dialog", "a11y", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"rq-loading\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"rq-data\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"rq-refetch-btn\""
+- contains:
+    file: src/App.jsx
+    text: "@tanstack/react-query"
+- contains:
+    file: src/App.jsx
+    text: "useQuery"
+- contains:
+    file: src/App.jsx
+    text: "QueryClientProvider"

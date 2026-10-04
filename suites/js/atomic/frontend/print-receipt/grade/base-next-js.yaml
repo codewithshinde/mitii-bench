@@ -1,0 +1,12 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"invoice-view\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"print-btn\""
+- contains:
+    file: app/page.js
+    text: "window.print"
+- contains:
+    file: app/page.js
+    text: "@media print"

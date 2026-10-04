@@ -1,0 +1,18 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"server-status\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"pause-polling-btn\""
+- contains:
+    file: app/page.js
+    text: "Healthy"
+- contains:
+    file: app/page.js
+    text: "Unreachable"
+- contains:
+    file: app/page.js
+    text: "5000"
+- contains:
+    file: app/page.js
+    text: "pause"

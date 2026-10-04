@@ -1,0 +1,16 @@
+id: frontend-jotai-shared-atom
+title: "Jotai: Atomic State"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["jotai"]
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "jotai", "state", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

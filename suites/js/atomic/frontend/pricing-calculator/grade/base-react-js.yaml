@@ -1,0 +1,21 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"user-slider\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"billing-toggle\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"calculated-price\""
+- contains:
+    file: src/App.jsx
+    text: "Monthly"
+- contains:
+    file: src/App.jsx
+    text: "Yearly"
+- contains:
+    file: src/App.jsx
+    text: "20%"
+- contains:
+    file: src/App.jsx
+    text: "calculated-price"

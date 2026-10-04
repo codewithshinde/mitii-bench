@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"virtual-list\""
+- contains:
+    file: src/App.jsx
+    text: "react-window"
+- contains:
+    file: src/App.jsx
+    text: "FixedSizeList"
+- contains:
+    file: src/App.jsx
+    text: "VariableSizeList"

@@ -1,0 +1,16 @@
+id: frontend-react-router-protected
+title: "React Router v6: Protected Routes"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["react-router"]
+difficulty: hard
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "react-router", "routing", "auth", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

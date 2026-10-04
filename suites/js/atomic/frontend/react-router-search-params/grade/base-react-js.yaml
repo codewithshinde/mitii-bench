@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"query-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"search-results\""
+- contains:
+    file: src/App.jsx
+    text: "react-router-dom"
+- contains:
+    file: src/App.jsx
+    text: "useSearchParams"

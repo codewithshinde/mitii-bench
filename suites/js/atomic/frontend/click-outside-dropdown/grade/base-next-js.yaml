@@ -1,0 +1,12 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"dropdown-menu\""
+- contains:
+    file: app/page.js
+    text: "addEventListener"
+- contains:
+    file: app/page.js
+    text: "dropdown-menu"
+- contains:
+    file: app/page.js
+    text: "contains"

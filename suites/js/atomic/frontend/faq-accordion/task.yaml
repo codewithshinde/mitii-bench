@@ -1,0 +1,17 @@
+id: frontend-faq-accordion
+title: "Accordion / FAQ Collapsible List"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["accordion", "faq", "collapse", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

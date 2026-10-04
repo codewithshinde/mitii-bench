@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"open-cart-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"cart-drawer\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"close-cart-btn\""
+- contains:
+    file: src/App.jsx
+    text: "open-cart-btn"
+- contains:
+    file: src/App.jsx
+    text: "close-cart-btn"
+- contains:
+    file: src/App.jsx
+    text: "cart-drawer"

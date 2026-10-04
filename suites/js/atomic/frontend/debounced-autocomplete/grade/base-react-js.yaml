@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"search-input\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"search-suggestions\""
+- contains:
+    file: src/App.jsx
+    text: "ArrowDown"
+- contains:
+    file: src/App.jsx
+    text: "ArrowUp"
+- contains:
+    file: src/App.jsx
+    text: "300"
+- contains:
+    file: src/App.jsx
+    text: "debounce"

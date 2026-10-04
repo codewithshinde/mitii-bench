@@ -1,0 +1,12 @@
+- contains:
+    file: app/page.js
+    text: "comment-"
+- contains:
+    file: app/page.js
+    text: "reply-btn-"
+- contains:
+    file: app/page.js
+    text: "replies"
+- contains:
+    file: app/page.js
+    text: "paddingLeft"

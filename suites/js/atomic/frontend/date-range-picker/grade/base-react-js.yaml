@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"start-date\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"end-date\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"date-error\""
+- contains:
+    file: src/App.jsx
+    text: "date-error"
+- contains:
+    file: src/App.jsx
+    text: "prior"
+- contains:
+    file: src/App.jsx
+    text: "End Date"

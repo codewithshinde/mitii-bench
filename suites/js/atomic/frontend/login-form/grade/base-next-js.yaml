@@ -1,0 +1,21 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"login-form\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"email-input\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"password-input\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"submit-btn\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"form-status\""
+- contains:
+    file: app/page.js
+    text: "Welcome,"
+- contains:
+    file: app/page.js
+    text: "Please fill all fields"

@@ -1,0 +1,15 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"stepper\""
+- contains:
+    file: app/page.js
+    text: "step-node-"
+- contains:
+    file: app/page.js
+    text: "completed"
+- contains:
+    file: app/page.js
+    text: "active"
+- contains:
+    file: app/page.js
+    text: "pending"

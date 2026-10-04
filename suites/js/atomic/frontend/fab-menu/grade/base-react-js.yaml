@@ -1,0 +1,21 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"fab-main\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"fab-child-1\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"fab-child-2\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"fab-child-3\""
+- contains:
+    file: src/App.jsx
+    text: "fab-child-1"
+- contains:
+    file: src/App.jsx
+    text: "fab-child-2"
+- contains:
+    file: src/App.jsx
+    text: "fab-child-3"

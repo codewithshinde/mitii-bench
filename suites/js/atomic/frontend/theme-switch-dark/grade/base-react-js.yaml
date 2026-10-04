@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"theme-switch\""
+- contains:
+    file: src/App.jsx
+    text: "dark"
+- contains:
+    file: src/App.jsx
+    text: "localStorage"
+- contains:
+    file: src/App.jsx
+    text: "document.body"

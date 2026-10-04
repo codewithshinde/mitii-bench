@@ -1,0 +1,16 @@
+id: frontend-virtualized-list
+title: "React Virtualized / React-Window: Large List"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["react-window"]
+difficulty: hard
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "virtualization", "performance", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

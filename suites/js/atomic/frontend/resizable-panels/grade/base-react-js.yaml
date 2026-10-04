@@ -1,0 +1,18 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"left-panel\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"right-panel\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"resize-handle\""
+- contains:
+    file: src/App.jsx
+    text: "resize-handle"
+- contains:
+    file: src/App.jsx
+    text: "onMouseDown"
+- contains:
+    file: src/App.jsx
+    text: "width"

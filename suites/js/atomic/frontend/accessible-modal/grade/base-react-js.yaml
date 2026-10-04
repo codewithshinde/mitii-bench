@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"accessible-modal\""
+- contains:
+    file: src/App.jsx
+    text: "Escape"
+- contains:
+    file: src/App.jsx
+    text: "Tab"
+- contains:
+    file: src/App.jsx
+    text: "focus"

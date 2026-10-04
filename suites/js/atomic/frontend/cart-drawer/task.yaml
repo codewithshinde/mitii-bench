@@ -1,0 +1,17 @@
+id: frontend-cart-drawer
+title: "Shopping Cart Drawer (Slide-Over)"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: easy
+category: frontend
+language: javascript
+tags: ["drawer", "cart", "slide-over", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

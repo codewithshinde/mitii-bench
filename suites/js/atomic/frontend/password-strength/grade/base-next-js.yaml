@@ -1,0 +1,15 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"password-input\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"strength-meter\""
+- contains:
+    file: app/page.js
+    text: "Weak"
+- contains:
+    file: app/page.js
+    text: "Medium"
+- contains:
+    file: app/page.js
+    text: "Strong"

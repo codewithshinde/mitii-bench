@@ -1,0 +1,24 @@
+- contains:
+    file: app/page.js
+    text: "data-testid=\"editor-area\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"btn-bold\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"btn-italic\""
+- contains:
+    file: app/page.js
+    text: "data-testid=\"btn-underline\""
+- contains:
+    file: app/page.js
+    text: "execCommand"
+- contains:
+    file: app/page.js
+    text: "bold"
+- contains:
+    file: app/page.js
+    text: "italic"
+- contains:
+    file: app/page.js
+    text: "underline"

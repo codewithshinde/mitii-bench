@@ -1,0 +1,17 @@
+id: frontend-stopwatch-ref
+title: "useRef for Mutable Values (Stopwatch)"
+ecosystem: js
+bases:
+  - base-react-js
+  - base-next-js
+family: frontend
+packages: []
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["react", "useRef", "timer", "react-tasks", "vanilla"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

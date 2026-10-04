@@ -1,0 +1,16 @@
+id: frontend-tanstack-query-basic
+title: "TanStack Query: Basic useQuery"
+ecosystem: js
+bases:
+  - base-react-js
+family: frontend
+packages: ["tanstack-query"]
+difficulty: medium
+category: frontend
+language: javascript
+tags: ["ecosystem-lib", "tanstack-query", "data-fetching", "react-tasks"]
+timeoutSec: 300
+promptFile: spec.md
+readmeFile: README.md
+grade:
+  - build: true

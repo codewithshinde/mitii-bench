@@ -1,0 +1,21 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"play-pause-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"audio-progress\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"time-display\""
+- contains:
+    file: src/App.jsx
+    text: "Play"
+- contains:
+    file: src/App.jsx
+    text: "Pause"
+- contains:
+    file: src/App.jsx
+    text: "progress"
+- contains:
+    file: src/App.jsx
+    text: "padStart"

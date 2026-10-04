@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"headless-menu-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"headless-menu-items\""
+- contains:
+    file: src/App.jsx
+    text: "@headlessui/react"
+- contains:
+    file: src/App.jsx
+    text: "Menu"

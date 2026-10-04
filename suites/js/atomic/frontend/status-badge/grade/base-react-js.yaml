@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"status-container\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"status-toggle-btn\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"status-badge\""
+- contains:
+    file: src/App.jsx
+    text: "Online"
+- contains:
+    file: src/App.jsx
+    text: "Offline"

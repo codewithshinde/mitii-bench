@@ -1,0 +1,12 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"zod-error-list\""
+- contains:
+    file: src/App.jsx
+    text: "react-hook-form"
+- contains:
+    file: src/App.jsx
+    text: "zod"
+- contains:
+    file: src/App.jsx
+    text: "zodResolver"

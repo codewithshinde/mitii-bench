@@ -1,0 +1,15 @@
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"cart-count\""
+- contains:
+    file: src/App.jsx
+    text: "data-testid=\"add-to-cart-btn\""
+- contains:
+    file: src/App.jsx
+    text: "@reduxjs/toolkit"
+- contains:
+    file: src/App.jsx
+    text: "createSlice"
+- contains:
+    file: src/App.jsx
+    text: "react-redux"

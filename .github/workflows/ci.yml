@@ -21,5 +21,5 @@ jobs:
       - run: pnpm fixtures:install
       - run: pnpm test
       - run: pnpm case:validate
-      - name: Dry-run site-nav-pages matrix
-        run: pnpm case:dry-run frontend-site-nav-pages
+      - name: Dry-run smoke frontend matrix
+        run: pnpm --filter @mitii-bench/runner bench --dryRun --tag=smoke
