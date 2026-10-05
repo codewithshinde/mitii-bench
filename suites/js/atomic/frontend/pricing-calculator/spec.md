@@ -4,4 +4,6 @@ Build a SaaS tier pricing estimator.
 * **Billing Cycle Toggle** (`data-testid="billing-toggle"`): Monthly / Yearly (20% discount).
 * **Price Calculated Display** (`data-testid="calculated-price"`).
 
+For `base-react-js`, implement the UI in `src/App.jsx`.
+
 For `base-next-js`, implement the UI in `app/page.jsx` as a client component (`"use client"`).

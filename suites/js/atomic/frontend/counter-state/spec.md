@@ -9,4 +9,6 @@ Build a simple counter component.
 
 * **Rules**: Prevent decrementing below 0.
 
+For `base-react-js`, implement the UI in `src/App.jsx`.
+
 For `base-next-js`, implement the UI in `app/page.jsx` as a client component (`"use client"`).

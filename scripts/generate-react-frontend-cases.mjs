@@ -279,11 +279,18 @@ export default function RootLayout({ children }) {
 `;
   }
 
-  // Point agents at page.jsx so Vitest oracles can import JSX cleanly.
-  if (!c.prompt.includes("app/page.jsx")) {
-    files["spec.md"] =
-      `${c.prompt.trim()}\n\nFor \`base-next-js\`, implement the UI in \`app/page.jsx\` as a client component (\`"use client"\`).\n`;
+  // Base-tagged implement-here lines; runner shapePrompt keeps only the active base.
+  const baseHints = [
+    "For `base-react-js`, implement the UI in `src/App.jsx`.",
+    'For `base-next-js`, implement the UI in `app/page.jsx` as a client component (`"use client"`).',
+  ];
+  let promptBody = c.prompt.trim();
+  for (const hint of baseHints) {
+    if (!promptBody.includes(hint)) {
+      promptBody = `${promptBody}\n\n${hint}`;
+    }
   }
+  files["spec.md"] = `${promptBody}\n`;
 
   const wrote = writeCaseDir(caseDir, files);
   return { id, bases, wrote, kind: "vanilla" };

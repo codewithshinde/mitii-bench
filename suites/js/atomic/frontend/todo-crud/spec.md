@@ -7,4 +7,6 @@ Build a complete Todo application.
   * Delete Button (`data-testid="todo-delete-[id]"`) to remove.
   * Double click item text to convert to inline edit mode.
 
+For `base-react-js`, implement the UI in `src/App.jsx`.
+
 For `base-next-js`, implement the UI in `app/page.jsx` as a client component (`"use client"`).

@@ -18,3 +18,7 @@ When a user clicks any of those links, show a page (or view) with **dummy placeh
 - Privacy Policy
 
 Keep the brand "BenchApp". Do not leave the nav or footer empty.
+
+For `base-react-js`, implement the UI in `src/App.jsx`.
+
+For `base-next-js`, implement the UI in `app/page.jsx` as a client component (`"use client"`).

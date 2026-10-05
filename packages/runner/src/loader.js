@@ -134,11 +134,43 @@ function materializeInstance(family, base, rootHint) {
     runId,
     id: family.id,
     instanceId: runId,
+    prompt: shapePrompt(family.prompt, base),
     checks,
     gradeItems,
     solutionDir: existsSync(perBaseSolution) ? perBaseSolution : legacySolution,
     solutionPatch: join(family.caseDir, "resources", "solution.patch"),
   };
+}
+
+/**
+ * Drop other-base directive lines from a shared spec and ensure the active
+ * base has an explicit implement-here hint for known dual-base frontend fixtures.
+ */
+export function shapePrompt(prompt, base) {
+  const text = String(prompt ?? "");
+  const lines = text.split(/\r?\n/);
+  const filtered = lines.filter((line) => {
+    const match = line.match(/^\s*For\s+`?(base-[\w-]+)`?\s*,/i);
+    if (!match) return true;
+    return match[1] === base;
+  });
+  let shaped = filtered.join("\n").replace(/\n{3,}/g, "\n\n").trimEnd();
+
+  if (
+    (base === "base-react-js" || base === "base-react-ts") &&
+    !/\bsrc\/App\.(jsx|tsx|js|ts)\b/.test(shaped)
+  ) {
+    shaped += `\n\nFor \`${base}\`, implement the UI in \`src/App.jsx\`.`;
+  }
+
+  if (
+    (base === "base-next-js" || base === "base-next-ts") &&
+    !/\bapp\/page\.(jsx|tsx|js|ts)\b/.test(shaped)
+  ) {
+    shaped += `\n\nFor \`${base}\`, implement the UI in \`app/page.jsx\` as a client component (\`"use client"\`).`;
+  }
+
+  return shaped.length > 0 ? `${shaped}\n` : shaped;
 }
 
 function loadGradeForBase(family, base) {

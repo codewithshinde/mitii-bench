@@ -135,19 +135,22 @@ export function createApiKey(name) {
 }
 
 export function apiKeyMiddleware(req, res, next) {
-  const raw = req.header("X-API-Key");
+  const raw = typeof req.header === "function"
+    ? req.header("X-API-Key")
+    : req.headers?.["x-api-key"];
   if (!raw) return res.status(401).json({ error: "missing api key" });
   const row = db.prepare("SELECT * FROM api_keys WHERE key_hash = ?").get(hashKey(raw));
   if (!row) return res.status(401).json({ error: "invalid api key" });
   db.prepare("UPDATE api_keys SET usage_count = usage_count + 1 WHERE id = ?").run(row.id);
-  req.apiKey = row;
+  const usage = row.usage_count + 1;
+  req.apiKey = { id: row.id, name: row.name, usage };
   next();
 }
 
 const app = express();
 app.use(express.json());
 app.post("/admin/keys", (req, res) => res.status(201).json({ key: createApiKey(req.body?.name ?? "default") }));
-app.get("/protected", apiKeyMiddleware, (req, res) => res.json({ ok: true, usage: req.apiKey.usage_count + 1 }));
+app.get("/protected", apiKeyMiddleware, (req, res) => res.json({ ok: true, usage: req.apiKey.usage }));
 
 const port = Number(process.env.PORT || 0);
 const server = process.env.MITII_NO_LISTEN === "1"
@@ -164,15 +167,42 @@ export { app, server, db };
 import assert from "node:assert/strict";
 import { createApiKey, apiKeyMiddleware } from "../src/index.js";
 
+/** Minimal Express-like request: supports both `req.header(name)` and `req.headers[name]`. */
+function makeReq(headers) {
+  const normalized = Object.fromEntries(
+    Object.entries(headers).map(([k, v]) => [String(k).toLowerCase(), v]),
+  );
+  return {
+    headers: normalized,
+    header(name) {
+      return normalized[String(name).toLowerCase()];
+    },
+  };
+}
+
 describe("api-key-auth", () => {
   it("validates X-API-Key and increments usage", () => {
     const key = createApiKey("test");
+    assert.equal(typeof key, "string");
+    assert.ok(key.length > 0);
+
     let status;
-    const req = { header: (h) => (h === "X-API-Key" ? key : undefined) };
+    const req = makeReq({ "X-API-Key": key });
     const res = { status: (c) => ({ json: () => { status = c; } }) };
-    apiKeyMiddleware(req, res, () => { status = 200; });
+
+    apiKeyMiddleware(req, res, () => {
+      status = 200;
+    });
     assert.equal(status, 200);
     assert.ok(req.apiKey);
+    assert.equal(typeof req.apiKey.usage, "number");
+    const first = req.apiKey.usage;
+
+    apiKeyMiddleware(req, res, () => {
+      status = 200;
+    });
+    assert.equal(status, 200);
+    assert.equal(req.apiKey.usage, first + 1);
   });
 });
 `,

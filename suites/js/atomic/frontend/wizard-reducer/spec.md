@@ -5,4 +5,6 @@ Build a multi-step wizard step tracker using `useReducer`.
 * **Prev Button** (`data-testid="prev-btn"`)
 * **Reducers**: Handle `NEXT_STEP`, `PREV_STEP`, and `RESET`.
 
+For `base-react-js`, implement the UI in `src/App.jsx`.
+
 For `base-next-js`, implement the UI in `app/page.jsx` as a client component (`"use client"`).

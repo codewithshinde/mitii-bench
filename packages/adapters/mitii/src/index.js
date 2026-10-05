@@ -5,9 +5,10 @@ import {
   readdirSync,
   readFileSync,
   rmSync,
+  statSync,
   writeFileSync,
 } from "node:fs";
-import { tmpdir } from "node:os";
+import { homedir, tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
 /**
@@ -89,61 +90,113 @@ export function buildMitiiArgs({ bin, workspace, promptFile, mode = "agent" }) {
   return args;
 }
 
+/** Session JSONL: legacy `cli-*.jsonl` or current `MM-DD-YYYY-HH-MM-thread_*.jsonl`. */
+export function isMitiiSessionLogFileName(name) {
+  if (!name.endsWith(".jsonl") || name.endsWith("-model-io.jsonl")) return false;
+  if (name.startsWith("cli-")) return true;
+  // Host/CLI thread logs: 10-04-2026-17-14-thread_….jsonl
+  return /^\d{2}-\d{2}-\d{4}-\d{2}-\d{2}(-[AP]M)?-thread_/i.test(name);
+}
+
 /**
  * Read the latest Mitii CLI session metrics from workspace `.mitii/logs/*.jsonl`.
+ * Supports legacy `session_start`/`session_end` and current `run_start`/`run_end`.
  */
 export function readMitiiSessionMetrics(workspace) {
   const logsDir = join(workspace, ".mitii", "logs");
   if (!existsSync(logsDir)) return null;
 
   const files = readdirSync(logsDir)
-    .filter((name) => name.startsWith("cli-") && name.endsWith(".jsonl"))
-    .sort();
+    .filter((name) => isMitiiSessionLogFileName(name))
+    .map((name) => {
+      const path = join(logsDir, name);
+      return { name, path, mtimeMs: statSync(path).mtimeMs };
+    })
+    .sort((a, b) => b.mtimeMs - a.mtimeMs);
   if (files.length === 0) return null;
 
-  const latest = join(logsDir, files[files.length - 1]);
-  let start;
-  let end;
+  const latest = files[0].path;
+  const rows = [];
   for (const line of readFileSync(latest, "utf8").split("\n")) {
     const trimmed = line.trim();
     if (!trimmed) continue;
-    let event;
     try {
-      event = JSON.parse(trimmed);
+      rows.push(JSON.parse(trimmed));
     } catch {
-      continue;
+      // skip bad lines
     }
-    if (event.type === "session_start") start = event;
-    if (event.type === "session_end") end = event;
   }
+
+  const start =
+    rows.find((r) => r.kind === "run_start") ??
+    rows.find((r) => r.type === "session_start");
+  const end =
+    [...rows].reverse().find((r) => r.kind === "run_end") ??
+    [...rows].reverse().find((r) => r.type === "session_end");
   if (!start && !end) return null;
 
   const usage = end?.usage ?? {};
   const inputTokens = Number(usage.inputTokens ?? 0);
   const outputTokens = Number(usage.outputTokens ?? 0);
-  const startTime = start?.ts ?? null;
-  const endTime = end?.ts ?? null;
-  let durationMs = usage.durationMs;
+  const startTime = start?.at ?? start?.ts ?? null;
+  const endTime = end?.at ?? end?.ts ?? null;
+  let durationMs = end?.durationMs ?? usage.durationMs;
   if (durationMs == null && startTime && endTime) {
     durationMs = Date.parse(endTime) - Date.parse(startTime);
   }
 
+  const model =
+    start?.provider ??
+    end?.provider ??
+    resolveMitiiModelLabel(workspace);
+
+  let exitCode = end?.exitCode;
+  if (exitCode == null && typeof end?.status === "string") {
+    exitCode = end.status === "completed" ? 0 : 1;
+  }
+
   return {
     logFile: latest,
-    model: start?.provider ?? null,
-    provider: start?.provider ?? null,
+    model,
+    provider: model,
     mode: start?.mode ?? end?.mode ?? null,
     startTime,
     endTime,
-    durationMs: Number.isFinite(durationMs) ? durationMs : null,
+    durationMs: Number.isFinite(Number(durationMs)) ? Number(durationMs) : null,
     inputTokens,
     outputTokens,
     totalTokens: inputTokens + outputTokens,
     modelCalls: usage.modelCalls ?? null,
     toolCalls: usage.toolCalls ?? null,
     loopIterations: usage.loopIterations ?? null,
-    exitCode: end?.exitCode ?? null,
+    exitCode: exitCode ?? null,
+    status: end?.status ?? null,
   };
+}
+
+/** Best-effort model label when thread logs omit provider (common in run_start). */
+export function resolveMitiiModelLabel(workspace) {
+  const fromEnvProvider = process.env.MITII_PROVIDER?.trim();
+  const fromEnvModel = process.env.MITII_MODEL?.trim();
+  if (fromEnvProvider && fromEnvModel) return `${fromEnvProvider}:${fromEnvModel}`;
+  if (fromEnvModel) return fromEnvModel;
+  if (fromEnvProvider) return fromEnvProvider;
+
+  for (const path of [
+    join(workspace, ".mitii", "config.json"),
+    join(homedir(), ".mitii", "config.json"),
+  ]) {
+    if (!existsSync(path)) continue;
+    try {
+      const cfg = JSON.parse(readFileSync(path, "utf8"));
+      if (cfg.provider && cfg.model) return `${cfg.provider}:${cfg.model}`;
+      if (cfg.model) return String(cfg.model);
+      if (cfg.provider) return String(cfg.provider);
+    } catch {
+      // ignore
+    }
+  }
+  return null;
 }
 
 export function resolveMitiiBin(configured) {

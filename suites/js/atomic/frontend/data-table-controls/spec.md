@@ -6,4 +6,6 @@ Build an enterprise data table.
   * Next/Prev Page Buttons (`data-testid="next-page"`, `data-testid="prev-page"`).
 * **Display** (`data-testid="page-indicator"`): "Page X of Y".
 
+For `base-react-js`, implement the UI in `src/App.jsx`.
+
 For `base-next-js`, implement the UI in `app/page.jsx` as a client component (`"use client"`).

@@ -3,4 +3,6 @@ Build a custom `FancyInput` component that forwards its ref to the underlying na
 * **Parent Button** (`data-testid="parent-focus-btn"`).
 * **FancyInput** (`data-testid="fancy-input"`): Receives focus directly when Parent Button is clicked.
 
+For `base-react-js`, implement the UI in `src/App.jsx`.
+
 For `base-next-js`, implement the UI in `app/page.jsx` as a client component (`"use client"`).

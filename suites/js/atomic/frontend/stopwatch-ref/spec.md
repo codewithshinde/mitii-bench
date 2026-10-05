@@ -5,4 +5,6 @@ Build a basic stopwatch timer.
 * **Stop Button** (`data-testid="stop-btn"`)
 * **Implementation**: Store interval ID in a `useRef` so clears do not trigger unnecessary re-renders.
 
+For `base-react-js`, implement the UI in `src/App.jsx`.
+
 For `base-next-js`, implement the UI in `app/page.jsx` as a client component (`"use client"`).
